@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const LINES = [
   { t: 60, text: "[ ok ] booting yaduraj.os v1.0.0…" },
   { t: 220, text: "[ ok ] mounting /modules/portfolio" },
-  { t: 380, text: "[ ok ] loading 08 projects · 7 stack categories" },
+  { t: 380, text: "[ ok ] loading 07 projects · 7 stack categories" },
   { t: 540, text: "[ ok ] establishing self-hosted link · TLS 1.3" },
   { t: 700, text: "[ ok ] available for select projects" },
   { t: 880, text: "$ ready." },

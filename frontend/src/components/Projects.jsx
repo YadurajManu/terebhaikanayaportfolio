@@ -25,7 +25,7 @@ export default function Projects({ onOpenProject }) {
 
         <Reveal delay={80}>
           <p className="mt-6 max-w-2xl text-zinc-400">
-            Eight production projects across SaaS, real-time, AI/ML, embedded, and
+            Seven production projects across SaaS, real-time, AI/ML, embedded, and
             iOS. Click any card for a deeper case study.
           </p>
         </Reveal>

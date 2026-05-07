@@ -171,36 +171,6 @@ export const PROJECTS = [
     },
   },
   {
-    id: "likhai",
-    name: "Likhai",
-    blurb:
-      "Handwriting synthesis engine — 5-stage AI pipeline. Needleman-Wunsch alignment, SVD/PCA tilt correction, Bezier glyphs.",
-    stack: ["Python", "OpenCV", "NumPy", "SciPy"],
-    url: null,
-    repo: null,
-    tag: "AI Research",
-    live: false,
-    metrics: [
-      { k: "Pipeline", v: "5-stage" },
-      { k: "Output", v: "A4 ready" },
-    ],
-    caseStudy: {
-      problem:
-        "Generative handwriting is mostly GAN-based and looks fake. I wanted a deterministic, geometry-driven approach.",
-      approach: [
-        "Stage 1: preprocessing & glyph extraction.",
-        "Stage 2: vectorization to Bezier control points.",
-        "Stage 3: style learning via Welford profile refinement.",
-        "Stage 4: per-glyph rendering with stroke variance.",
-        "Stage 5: A4 compositing with line/word spacing.",
-      ],
-      decisions: [
-        "Needleman-Wunsch for glyph alignment — borrowed from bioinformatics.",
-        "SVD/PCA for tilt correction over Hough transform.",
-      ],
-    },
-  },
-  {
     id: "gbu-timetable",
     name: "GBU Timetable",
     blurb:
