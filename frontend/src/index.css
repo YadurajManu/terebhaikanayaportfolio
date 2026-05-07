@@ -140,7 +140,7 @@ body {
     }
 }
 
-/* shadcn variables in dark only */
+/* shadcn variables — dark default */
 @layer base {
     :root {
         --background: 0 0% 2%;
@@ -165,3 +165,145 @@ body {
         --radius: 0.5rem;
     }
 }
+
+/* ─────────────────── LIGHT MODE OVERRIDES ─────────────────── */
+[data-theme="light"] {
+    --bg: #FAFAF9;
+    --surface: #FFFFFF;
+    --surface-2: #F4F4F5;
+    --border: #E4E4E7;
+    --border-hover: #D4D4D8;
+    --text: #09090B;
+    --text-2: #52525B;
+    --text-3: #A1A1AA;
+    --accent: #16A34A;
+
+    --background: 0 0% 98%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 4%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 142 71% 36%;
+}
+
+[data-theme="light"] body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Selection */
+[data-theme="light"] ::selection {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* Scrollbar */
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border: 2px solid var(--bg);
+}
+
+/* Grid lines: lighter on light bg */
+[data-theme="light"] .grid-bg {
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+[data-theme="light"] .hero-spot {
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(22, 163, 74, 0.10), transparent 70%);
+}
+
+/* Bottom hero gradient fade */
+[data-theme="light"] .from-\[var\(--bg\)\] {
+    --tw-gradient-from: var(--bg) var(--tw-gradient-from-position) !important;
+    --tw-gradient-to: rgba(250, 250, 249, 0) var(--tw-gradient-to-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Common text utilities — flip zinc shades */
+[data-theme="light"] .text-white { color: #09090B !important; }
+[data-theme="light"] .text-zinc-200 { color: #18181B !important; }
+[data-theme="light"] .text-zinc-300 { color: #27272A !important; }
+[data-theme="light"] .text-zinc-400 { color: #52525B !important; }
+[data-theme="light"] .text-zinc-500 { color: #71717A !important; }
+[data-theme="light"] .text-zinc-600 { color: #A1A1AA !important; }
+[data-theme="light"] .text-zinc-700 { color: #D4D4D8 !important; }
+
+/* Backgrounds — pure black surfaces become white */
+[data-theme="light"] .bg-\[\#0A0A0A\] { background-color: #FFFFFF !important; }
+[data-theme="light"] .bg-\[\#0A0A0A\]\/80 { background-color: rgba(255, 255, 255, 0.85) !important; }
+[data-theme="light"] .bg-\[\#0A0A0A\]\/90 { background-color: rgba(255, 255, 255, 0.92) !important; }
+[data-theme="light"] .bg-black { background-color: #FFFFFF !important; }
+[data-theme="light"] .bg-black\/30 { background-color: rgba(255, 255, 255, 0.6) !important; }
+[data-theme="light"] .bg-black\/40 { background-color: rgba(244, 244, 245, 0.7) !important; }
+[data-theme="light"] .bg-black\/50 { background-color: rgba(255, 255, 255, 0.7) !important; }
+[data-theme="light"] .bg-black\/60 { background-color: rgba(255, 255, 255, 0.85) !important; }
+[data-theme="light"] .bg-black\/80 { background-color: rgba(255, 255, 255, 0.92) !important; }
+
+/* white/X overlays become zinc/X overlays */
+[data-theme="light"] .bg-white\/\[0\.01\] { background-color: rgba(0, 0, 0, 0.015) !important; }
+[data-theme="light"] .bg-white\/\[0\.015\] { background-color: rgba(0, 0, 0, 0.022) !important; }
+[data-theme="light"] .bg-white\/\[0\.02\] { background-color: rgba(0, 0, 0, 0.03) !important; }
+[data-theme="light"] .bg-white\/\[0\.025\] { background-color: rgba(0, 0, 0, 0.035) !important; }
+[data-theme="light"] .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04) !important; }
+
+/* white-alpha borders → zinc-alpha */
+[data-theme="light"] .border-white\/5 { border-color: rgba(0, 0, 0, 0.05) !important; }
+[data-theme="light"] .border-white\/10 { border-color: rgba(0, 0, 0, 0.08) !important; }
+[data-theme="light"] .border-white\/15 { border-color: rgba(0, 0, 0, 0.12) !important; }
+[data-theme="light"] .border-white\/20 { border-color: rgba(0, 0, 0, 0.18) !important; }
+[data-theme="light"] .border-white\/30 { border-color: rgba(0, 0, 0, 0.25) !important; }
+[data-theme="light"] .border-white\/\[0\.04\] { border-color: rgba(0, 0, 0, 0.05) !important; }
+[data-theme="light"] .border-white\/\[0\.05\] { border-color: rgba(0, 0, 0, 0.05) !important; }
+[data-theme="light"] .border-white\/\[0\.06\] { border-color: rgba(0, 0, 0, 0.06) !important; }
+[data-theme="light"] .border-white\/\[0\.08\] { border-color: rgba(0, 0, 0, 0.08) !important; }
+
+/* Hover surfaces */
+[data-theme="light"] .hover\:bg-white\/5:hover { background-color: rgba(0, 0, 0, 0.05) !important; }
+
+/* Hero name secondary tone */
+[data-theme="light"] .text-zinc-500 { color: #71717A !important; }
+
+/* Zinc bg pieces (e.g. divider lines) */
+[data-theme="light"] .bg-zinc-800 { background-color: #E4E4E7 !important; }
+[data-theme="light"] .bg-zinc-900 { background-color: #F4F4F5 !important; }
+[data-theme="light"] .from-zinc-800 { --tw-gradient-from: #E4E4E7 var(--tw-gradient-from-position) !important; }
+
+/* Buttons that were bg-white text-black → swap to dark on light */
+[data-theme="light"] .bg-white { background-color: #09090B !important; color: #FAFAFA !important; }
+[data-theme="light"] .bg-white.text-black { color: #FAFAFA !important; }
+[data-theme="light"] .text-black { color: #FAFAFA !important; }
+[data-theme="light"] .hover\:bg-zinc-200:hover { background-color: #27272A !important; }
+
+/* Hero name "Singh." secondary */
+[data-theme="light"] h1 .text-zinc-500 { color: #A1A1AA !important; }
+
+/* Now-building gradient adjust */
+[data-theme="light"] .from-\[var\(--accent\)\]\/\[0\.04\] {
+    --tw-gradient-from: rgba(22, 163, 74, 0.08) var(--tw-gradient-from-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Mac terminal-style title bar tweak */
+[data-theme="light"] .bg-white\/\[0\.02\] { background-color: rgba(0, 0, 0, 0.025) !important; }
+
+/* Featured project gradient & accent ring */
+[data-theme="light"] .from-white\/\[0\.03\] {
+    --tw-gradient-from: rgba(0, 0, 0, 0.03) var(--tw-gradient-from-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Popover/dialog adjustments are handled via shadcn vars above */

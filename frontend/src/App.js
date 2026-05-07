@@ -1,7 +1,10 @@
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Toaster } from "@/components/ui/sonner";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
+import Stats from "./components/Stats";
 import About from "./components/About";
 import NowBuilding from "./components/NowBuilding";
 import Experience from "./components/Experience";
@@ -9,34 +12,74 @@ import Projects from "./components/Projects";
 import Stack from "./components/Stack";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CommandPalette from "./components/CommandPalette";
+import ProjectModal from "./components/ProjectModal";
+import CursorSpotlight from "./components/CursorSpotlight";
+import NotFound from "./pages/NotFound";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
-function App() {
+function HomePage() {
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [activeProject, setActiveProject] = useState(null);
+
+  const openProject = (p) => setActiveProject(p);
+  const closeProject = (open) => {
+    if (!open) setActiveProject(null);
+  };
+
   return (
-    <div className="App relative min-h-screen bg-[var(--bg)] text-white">
-      <Nav />
+    <>
+      <CursorSpotlight />
+      <Nav onOpenPalette={() => setPaletteOpen(true)} />
       <main>
         <Hero />
+        <Stats />
         <About />
         <NowBuilding />
         <Experience />
-        <Projects />
+        <Projects onOpenProject={openProject} />
         <Stack />
         <Contact />
       </main>
       <Footer />
-      <Toaster
-        theme="dark"
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: "#0A0A0A",
-            border: "1px solid #222",
-            color: "#fff",
-            fontFamily: "JetBrains Mono, monospace",
-          },
-        }}
+
+      <CommandPalette
+        open={paletteOpen}
+        setOpen={setPaletteOpen}
+        onOpenProject={openProject}
       />
-    </div>
+      <ProjectModal
+        project={activeProject}
+        open={!!activeProject}
+        onOpenChange={closeProject}
+      />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <div className="App relative min-h-screen bg-[var(--bg)] text-[var(--text)]">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              color: "var(--text)",
+              fontFamily: "JetBrains Mono, monospace",
+            },
+          }}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 

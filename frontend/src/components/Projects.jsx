@@ -1,8 +1,12 @@
 import { ArrowUpRight, Github } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
+import FeaturedProject from "./FeaturedProject";
 
-export default function Projects() {
+export default function Projects({ onOpenProject }) {
+  const featured = PROJECTS.find((p) => p.featured);
+  const rest = PROJECTS.filter((p) => !p.featured);
+
   return (
     <section
       id="projects"
@@ -18,12 +22,23 @@ export default function Projects() {
 
         <p className="mt-6 max-w-2xl text-zinc-400">
           Eight production projects across SaaS, real-time, AI/ML, embedded, and
-          iOS. Click any card — most are live and self-hosted.
+          iOS. Click any card for a deeper case study.
         </p>
 
-        <div className="mt-14 grid md:grid-cols-2 gap-4">
-          {PROJECTS.map((p, i) => (
-            <ProjectCard key={p.name} p={p} index={i} />
+        {featured && (
+          <div className="mt-14">
+            <FeaturedProject project={featured} onOpen={onOpenProject} />
+          </div>
+        )}
+
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          {rest.map((p, i) => (
+            <ProjectCard
+              key={p.id}
+              p={p}
+              index={i}
+              onOpen={() => onOpenProject?.(p)}
+            />
           ))}
         </div>
       </div>
@@ -31,36 +46,32 @@ export default function Projects() {
   );
 }
 
-function ProjectCard({ p, index }) {
-  const idx = String(index + 1).padStart(2, "0");
-  const Wrapper = p.url ? "a" : "div";
-  const wrapperProps = p.url
-    ? { href: p.url, target: "_blank", rel: "noreferrer" }
-    : {};
+function ProjectCard({ p, index, onOpen }) {
+  const idx = String(index + 2).padStart(2, "0"); // start at 02, since 01 is featured
 
   return (
-    <Wrapper
-      {...wrapperProps}
-      data-testid={`project-card-${index}`}
-      className="group relative block overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7"
+    <button
+      type="button"
+      onClick={onOpen}
+      data-testid={`project-card-${p.id}`}
+      className="group relative block text-left overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7"
     >
-      {/* gradient hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-white/[0.025] to-transparent pointer-events-none" />
 
       <div className="relative flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="font-mono text-[11px] text-zinc-600">{idx}</span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]/80">
+        <div className="flex items-center gap-3 min-w-0">
+          <span className="font-mono text-[11px] text-zinc-600 shrink-0">{idx}</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]/80 truncate">
             {p.tag}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-zinc-500 group-hover:text-white transition-colors">
+        <div className="flex items-center gap-1.5 text-zinc-500 group-hover:text-white transition-colors shrink-0">
           {p.repo && (
             <a
               href={p.repo}
               target="_blank"
               rel="noreferrer"
-              data-testid={`project-${index}-repo`}
+              data-testid={`project-${p.id}-repo`}
               onClick={(e) => e.stopPropagation()}
               className="p-1.5 rounded-md hover:bg-white/5"
               aria-label="github repo"
@@ -69,12 +80,20 @@ function ProjectCard({ p, index }) {
             </a>
           )}
           {p.url && (
-            <span className="p-1.5">
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noreferrer"
+              data-testid={`project-${p.id}-live`}
+              onClick={(e) => e.stopPropagation()}
+              className="p-1.5 rounded-md hover:bg-white/5"
+              aria-label="open live site"
+            >
               <ArrowUpRight
                 size={16}
                 className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
-            </span>
+            </a>
           )}
         </div>
       </div>
@@ -88,7 +107,7 @@ function ProjectCard({ p, index }) {
       </p>
 
       <div className="relative mt-5 flex flex-wrap gap-1.5">
-        {p.stack.map((s) => (
+        {p.stack.slice(0, 5).map((s) => (
           <span
             key={s}
             className="px-2 py-0.5 rounded-md border border-white/[0.08] bg-white/[0.015] text-[10.5px] font-mono text-zinc-400"
@@ -98,14 +117,22 @@ function ProjectCard({ p, index }) {
         ))}
       </div>
 
-      {p.url && (
-        <div className="relative mt-5 pt-5 border-t border-white/[0.05] font-mono text-[11px] text-zinc-500">
-          <span className="text-zinc-600">↗</span>{" "}
-          <span className="group-hover:text-[var(--accent)] transition-colors">
-            {p.url.replace(/^https?:\/\//, "")}
+      <div className="relative mt-5 pt-5 border-t border-white/[0.05] flex items-center justify-between font-mono text-[11px]">
+        {p.live ? (
+          <span className="inline-flex items-center gap-2 text-zinc-400">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+            </span>
+            <span>live · {p.lastDeploy}</span>
           </span>
-        </div>
-      )}
-    </Wrapper>
+        ) : (
+          <span className="text-zinc-600">archived · open-source</span>
+        )}
+        <span className="text-zinc-500 group-hover:text-[var(--accent)] transition-colors">
+          read case study →
+        </span>
+      </div>
+    </button>
   );
 }
