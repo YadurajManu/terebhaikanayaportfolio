@@ -23,16 +23,6 @@ export const ABOUT_POINTS = [
 
 export const EXPERIENCE = [
   {
-    role: "LEAP iOS App Lead — Intern",
-    org: "Gautam Buddha University",
-    period: "Jun 2025 — Present",
-    points: [
-      "Leading full-cycle iOS ERP app for 2,000+ GBU users — biometric attendance, push notifications, dashboards, admin portal.",
-      "Backend: Django REST Framework. Frontend: Swift + SwiftUI with clean API integration.",
-    ],
-    stack: ["Swift", "SwiftUI", "Django REST", "APNs"],
-  },
-  {
     role: "Lead Software Developer — Intern",
     org: "Gautam Buddha University",
     period: "2024 · 6 months",
