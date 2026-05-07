@@ -1,5 +1,4 @@
 import { ArrowDownRight, Github, Linkedin, MapPin } from "lucide-react";
-import { toast } from "sonner";
 import { PROFILE } from "../data/portfolio";
 import LiveTerminal from "./LiveTerminal";
 import ScrambleText from "./ScrambleText";
@@ -85,18 +84,13 @@ export default function Hero() {
                 />
               </button>
 
-              <button
+              <a
                 data-testid="hero-cta-resume"
-                onClick={() => {
-                  toast("resume.pdf", {
-                    description:
-                      "coming soon — email yadurajsingham@gmail.com for the latest copy",
-                  });
-                }}
+                href="/cv"
                 className="inline-flex items-center gap-2 bg-transparent text-zinc-300 border border-white/15 h-11 px-5 rounded-full font-mono text-sm hover:text-white hover:border-white/30 transition-colors"
               >
                 download resume
-              </button>
+              </a>
 
               <span className="hidden sm:inline-flex items-center gap-1.5 ml-1 font-mono text-[11px] text-zinc-500">
                 press

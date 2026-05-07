@@ -15,6 +15,7 @@ import CommandPalette from "./components/CommandPalette";
 import ProjectModal from "./components/ProjectModal";
 import CursorSpotlight from "./components/CursorSpotlight";
 import BootScreen from "./components/BootScreen";
+import CVRedirect from "./pages/CVRedirect";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
@@ -67,6 +68,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/cv" element={<CVRedirect />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
