@@ -1,4 +1,5 @@
 import { ArrowDownRight, Github, Linkedin, MapPin } from "lucide-react";
+import { toast } from "sonner";
 import { PROFILE } from "../data/portfolio";
 import LiveTerminal from "./LiveTerminal";
 import { useTheme } from "../contexts/ThemeContext";
@@ -80,9 +81,10 @@ export default function Hero() {
               <button
                 data-testid="hero-cta-resume"
                 onClick={() => {
-                  window.alert(
-                    "Resume PDF coming soon. Email yadurajsingham@gmail.com for the latest copy."
-                  );
+                  toast("resume.pdf", {
+                    description:
+                      "coming soon — email yadurajsingham@gmail.com for the latest copy",
+                  });
                 }}
                 className="inline-flex items-center gap-2 bg-transparent text-zinc-300 border border-white/15 h-11 px-5 rounded-full font-mono text-sm hover:text-white hover:border-white/30 transition-colors"
               >

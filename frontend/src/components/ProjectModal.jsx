@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ArrowUpRight, Github, X } from "lucide-react";
 
 export default function ProjectModal({ project, open, onOpenChange }) {
@@ -28,10 +28,14 @@ export default function ProjectModal({ project, open, onOpenChange }) {
         </div>
 
         <div className="px-6 md:px-8 py-8">
-          <h2 className="font-display text-3xl md:text-5xl tracking-tighter font-medium text-white">
-            {project.name}
-          </h2>
-          <p className="mt-3 text-zinc-400 leading-relaxed">{project.blurb}</p>
+          <DialogTitle asChild>
+            <h2 className="font-display text-3xl md:text-5xl tracking-tighter font-medium text-white">
+              {project.name}
+            </h2>
+          </DialogTitle>
+          <DialogDescription asChild>
+            <p className="mt-3 text-zinc-400 leading-relaxed">{project.blurb}</p>
+          </DialogDescription>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             {project.url && (

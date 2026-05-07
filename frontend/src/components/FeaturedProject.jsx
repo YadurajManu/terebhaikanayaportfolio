@@ -14,23 +14,22 @@ export default function FeaturedProject({ project, onOpen }) {
       <div className="relative grid md:grid-cols-12 gap-8 p-7 md:p-10">
         {/* left */}
         <div className="md:col-span-7 flex flex-col">
-          <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em]">
-            <span className="inline-flex items-center gap-1.5 text-[var(--accent)]">
-              <Sparkles size={11} /> featured
-            </span>
-            <span className="text-zinc-700">·</span>
-            <span className="text-zinc-500">{project.tag}</span>
+          {/* Top meta — single line */}
+          <div className="flex items-center justify-between gap-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/25 bg-[var(--accent)]/[0.06] px-2.5 py-1">
+              <Sparkles size={11} className="text-[var(--accent)]" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
+                featured
+              </span>
+            </div>
             {project.live && (
-              <>
-                <span className="text-zinc-700">·</span>
-                <span className="inline-flex items-center gap-1.5 text-zinc-400">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                  </span>
-                  live · last deploy {project.lastDeploy}
+              <span className="inline-flex items-center gap-2 font-mono text-[10.5px] text-zinc-400 whitespace-nowrap">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                 </span>
-              </>
+                live · {project.lastDeploy}
+              </span>
             )}
           </div>
 
@@ -38,7 +37,11 @@ export default function FeaturedProject({ project, onOpen }) {
             {project.name}
           </h3>
 
-          <p className="mt-4 max-w-xl text-zinc-400 leading-relaxed">
+          <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+            {project.tag}
+          </p>
+
+          <p className="mt-5 max-w-xl text-zinc-400 leading-relaxed">
             {project.blurb}
           </p>
 

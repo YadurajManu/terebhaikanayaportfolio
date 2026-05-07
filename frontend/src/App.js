@@ -4,7 +4,6 @@ import "./App.css";
 import { Toaster } from "@/components/ui/sonner";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Stats from "./components/Stats";
 import About from "./components/About";
 import NowBuilding from "./components/NowBuilding";
 import Experience from "./components/Experience";
@@ -33,7 +32,6 @@ function HomePage() {
       <Nav onOpenPalette={() => setPaletteOpen(true)} />
       <main>
         <Hero />
-        <Stats />
         <About />
         <NowBuilding />
         <Experience />
