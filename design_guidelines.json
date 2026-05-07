@@ -1,0 +1,94 @@
+{
+  "project_name": "Yaduraj Singh Portfolio",
+  "identity": {
+    "name": "Yaduraj Singh",
+    "age": 20,
+    "role": "Full-stack engineer / AI-ML builder",
+    "differentiator": "Production code at 20. Self-hosted infra. 3 live apps.",
+    "vibe": "Code-first, confident builder, dark terminal meets Linear."
+  },
+  "theme": {
+    "mode": "dark",
+    "colors": {
+      "background": "#050505",
+      "surface": "#0A0A0A",
+      "surface_elevated": "#121212",
+      "border": "#222222",
+      "border_hover": "#333333",
+      "text_primary": "#F9FAFB",
+      "text_secondary": "#A1A1AA",
+      "text_tertiary": "#52525B",
+      "accent_terminal": "#4ADE80",
+      "accent_white": "#FFFFFF"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Outfit, sans-serif",
+      "body": "Geist, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "hierarchy": {
+      "h1": "text-5xl md:text-6xl tracking-tighter font-medium text-white",
+      "h2": "text-2xl tracking-tight font-medium text-white",
+      "body": "text-base text-zinc-400 leading-relaxed",
+      "mono_label": "font-mono text-xs text-zinc-500 tracking-tight"
+    }
+  },
+  "layout": {
+    "container": "max-w-3xl mx-auto px-6 md:px-8",
+    "spacing": "gap-24",
+    "section_pad": "py-24"
+  },
+  "ui_elements": {
+    "cards": "border border-zinc-800 bg-[#0A0A0A] p-6 rounded-xl hover:border-zinc-600 transition-colors",
+    "buttons_primary": "bg-white text-black h-10 px-6 rounded-md font-medium text-sm hover:bg-zinc-200 transition-colors",
+    "buttons_ghost": "bg-transparent text-zinc-400 h-10 px-4 rounded-md font-mono text-sm hover:text-white transition-colors",
+    "badges": "px-2.5 py-1 rounded-md border border-zinc-800 bg-zinc-900/50 text-xs font-mono text-zinc-400"
+  },
+  "sections": [
+    {
+      "name": "Navigation",
+      "details": "Sticky top floating pill. backdrop-blur-md, bg-black/50, border-white/10. Links to sections."
+    },
+    {
+      "name": "Hero",
+      "details": "Terminal `$ whoami` in green. Massive Name in Outfit. Tagline. 'Download Resume' (placeholder button) + 'View Work'."
+    },
+    {
+      "name": "About",
+      "details": "List points: Self-hosted Linux infra (Nginx/PM2), 3 live production apps, Hackathon winner."
+    },
+    {
+      "name": "Now Building",
+      "details": "Special highlighted card for SubSlot (subscription slot-sharing marketplace). Emerald border glow."
+    },
+    {
+      "name": "Experience",
+      "details": "Timeline style. LEAP iOS Lead, Lead Software Developer at GBU."
+    },
+    {
+      "name": "Projects",
+      "details": "2-col grid. Cards for Aarogya Setu, MuhDikhai, CineVerse, SecondMind/CortX, Likhai, GBU Timetable, Maakosh, Bolonyay. Live URLs."
+    },
+    {
+      "name": "Tech Stack",
+      "details": "Badges grouped by: Web, Mobile, AI/ML, Embedded, DevOps/Infra."
+    },
+    {
+      "name": "Contact",
+      "details": "mailto link. Copy phone number to clipboard (triggers Sonner toast). GitHub, LinkedIn."
+    }
+  ],
+  "media": {
+    "hero_bg": "https://static.prod-images.emergentagent.com/jobs/bf010826-c7ca-41be-8010-1ed05ec50c4c/images/1fa49ed2f4c59bd75f1898deb8c6933253abf9c5991fe0798fa29e984b010fde.png",
+    "avatar_placeholder": "https://images.unsplash.com/photo-1744957661600-e1172b3c5630?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjBwb3J0cmFpdCUyMGRhcmslMjBzaWxob3VldHRlfGVufDB8fHx8MTc3ODE3MTUyNHww&ixlib=rb-4.1.0&q=85"
+  },
+  "motion": {
+    "scroll": "Lenis smooth scroll mandatory.",
+    "animations": "Subtle framer-motion slide-ups (y: 10, opacity: 0 -> 1). Staggered lists."
+  },
+  "testing": {
+    "requirements": "data-testid on EVERY interactive element. e.g., data-testid='nav-about', data-testid='contact-copy-phone'"
+  }
+}
