@@ -14,6 +14,7 @@ import {
   Cpu,
   FolderGit2,
   Github,
+  Globe2,
   Layers,
   Linkedin,
   Mail,
@@ -62,6 +63,7 @@ export default function CommandPalette({ open, setOpen, onOpenProject }) {
     { id: "experience", label: "experience", icon: Briefcase },
     { id: "projects", label: "projects", icon: FolderGit2 },
     { id: "stack", label: "tech stack", icon: Layers },
+    { id: "visitors", label: "visitor flag wall", icon: Globe2 },
     { id: "contact", label: "contact", icon: AtSign },
   ];
 

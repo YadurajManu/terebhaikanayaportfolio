@@ -9,6 +9,7 @@ import NowBuilding from "./components/NowBuilding";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Stack from "./components/Stack";
+import VisitorFlagWall from "./components/VisitorFlagWall";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
@@ -43,6 +44,7 @@ function HomePage() {
         <Experience />
         <Projects onOpenProject={openProject} />
         <Stack />
+        <VisitorFlagWall />
         <Contact />
       </main>
       <Footer />
