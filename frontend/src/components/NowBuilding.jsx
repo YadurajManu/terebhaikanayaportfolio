@@ -1,5 +1,6 @@
 import { NOW_BUILDING } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
+import Reveal from "./Reveal";
 import { Sparkles, Zap } from "lucide-react";
 
 export default function NowBuilding() {
@@ -10,16 +11,19 @@ export default function NowBuilding() {
       className="relative py-28 md:py-36"
     >
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <SectionHeader
-          index="02"
-          title="now building"
-          subtitle="// in active development"
-        />
+        <Reveal>
+          <SectionHeader
+            index="02"
+            title="now building"
+            subtitle="// in active development"
+          />
+        </Reveal>
 
-        <div
-          data-testid="now-building-card"
-          className="glow-border mt-14 relative overflow-hidden rounded-2xl border border-[var(--accent)]/25 bg-gradient-to-br from-[var(--accent)]/[0.04] via-[#0A0A0A] to-[#0A0A0A] p-8 md:p-12"
-        >
+        <Reveal delay={120}>
+          <div
+            data-testid="now-building-card"
+            className="glow-border mt-14 relative overflow-hidden rounded-2xl border border-[var(--accent)]/25 bg-gradient-to-br from-[var(--accent)]/[0.04] via-[#0A0A0A] to-[#0A0A0A] p-8 md:p-12"
+          >
           {/* corner accent */}
           <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[var(--accent)]/10 blur-3xl pointer-events-none" />
 
@@ -60,6 +64,7 @@ export default function NowBuilding() {
             <span className="cursor-blink">_</span>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

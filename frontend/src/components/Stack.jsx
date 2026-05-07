@@ -1,5 +1,6 @@
 import { STACK } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
+import Reveal from "./Reveal";
 
 export default function Stack() {
   return (
@@ -9,15 +10,17 @@ export default function Stack() {
       className="relative py-28 md:py-36"
     >
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <SectionHeader
-          index="05"
-          title="tech stack"
-          subtitle="// daily drivers"
-        />
+        <Reveal>
+          <SectionHeader
+            index="05"
+            title="tech stack"
+            subtitle="// daily drivers"
+          />
+        </Reveal>
 
         <div className="mt-14 grid md:grid-cols-2 gap-x-12 gap-y-10">
           {STACK.map((g, i) => (
-            <div key={g.group} data-testid={`stack-group-${i}`}>
+            <Reveal key={g.group} delay={60 + i * 70} data-testid={`stack-group-${i}`}>
               <div className="flex items-center gap-3 mb-5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
                   /{g.group.toLowerCase().replace(/\s+/g, "-")}
@@ -35,7 +38,7 @@ export default function Stack() {
                   </span>
                 ))}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

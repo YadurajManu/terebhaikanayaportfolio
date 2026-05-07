@@ -1,5 +1,6 @@
 import { ABOUT_POINTS } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
+import Reveal from "./Reveal";
 import { Check } from "lucide-react";
 
 export default function About() {
@@ -10,14 +11,16 @@ export default function About() {
       className="relative py-28 md:py-36"
     >
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <SectionHeader
-          index="01"
-          title="about"
-          subtitle="// what sets me apart"
-        />
+        <Reveal>
+          <SectionHeader
+            index="01"
+            title="about"
+            subtitle="// what sets me apart"
+          />
+        </Reveal>
 
         <div className="grid md:grid-cols-12 gap-10 mt-14">
-          <div className="md:col-span-5">
+          <Reveal delay={80} className="md:col-span-5">
             <p className="font-display text-3xl md:text-4xl leading-[1.15] text-white tracking-tight">
               I don't write side projects.{" "}
               <span className="text-zinc-500">
@@ -30,12 +33,11 @@ export default function About() {
               repos, and write firmware that makes hardware listen and respond.
               Solo founder mindset.
             </p>
-          </div>
+          </Reveal>
 
           <ul className="md:col-span-7 space-y-3">
             {ABOUT_POINTS.map((p, i) => (
-              <li
-                key={i}
+              <Reveal as="li" key={i} delay={120 + i * 60}
                 data-testid={`about-point-${i}`}
                 className="group flex gap-4 items-start border border-white/5 bg-white/[0.015] hover:border-white/10 hover:bg-white/[0.025] transition-colors rounded-xl p-4"
               >
@@ -45,7 +47,7 @@ export default function About() {
                 <span className="text-zinc-300 text-[15px] leading-relaxed">
                   {p}
                 </span>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>

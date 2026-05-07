@@ -14,12 +14,16 @@ import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
 import ProjectModal from "./components/ProjectModal";
 import CursorSpotlight from "./components/CursorSpotlight";
+import BootScreen from "./components/BootScreen";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 function HomePage() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
+  const [booted, setBooted] = useState(() =>
+    typeof window !== "undefined" && !!sessionStorage.getItem("yr-booted")
+  );
 
   const openProject = (p) => setActiveProject(p);
   const closeProject = (open) => {
@@ -28,6 +32,7 @@ function HomePage() {
 
   return (
     <>
+      {!booted && <BootScreen onDone={() => setBooted(true)} />}
       <CursorSpotlight />
       <Nav onOpenPalette={() => setPaletteOpen(true)} />
       <main>

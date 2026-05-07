@@ -1,5 +1,6 @@
 import { EXPERIENCE } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
+import Reveal from "./Reveal";
 
 export default function Experience() {
   return (
@@ -9,18 +10,21 @@ export default function Experience() {
       className="relative py-28 md:py-36"
     >
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <SectionHeader
-          index="03"
-          title="experience"
-          subtitle="// work history"
-        />
+        <Reveal>
+          <SectionHeader
+            index="03"
+            title="experience"
+            subtitle="// work history"
+          />
+        </Reveal>
 
         <div className="mt-14 relative">
           <div className="absolute left-2 top-2 bottom-2 w-px bg-gradient-to-b from-zinc-800 via-zinc-900 to-transparent" />
           <div className="space-y-12">
             {EXPERIENCE.map((e, i) => (
-              <div
+              <Reveal
                 key={i}
+                delay={80 + i * 100}
                 data-testid={`experience-${i}`}
                 className="relative pl-10"
               >
@@ -59,7 +63,7 @@ export default function Experience() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

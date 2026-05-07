@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Command, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import AmbientAudio from "./AmbientAudio";
+import TimeOnSite from "./TimeOnSite";
 
 const LINKS = [
   { id: "about", label: "about" },
@@ -66,10 +67,11 @@ export default function Nav({ onOpenPalette }) {
         </nav>
 
         <div className="flex items-center gap-1">
+          <TimeOnSite />
           <button
             data-testid="nav-command-palette"
             onClick={onOpenPalette}
-            className="hidden sm:inline-flex items-center gap-2 h-8 px-3 rounded-full border border-white/10 bg-white/[0.02] text-zinc-400 hover:text-white hover:border-white/20 transition-colors font-mono text-[11px]"
+            className="hidden sm:inline-flex items-center gap-2 h-8 px-3 rounded-full border border-white/10 bg-white/[0.02] text-zinc-400 hover:text-white hover:border-white/20 transition-colors font-mono text-[11px] ml-1"
             title="open command palette"
           >
             <Command size={11} />

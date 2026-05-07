@@ -2,6 +2,7 @@ import { ArrowDownRight, Github, Linkedin, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { PROFILE } from "../data/portfolio";
 import LiveTerminal from "./LiveTerminal";
+import ScrambleText from "./ScrambleText";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function Hero() {
@@ -46,9 +47,15 @@ export default function Hero() {
               className="reveal font-display text-[14vw] sm:text-[10vw] md:text-[88px] lg:text-[112px] leading-[0.92] font-medium text-white"
               style={{ animationDelay: "60ms" }}
             >
-              Yaduraj
+              <ScrambleText text="Yaduraj" duration={650} delay={120} testId="hero-name-scramble-1" />
               <br />
-              <span className="text-zinc-500">Singh.</span>
+              <ScrambleText
+                text="Singh."
+                duration={650}
+                delay={420}
+                className="text-zinc-500"
+                testId="hero-name-scramble-2"
+              />
             </h1>
 
             {/* Tagline */}

@@ -2,6 +2,7 @@ import { Copy, Github, Linkedin, Mail, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { PROFILE } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
+import Reveal from "./Reveal";
 
 export default function Contact() {
   const copyPhone = async () => {
@@ -22,14 +23,16 @@ export default function Contact() {
       className="relative py-28 md:py-36"
     >
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <SectionHeader
-          index="06"
-          title="get in touch"
-          subtitle="// let's build something"
-        />
+        <Reveal>
+          <SectionHeader
+            index="06"
+            title="get in touch"
+            subtitle="// let's build something"
+          />
+        </Reveal>
 
         <div className="grid md:grid-cols-12 gap-10 mt-14">
-          <div className="md:col-span-6">
+          <Reveal delay={80} className="md:col-span-6">
             <p className="font-display text-3xl md:text-4xl tracking-tight text-white leading-[1.15]">
               Got a real product to build?
               <br />
@@ -53,9 +56,9 @@ export default function Contact() {
                 {PROFILE.email}
               </span>
             </a>
-          </div>
+          </Reveal>
 
-          <div className="md:col-span-6 grid grid-cols-1 gap-3">
+          <Reveal delay={140} className="md:col-span-6 grid grid-cols-1 gap-3">
             <ContactRow
               testid="contact-row-phone"
               icon={<Phone size={14} />}
@@ -92,7 +95,7 @@ export default function Contact() {
               value={PROFILE.portfolio}
               href={`https://${PROFILE.portfolio}`}
             />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

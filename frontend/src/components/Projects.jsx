@@ -2,6 +2,7 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
 import FeaturedProject from "./FeaturedProject";
+import Reveal from "./Reveal";
 
 export default function Projects({ onOpenProject }) {
   const featured = PROJECTS.find((p) => p.featured);
@@ -14,31 +15,36 @@ export default function Projects({ onOpenProject }) {
       className="relative py-28 md:py-36"
     >
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <SectionHeader
-          index="04"
-          title="projects"
-          subtitle="// shipped & live"
-        />
+        <Reveal>
+          <SectionHeader
+            index="04"
+            title="projects"
+            subtitle="// shipped & live"
+          />
+        </Reveal>
 
-        <p className="mt-6 max-w-2xl text-zinc-400">
-          Eight production projects across SaaS, real-time, AI/ML, embedded, and
-          iOS. Click any card for a deeper case study.
-        </p>
+        <Reveal delay={80}>
+          <p className="mt-6 max-w-2xl text-zinc-400">
+            Eight production projects across SaaS, real-time, AI/ML, embedded, and
+            iOS. Click any card for a deeper case study.
+          </p>
+        </Reveal>
 
         {featured && (
-          <div className="mt-14">
+          <Reveal delay={140} className="mt-14">
             <FeaturedProject project={featured} onOpen={onOpenProject} />
-          </div>
+          </Reveal>
         )}
 
         <div className="mt-6 grid md:grid-cols-2 gap-4">
           {rest.map((p, i) => (
-            <ProjectCard
-              key={p.id}
-              p={p}
-              index={i}
-              onOpen={() => onOpenProject?.(p)}
-            />
+            <Reveal key={p.id} delay={80 + i * 70}>
+              <ProjectCard
+                p={p}
+                index={i}
+                onOpen={() => onOpenProject?.(p)}
+              />
+            </Reveal>
           ))}
         </div>
       </div>
