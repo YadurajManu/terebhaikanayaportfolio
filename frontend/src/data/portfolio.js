@@ -177,7 +177,7 @@ export const PROJECTS = [
       "Handwriting synthesis engine — 5-stage AI pipeline. Needleman-Wunsch alignment, SVD/PCA tilt correction, Bezier glyphs.",
     stack: ["Python", "OpenCV", "NumPy", "SciPy"],
     url: null,
-    repo: "https://github.com/YadurajManu",
+    repo: null,
     tag: "AI Research",
     live: false,
     metrics: [
