@@ -85,7 +85,7 @@ export default function Contact() {
               testid="contact-row-linkedin"
               icon={<Linkedin size={14} />}
               label="linkedin"
-              value="yaduraj-singh"
+              value="yadurajenc"
               href={PROFILE.linkedin}
             />
             <ContactRow
