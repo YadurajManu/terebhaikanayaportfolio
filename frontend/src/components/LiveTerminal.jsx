@@ -70,8 +70,8 @@ export default function LiveTerminal({ onTheme }) {
       window.open("https://github.com/YadurajManu", "_blank");
       append(["→ opening github/YadurajManu"]);
     } else if (cmd === "linkedin") {
-      window.open("https://www.linkedin.com/in/yaduraj-singh", "_blank");
-      append(["→ opening linkedin/yaduraj-singh"]);
+      window.open("https://www.linkedin.com/in/yadurajenc", "_blank");
+      append(["→ opening linkedin/yadurajenc"]);
     } else if (cmd === "email") {
       navigator.clipboard?.writeText("yadurajsingham@gmail.com");
       append(["✓ yadurajsingham@gmail.com copied"]);

@@ -7,7 +7,7 @@ export const PROFILE = {
   phone: "+91 9220916445",
   portfolio: "yaduraj.me",
   github: "https://github.com/YadurajManu",
-  linkedin: "https://www.linkedin.com/in/yaduraj-singh",
+  linkedin: "https://www.linkedin.com/in/yadurajenc",
   tagline:
     "Ships production-grade systems solo — firmware on ESP32, scalable SaaS, iOS apps. Three live products with real users before 21.",
 };
@@ -270,6 +270,8 @@ export const STACK = [
 export const NOW_BUILDING = {
   name: "SubSlot",
   status: "in development",
+  url: "https://slotu.vercel.app",
+  cta: "open landing page",
   pitch:
     "A subscription slot-sharing marketplace for India. Escrow payments, verified sellers, Gen-Z brand.",
   bullets: [

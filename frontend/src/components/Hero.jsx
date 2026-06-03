@@ -122,7 +122,7 @@ export default function Hero() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 hover:text-white transition-colors"
               >
-                <Linkedin size={14} /> yaduraj-singh
+                <Linkedin size={14} /> yadurajenc
               </a>
               <a
                 data-testid="hero-link-portfolio"

@@ -132,6 +132,37 @@ body {
     opacity: 1;
 }
 
+.press-feedback-card {
+    transform: translateZ(0);
+}
+
+.press-feedback-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            115deg,
+            transparent 22%,
+            rgba(255, 255, 255, 0.04) 40%,
+            rgba(74, 222, 128, 0.10) 50%,
+            rgba(255, 255, 255, 0.03) 58%,
+            transparent 76%
+        );
+    transform: translateX(-130%);
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+.press-feedback-card:hover::after,
+.press-feedback-card:focus-visible::after {
+    transform: translateX(110%);
+}
+
+.press-feedback-card:active {
+    transform: scale(0.986);
+}
+
 /* Tailwind-friendly base mappings (kept minimal) */
 @layer base {
     body {
