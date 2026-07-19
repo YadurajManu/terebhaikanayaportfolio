@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#050505"/>
+  <text x="10" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="700" fill="#FFFFFF">Y</text>
+  <circle cx="52" cy="12" r="6" fill="#4ADE80"/>
+  <circle cx="52" cy="12" r="6" fill="#4ADE80" opacity="0.4">
+    <animate attributeName="r" values="6;10;6" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

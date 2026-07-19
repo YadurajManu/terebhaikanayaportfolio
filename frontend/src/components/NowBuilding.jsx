@@ -80,7 +80,7 @@ export default function NowBuilding() {
           <div className="relative mt-10 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-zinc-500">
             <div className="flex items-center gap-3">
               <span className="text-zinc-600">$</span>
-              <span>git status — feature branch · alpha tests Q1</span>
+              <span>git status — private beta · llm cost control</span>
               <span className="cursor-blink">_</span>
             </div>
             <div className="inline-flex items-center gap-2 text-zinc-400 transition-colors duration-300 group-hover:text-zinc-200">

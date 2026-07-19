@@ -11,6 +11,7 @@ import Projects from "./components/Projects";
 import Stack from "./components/Stack";
 import VisitorFlagWall from "./components/VisitorFlagWall";
 import Contact from "./components/Contact";
+import Stats from "./components/Stats";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
 import ProjectModal from "./components/ProjectModal";
@@ -39,6 +40,7 @@ function HomePage() {
       <Nav onOpenPalette={() => setPaletteOpen(true)} />
       <main>
         <Hero />
+        <Stats />
         <About />
         <NowBuilding />
         <Experience />

@@ -59,7 +59,7 @@ export default function CommandPalette({ open, setOpen, onOpenProject }) {
 
   const sections = [
     { id: "about", label: "about", icon: User },
-    { id: "now-building", label: "now building — SubSlot", icon: Rocket },
+    { id: "now-building", label: "now building — Tollgate", icon: Rocket },
     { id: "experience", label: "experience", icon: Briefcase },
     { id: "projects", label: "projects", icon: FolderGit2 },
     { id: "stack", label: "tech stack", icon: Layers },

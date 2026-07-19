@@ -268,15 +268,15 @@ export const STACK = [
 ];
 
 export const NOW_BUILDING = {
-  name: "SubSlot",
-  status: "in development",
-  url: "https://slotu.vercel.app",
-  cta: "open landing page",
+  name: "Tollgate",
+  status: "private beta",
+  url: "https://tollgate.yaduraj.me/",
+  cta: "open product",
   pitch:
-    "A subscription slot-sharing marketplace for India. Escrow payments, verified sellers, Gen-Z brand.",
+    "Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic, and OpenAI-compatible providers — one base URL for per-feature cost, exact-match caching, budgets, and runaway-agent alerts.",
   bullets: [
-    "Escrow-backed payments — no chargebacks, no scams.",
-    "Verified seller onboarding with KYC & ratings.",
-    "Designed Gen-Z first — sharp, fast, native-feel UX.",
+    "Point one base_url at Tollgate — OpenAI, Anthropic, xAI, OpenRouter, Gemini, and more. No SDK rewrite.",
+    "Per-feature (tag) spend visibility, exact-match prompt caching, and hard budgets.",
+    "Runaway-agent alerts & guards — stop burn before another overnight surprise bill.",
   ],
 };
