@@ -82,13 +82,15 @@ function drawFace(c, cols, rows) {
 }
 
 function drawDigits(c, cols, rows) {
-  c.font = '900 100px Outfit, system-ui, sans-serif';
+  // 700 is the heaviest Outfit weight actually loaded in index.html — asking for
+  // 900 here would rasterise a synthesised faux-bold instead of the real face
+  c.font = '700 100px Outfit, system-ui, sans-serif';
   const w100 = c.measureText("404").width || 180;
   const byWidth = (100 * (cols * 0.96)) / w100;
   const byHeight = (rows * 0.5) / 0.72;
   const size = Math.min(byWidth, byHeight);
 
-  c.font = `900 ${size}px Outfit, system-ui, sans-serif`;
+  c.font = `700 ${size}px Outfit, system-ui, sans-serif`;
   c.textAlign = "center";
   c.textBaseline = "alphabetic";
   c.fillText("404", cols / 2, rows - 1);
@@ -97,12 +99,11 @@ function drawDigits(c, cols, rows) {
 export default function Game404({ onExit }) {
   const canvasRef = useRef(null);
   const wrapRef = useRef(null);
-  const comboRef = useRef(null);
-  const scoreRef = useRef(null);
-  const leftRef = useRef(null);
-  const livesRef = useRef(null);
 
   const [phase, setPhase] = useState("ready"); // ready | playing | dead | won
+  const [touch, setTouch] = useState(
+    () => typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches
+  );
 
   const G = useRef({
     w: 0,
@@ -126,6 +127,7 @@ export default function Game404({ onExit }) {
     best: 0,
     shake: 0,
     flash: 0,
+    speedScale: 1,
     phase: "ready",
     pointerX: null,
     keys: {},
@@ -134,11 +136,20 @@ export default function Game404({ onExit }) {
     colors: null,
   }).current;
 
+  // written straight to the DOM — these change per brick, far too often for setState.
+  // queried by attribute so the mobile and desktop HUDs can both mirror one value.
   const syncHud = useCallback(() => {
-    if (comboRef.current) comboRef.current.textContent = `×${G.combo}`;
-    if (scoreRef.current) scoreRef.current.textContent = String(G.score).padStart(4, "0");
-    if (leftRef.current) leftRef.current.textContent = String(G.left);
-    if (livesRef.current) livesRef.current.textContent = "●".repeat(Math.max(0, G.lives));
+    const root = wrapRef.current;
+    if (!root) return;
+    const set = (key, value) => {
+      root.querySelectorAll(`[data-hud="${key}"]`).forEach((n) => {
+        n.textContent = value;
+      });
+    };
+    set("combo", `×${G.combo}`);
+    set("score", String(G.score).padStart(4, "0"));
+    set("left", String(G.left));
+    set("lives", "●".repeat(Math.max(0, G.lives)));
   }, [G]);
 
   /** Lay out the dot field for the current viewport, optionally preserving progress. */
@@ -198,8 +209,12 @@ export default function Game404({ onExit }) {
         G.left = total;
       }
 
-      G.paddle.w = Math.max(96, Math.min(w * 0.16, 170));
-      G.paddle.y = h - Math.max(64, h * 0.1);
+      // a 470px/s ball crosses a phone in a third of the time it crosses a laptop
+      G.speedScale = Math.max(0.6, Math.min(1.1, Math.min(w, h) / 760));
+
+      G.paddle.w = mobile ? Math.min(w * 0.3, 130) : Math.max(96, Math.min(w * 0.16, 170));
+      // lifted clear of the bottom edge on touch so a thumb doesn't cover the paddle
+      G.paddle.y = h - (mobile ? Math.max(112, h * 0.16) : Math.max(64, h * 0.1));
       if (!preserve || G.paddle.x === 0) G.paddle.x = w / 2;
       G.paddle.x = Math.max(G.paddle.w / 2, Math.min(w - G.paddle.w / 2, G.paddle.x));
 
@@ -221,7 +236,7 @@ export default function Game404({ onExit }) {
     if (G.phase !== "ready") return;
     G.phase = "playing";
     setPhase("playing");
-    G.ball.speed = BASE_SPEED;
+    G.ball.speed = BASE_SPEED * G.speedScale;
     const angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.5;
     G.ball.vx = Math.cos(angle) * G.ball.speed;
     G.ball.vy = Math.sin(angle) * G.ball.speed;
@@ -371,7 +386,7 @@ export default function Game404({ onExit }) {
     ) {
       const offset = (ball.x - paddle.x) / (paddle.w / 2);
       const angle = -Math.PI / 2 + Math.max(-1, Math.min(1, offset)) * 1.05;
-      ball.speed = Math.min(MAX_SPEED, ball.speed + 6);
+      ball.speed = Math.min(MAX_SPEED * G.speedScale, ball.speed + 6);
       ball.vx = Math.cos(angle) * ball.speed;
       ball.vy = Math.sin(angle) * ball.speed;
       ball.y = paddle.y - ball.r - 1;
@@ -419,7 +434,7 @@ export default function Game404({ onExit }) {
     if (hits) {
       if (hitAxis === "x") ball.vx = -ball.vx;
       else ball.vy = -ball.vy;
-      ball.speed = Math.min(MAX_SPEED, ball.speed + hits * 1.6);
+      ball.speed = Math.min(MAX_SPEED * G.speedScale, ball.speed + hits * 1.6);
       const mag = Math.hypot(ball.vx, ball.vy) || 1;
       ball.vx = (ball.vx / mag) * ball.speed;
       ball.vy = (ball.vy / mag) * ball.speed;
@@ -559,13 +574,21 @@ export default function Game404({ onExit }) {
 
   // ── input ───────────────────────────────────────────────────────────────
   useEffect(() => {
+    const canvas = canvasRef.current;
+
     const onMove = (e) => {
       G.pointerX = e.clientX;
     };
+    // bound to the canvas, never window: a window-level preventDefault here
+    // swallows the synthesized click and kills every link/button on the page
     const onTouch = (e) => {
-      if (e.touches && e.touches[0]) {
-        G.pointerX = e.touches[0].clientX;
-        e.preventDefault();
+      if (!e.touches || !e.touches[0]) return;
+      G.pointerX = e.touches[0].clientX;
+      e.preventDefault();
+      if (e.type === "touchstart") {
+        setTouch(true);
+        if (G.phase === "ready") launch();
+        else if (G.phase === "dead" || G.phase === "won") reset();
       }
     };
     const onDown = () => {
@@ -594,18 +617,18 @@ export default function Game404({ onExit }) {
     const onResize = () => layout(true);
 
     window.addEventListener("mousemove", onMove);
-    window.addEventListener("touchmove", onTouch, { passive: false });
-    window.addEventListener("touchstart", onTouch, { passive: false });
     window.addEventListener("mousedown", onDown);
+    canvas.addEventListener("touchmove", onTouch, { passive: false });
+    canvas.addEventListener("touchstart", onTouch, { passive: false });
     window.addEventListener("keydown", onKey);
     window.addEventListener("keyup", onKeyUp);
     window.addEventListener("resize", onResize);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("touchmove", onTouch);
-      window.removeEventListener("touchstart", onTouch);
       window.removeEventListener("mousedown", onDown);
+      canvas.removeEventListener("touchmove", onTouch);
+      canvas.removeEventListener("touchstart", onTouch);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("keyup", onKeyUp);
       window.removeEventListener("resize", onResize);
@@ -623,30 +646,44 @@ export default function Game404({ onExit }) {
 
   return (
     <div ref={wrapRef} className="absolute inset-0 select-none" data-testid="game-404">
-      <canvas ref={canvasRef} className="absolute inset-0 block" />
+      {/* touch-none stops pull-to-refresh and pinch-zoom fighting the paddle drag */}
+      <canvas ref={canvasRef} className="absolute inset-0 block touch-none" />
 
-      {/* combo — top centre, matches the reference's counter position */}
-      <div className="pointer-events-none absolute top-5 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-widest uppercase text-zinc-500">
-        combo <span ref={comboRef} className="text-[var(--accent)]">×0</span>
+      {/* combo — top centre on desktop, where nothing else sits */}
+      <div className="pointer-events-none absolute top-5 left-1/2 hidden -translate-x-1/2 font-mono text-[11px] uppercase tracking-widest text-zinc-500 sm:block">
+        combo <span data-hud="combo" className="text-[var(--accent)]">×0</span>
+      </div>
+
+      {/* compact mobile HUD — clears the header, replaces the hidden right rail */}
+      <div className="pointer-events-none absolute inset-x-0 top-[68px] flex justify-center gap-4 font-mono text-[10px] uppercase tracking-widest text-zinc-600 sm:hidden">
+        <span>
+          combo <span data-hud="combo" className="text-[var(--accent)]">×0</span>
+        </span>
+        <span>
+          score <span data-hud="score" className="text-[var(--text)]">0000</span>
+        </span>
+        <span data-hud="lives" className="tracking-[0.2em] text-[var(--accent)]">
+          ●●●
+        </span>
       </div>
 
       {/* right rail */}
-      <div className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 hidden sm:flex flex-col items-end gap-6 font-mono text-[10px] uppercase tracking-widest text-zinc-600">
+      <div className="pointer-events-none absolute right-5 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-6 font-mono text-[10px] uppercase tracking-widest text-zinc-600 sm:flex">
         <div className="text-right">
           <div>score</div>
-          <div ref={scoreRef} className="mt-1 text-lg tracking-normal text-[var(--text)]">
+          <div data-hud="score" className="mt-1 text-lg tracking-normal text-[var(--text)]">
             0000
           </div>
         </div>
         <div className="text-right">
           <div>dots left</div>
-          <div ref={leftRef} className="mt-1 text-lg tracking-normal text-[var(--text)]">
+          <div data-hud="left" className="mt-1 text-lg tracking-normal text-[var(--text)]">
             0
           </div>
         </div>
         <div className="text-right">
           <div>lives</div>
-          <div ref={livesRef} className="mt-1 text-lg tracking-[0.2em] text-[var(--accent)]">
+          <div data-hud="lives" className="mt-1 text-lg tracking-[0.2em] text-[var(--accent)]">
             ●●●
           </div>
         </div>
@@ -654,9 +691,17 @@ export default function Game404({ onExit }) {
 
       {/* prompts */}
       {phase === "ready" && (
-        <div className="pointer-events-none absolute bottom-[16%] left-1/2 -translate-x-1/2 font-mono text-[11px] text-zinc-500">
-          <span className="cursor-blink text-[var(--accent)]">▍</span> click or press{" "}
-          <span className="text-[var(--text)]">space</span> to launch
+        <div className="pointer-events-none absolute bottom-[22%] left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] text-zinc-500 sm:bottom-[16%]">
+          <span className="cursor-blink text-[var(--accent)]">▍</span>{" "}
+          {touch ? (
+            <>
+              <span className="text-[var(--text)]">tap</span> to launch
+            </>
+          ) : (
+            <>
+              click or press <span className="text-[var(--text)]">space</span> to launch
+            </>
+          )}
         </div>
       )}
 
@@ -686,9 +731,15 @@ export default function Game404({ onExit }) {
 
       {/* controls hint */}
       <div className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] text-zinc-600">
-        // move: mouse or <span className="text-zinc-500">← →</span> · restart:{" "}
-        <span className="text-zinc-500">r</span> · leave:{" "}
-        <span className="text-zinc-500">esc</span>
+        {touch ? (
+          <>// <span className="text-zinc-500">drag</span> to move · tap to restart</>
+        ) : (
+          <>
+            // move: mouse or <span className="text-zinc-500">← →</span> · restart:{" "}
+            <span className="text-zinc-500">r</span> · leave:{" "}
+            <span className="text-zinc-500">esc</span>
+          </>
+        )}
       </div>
     </div>
   );
