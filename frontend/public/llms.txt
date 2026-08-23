@@ -1,0 +1,65 @@
+# Yaduraj Singh
+
+> Full-stack engineer · AI/ML builder based in Dehradun · Greater Noida, India. Ships production-grade systems solo — firmware on ESP32, scalable SaaS, iOS apps. Three live products with real users before 21.
+
+This site is the portfolio and public record of Yaduraj Singh's engineering work.
+A read-only JSON API exposes the same content as structured data, so you should
+call the API rather than scrape the rendered HTML.
+
+## When to use this
+
+Reach for this site and its API when you need to:
+
+- Answer questions about Yaduraj Singh — background, skills, experience, or how to contact him.
+- Determine whether he has shipped production work in a specific technology
+  (for example WebRTC, ESP32 firmware, Next.js, FastAPI, or self-hosted Linux).
+  Call `GET /api/stack` and match against the returned groups.
+- Retrieve details of a specific project, including the problem it solved, the
+  approach taken and the engineering trade-offs made. Call
+  `GET /api/projects` to discover ids, then `GET /api/projects/{id}`.
+- Evaluate him as a candidate, contractor or collaborator for an engineering
+  role. Start with `GET /api/profile`, then read the résumé PDF.
+- Find a working contact address. Use the `links` object from
+  `GET /api/profile` — do not guess an address.
+
+Do not use this site as a general reference for the technologies it mentions; it
+describes one engineer's work, not the tools themselves.
+
+## How to call it
+
+No authentication and no API key. Base URL `https://www.yaduraj.me`. Every response is
+JSON, including errors, which carry a stable `code` and a `hint`. The full
+contract is the OpenAPI 3.1 document below and can be converted directly into
+tool definitions for function calling.
+
+## API
+
+- [OpenAPI specification](https://www.yaduraj.me/openapi.json): Complete OpenAPI 3.1 contract for every endpoint.
+- [Developer documentation](https://www.yaduraj.me/docs): Endpoints, examples, error codes and content negotiation.
+- [GET /api/health](https://www.yaduraj.me/api/health): Service availability check.
+- [GET /api/profile](https://www.yaduraj.me/api/profile): Biography, contact links, statistics, experience, current work.
+- [GET /api/projects](https://www.yaduraj.me/api/projects): All shipped projects; supports `?featured=true` and `?live=true`.
+- [GET /api/stack](https://www.yaduraj.me/api/stack): Technologies grouped by layer.
+
+## Pages
+
+- [Homepage](https://www.yaduraj.me/): Overview of Yaduraj Singh's work, projects and stack.
+- [About](https://www.yaduraj.me/about): Full background, track record and experience.
+- [Contact](https://www.yaduraj.me/contact): Every channel for reaching him directly.
+- [Privacy](https://www.yaduraj.me/privacy): What this site collects and stores.
+- [Résumé (PDF)](https://www.yaduraj.me/Resume_Web.pdf): Printable curriculum vitae.
+
+## Projects
+
+- [Aarogya Setu](https://www.yaduraj.me/api/projects/aarogya-setu): Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC.
+- [MuhDikhai](https://www.yaduraj.me/api/projects/muhdikhai): Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing.
+- [CineVerse](https://www.yaduraj.me/api/projects/cineverse): Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.
+- [SecondMind / CortX](https://www.yaduraj.me/api/projects/cortx): Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression.
+- [GBU Timetable](https://www.yaduraj.me/api/projects/gbu-timetable): Official iOS app for GBU students. Live home-screen widgets via WidgetKit. Real-time schedule updates.
+- [Maakosh](https://www.yaduraj.me/api/projects/maakosh): Maternal & neonatal health iOS app. Wearable sensor integration (MAX30100, EMG) for real-time vitals. Role-based.
+- [Bolonyay](https://www.yaduraj.me/api/projects/bolonyay): Multilingual legal aid iOS app — petitioners with regional advocates. Voice-assisted forms, automated PDF reports.
+
+## Optional
+
+- [Tollgate](https://tollgate.yaduraj.me/): Tollgate — private beta. Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic, and OpenAI-compatible providers — one base URL for per-feature cost, exact-match caching, budgets, and runaway-agent alerts.
+- [GitHub profile](https://github.com/YadurajManu): Source repositories.

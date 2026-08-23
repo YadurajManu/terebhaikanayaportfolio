@@ -17,7 +17,6 @@ import CommandPalette from "./components/CommandPalette";
 import ProjectModal from "./components/ProjectModal";
 import CursorSpotlight from "./components/CursorSpotlight";
 import BootScreen from "./components/BootScreen";
-import CVRedirect from "./pages/CVRedirect";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
@@ -72,7 +71,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/cv" element={<CVRedirect />} />
+            {/* /cv and /resume are HTTP 308 redirects to the PDF (see vercel.json).
+                They never reach the router — a client-side redirect is invisible
+                to agents that do not execute JavaScript. */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

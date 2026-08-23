@@ -35,6 +35,11 @@
         <!-- Robots -->
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
+        <!-- Machine-readable alternates for agents -->
+        <link rel="alternate" type="text/markdown" href="https://www.yaduraj.me/md/index.md" />
+        <link rel="alternate" type="application/json" href="https://www.yaduraj.me/openapi.json" title="OpenAPI specification" />
+        <link rel="sitemap" type="application/xml" href="https://www.yaduraj.me/sitemap.xml" />
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -117,6 +122,76 @@
             "author": {
                 "@type": "Person",
                 "name": "Yaduraj Singh"
+            }
+        }
+        </script>
+
+        <!-- JSON-LD: Organization schema (contactPoint + address for agent verification) -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://www.yaduraj.me/#organization",
+            "name": "Yaduraj Singh — Engineering",
+            "alternateName": "yaduraj.me",
+            "url": "https://www.yaduraj.me/",
+            "logo": "https://www.yaduraj.me/og.png",
+            "image": "https://www.yaduraj.me/og.png",
+            "description": "Independent software engineering practice of Yaduraj Singh — full-stack product development, real-time systems, AI/ML pipelines, embedded firmware and self-hosted infrastructure.",
+            "email": "yadurajsingham@gmail.com",
+            "telephone": "+91-9220916445",
+            "founder": {
+                "@type": "Person",
+                "name": "Yaduraj Singh",
+                "url": "https://www.yaduraj.me/"
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Dehradun",
+                "addressRegion": "Uttarakhand",
+                "postalCode": "248001",
+                "addressCountry": "IN"
+            },
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "customer support",
+                    "email": "yadurajsingham@gmail.com",
+                    "telephone": "+91-9220916445",
+                    "availableLanguage": ["English", "Hindi"],
+                    "areaServed": "Worldwide",
+                    "url": "https://www.yaduraj.me/contact"
+                },
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "technical support",
+                    "email": "yadurajsingham@gmail.com",
+                    "availableLanguage": ["English"],
+                    "areaServed": "Worldwide",
+                    "url": "https://www.yaduraj.me/docs"
+                }
+            ],
+            "sameAs": [
+                "https://github.com/YadurajManu",
+                "https://www.linkedin.com/in/yadurajenc"
+            ]
+        }
+        </script>
+
+        <!-- JSON-LD: the public API surface, so agents can discover it from the homepage -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebAPI",
+            "name": "Yaduraj Singh — Portfolio API",
+            "description": "Public read-only JSON API exposing profile, projects and technology stack as structured data.",
+            "url": "https://www.yaduraj.me/docs",
+            "documentation": "https://www.yaduraj.me/docs",
+            "termsOfService": "https://www.yaduraj.me/privacy",
+            "provider": { "@id": "https://www.yaduraj.me/#organization" },
+            "potentialAction": {
+                "@type": "ConsumeAction",
+                "target": "https://www.yaduraj.me/api/profile"
             }
         }
         </script>

@@ -55,8 +55,11 @@
   },
   "scripts": {
     "start": "craco start",
+    "prebuild": "node scripts/gen-openapi.js && node scripts/gen-pages.js",
     "build": "craco build",
-    "test": "craco test"
+    "postbuild": "node scripts/prerender.js",
+    "test": "craco test",
+    "verify:agent-readiness": "node scripts/verify-agent-readiness.js"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#050505" />
+<title>Privacy — Yaduraj Singh</title>
+<meta name="description" content="What this site collects, what it stores in your browser, and what it never does." />
+<link rel="canonical" href="https://www.yaduraj.me/privacy" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate" type="text/markdown" href="https://www.yaduraj.me/md/privacy.md" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.yaduraj.me/privacy" />
+<meta property="og:title" content="Privacy — Yaduraj Singh" />
+<meta property="og:description" content="What this site collects, what it stores in your browser, and what it never does." />
+<meta property="og:image" content="https://www.yaduraj.me/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#050505;--surface:#0A0A0A;--border:#1f1f1f;--text:#F5F5F5;--text-2:#A1A1AA;--text-3:#52525B;--accent:#4ADE80}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+nav{display:flex;flex-wrap:wrap;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+nav a{color:var(--text-3);text-decoration:none}
+nav a:hover,nav a[aria-current]{color:var(--accent)}
+h1{font-size:2.25rem;line-height:1.15;letter-spacing:-.04em;margin:0 0 1.25rem}
+h2{font-size:1.35rem;letter-spacing:-.02em;margin:2.5rem 0 .75rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+h3{font-size:1.05rem;margin:1.75rem 0 .5rem;color:var(--text)}
+p,li{color:var(--text-2)}
+a{color:var(--accent)}
+ul{padding-left:1.1rem}
+li{margin:.35rem 0}
+strong{color:var(--text);font-weight:600}
+code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:.1rem .35rem;color:var(--text)}
+blockquote{margin:1.5rem 0;padding:.5rem 0 .5rem 1rem;border-left:2px solid var(--accent)}
+blockquote p{color:var(--text);font-size:1.1rem}
+table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.92rem;display:block;overflow-x:auto}
+th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--border)}
+th{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)}
+td{color:var(--text-2)}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-3)}
+footer a{color:var(--text-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">home</a><a href="/about">about</a><a href="/docs">docs</a><a href="/contact">contact</a><a href="/privacy" aria-current="page">privacy</a></nav>
+<main>
+<h1>Privacy</h1>
+<p>This is a personal portfolio site. It sells nothing, has no user accounts, and asks for no personal information. There is no login, no sign-up form, and no newsletter.</p>
+<h2>What is collected</h2>
+<p>The site runs two analytics tools:</p>
+<ul><li><strong>Plausible Analytics</strong> — privacy-focused, cookieless analytics. It records aggregate page views, referrers and coarse country-level location. It does not use cookies and does not track individuals across sites.</li><li><strong>PostHog</strong> — product analytics used to understand which sections of the site are used.</li></ul>
+<p>Aggregate, country-level visitor counts from Plausible are displayed publicly on the homepage as a visitor map. Those figures are counts only and identify no individual.</p>
+<h2>Browser storage</h2>
+<p>The site stores two values in your own browser. Neither is transmitted anywhere and neither identifies you:</p>
+<ul><li><code>yr-theme</code> in <code>localStorage</code> — remembers whether you chose the light or dark theme.</li><li><code>yr-booted</code> in <code>sessionStorage</code> — remembers that the intro animation already played, so it does not replay on every page view.</li></ul>
+<p>You can clear both at any time through your browser settings with no loss of functionality.</p>
+<h2>What is never done</h2>
+<p>No personal data is sold, rented or shared with advertisers. There is no advertising network on this site, no cross-site tracking pixel, and no fingerprinting. Contact details you send by email are used solely to reply to you.</p>
+<h2>Third parties</h2>
+<p>Pages load fonts from Google Fonts and the site is served by Vercel. Both receive standard request metadata such as IP address and user agent as an unavoidable part of delivering the page.</p>
+<h2>Contact</h2>
+<p>Questions about privacy, or a request to remove anything: email <a href="mailto:yadurajsingham@gmail.com">yadurajsingham@gmail.com</a>.</p>
+</main>
+<footer>
+// machine-readable: <a href="/llms.txt">llms.txt</a> · <a href="/openapi.json">openapi.json</a> · <a href="/md/privacy.md">markdown</a>
+<br />&copy; 2026 Yaduraj Singh · <a href="https://www.yaduraj.me/">www.yaduraj.me</a>
+</footer>
+</div>
+</body>
+</html>

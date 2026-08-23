@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#050505" />
+<title>API documentation — Yaduraj Singh</title>
+<meta name="description" content="Public read-only JSON API for the yaduraj.me portfolio: endpoints, examples, error codes and OpenAPI specification." />
+<link rel="canonical" href="https://www.yaduraj.me/docs" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate" type="text/markdown" href="https://www.yaduraj.me/md/docs.md" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.yaduraj.me/docs" />
+<meta property="og:title" content="API documentation — Yaduraj Singh" />
+<meta property="og:description" content="Public read-only JSON API for the yaduraj.me portfolio: endpoints, examples, error codes and OpenAPI specification." />
+<meta property="og:image" content="https://www.yaduraj.me/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#050505;--surface:#0A0A0A;--border:#1f1f1f;--text:#F5F5F5;--text-2:#A1A1AA;--text-3:#52525B;--accent:#4ADE80}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+nav{display:flex;flex-wrap:wrap;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+nav a{color:var(--text-3);text-decoration:none}
+nav a:hover,nav a[aria-current]{color:var(--accent)}
+h1{font-size:2.25rem;line-height:1.15;letter-spacing:-.04em;margin:0 0 1.25rem}
+h2{font-size:1.35rem;letter-spacing:-.02em;margin:2.5rem 0 .75rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+h3{font-size:1.05rem;margin:1.75rem 0 .5rem;color:var(--text)}
+p,li{color:var(--text-2)}
+a{color:var(--accent)}
+ul{padding-left:1.1rem}
+li{margin:.35rem 0}
+strong{color:var(--text);font-weight:600}
+code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:.1rem .35rem;color:var(--text)}
+blockquote{margin:1.5rem 0;padding:.5rem 0 .5rem 1rem;border-left:2px solid var(--accent)}
+blockquote p{color:var(--text);font-size:1.1rem}
+table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.92rem;display:block;overflow-x:auto}
+th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--border)}
+th{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)}
+td{color:var(--text-2)}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-3)}
+footer a{color:var(--text-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">home</a><a href="/about">about</a><a href="/docs" aria-current="page">docs</a><a href="/contact">contact</a><a href="/privacy">privacy</a></nav>
+<main>
+<h1>Developer documentation — yaduraj.me API</h1>
+<p>A public, read-only JSON API describing the engineering portfolio of Yaduraj Singh. Built for automated agents and integrations that need structured data instead of scraped HTML.</p>
+<h2>At a glance</h2>
+<ul><li><strong>Base URL:</strong> <code>https://www.yaduraj.me</code></li><li><strong>Authentication:</strong> none — every endpoint is public</li><li><strong>Rate limit:</strong> none published</li><li><strong>OpenAPI specification:</strong> <a href="https://www.yaduraj.me/openapi.json">/openapi.json</a></li><li><strong>Agent index:</strong> <a href="https://www.yaduraj.me/llms.txt">/llms.txt</a></li></ul>
+<h2>Endpoints</h2>
+<table><thead><tr><th>Method</th><th>Path</th><th>Operation</th><th>Description</th></tr></thead><tbody><tr><td>GET</td><td><code>/api/health</code></td><td>getHealth</td><td>Service availability.</td></tr><tr><td>GET</td><td><code>/api/profile</code></td><td>getProfile</td><td>Biography, contact links, stats, experience, current work.</td></tr><tr><td>GET</td><td><code>/api/projects</code></td><td>listProjects</td><td>All projects. Filter with <code>?featured=true</code> or <code>?live=true</code>.</td></tr><tr><td>GET</td><td><code>/api/projects/{id}</code></td><td>getProjectById</td><td>One project including metrics and full case study.</td></tr><tr><td>GET</td><td><code>/api/stack</code></td><td>getStack</td><td>Technologies grouped by layer.</td></tr></tbody></table>
+<p>Valid project ids: <code>aarogya-setu</code>, <code>muhdikhai</code>, <code>cineverse</code>, <code>cortx</code>, <code>gbu-timetable</code>, <code>maakosh</code>, <code>bolonyay</code>.</p>
+<h2>Example request</h2>
+<p>``<code> curl -s https://www.yaduraj.me/api/projects/aarogya-setu </code>``</p>
+<h2>Errors</h2>
+<p>Every failure returns JSON — never an HTML error page — with a stable <code>code</code> and a <code>hint</code> describing how to fix the request.</p>
+<p>``<code> { &quot;error&quot;: { &quot;status&quot;: 404, &quot;code&quot;: &quot;project_not_found&quot;, &quot;message&quot;: &quot;No project exists with id 'nope'.&quot;, &quot;hint&quot;: &quot;Valid ids: ... List them at /api/projects.&quot;, &quot;documentation&quot;: &quot;https://www.yaduraj.me/docs&quot;, &quot;specification&quot;: &quot;https://www.yaduraj.me/openapi.json&quot; } } </code>``</p>
+<p>Error codes: <code>invalid_parameter</code>, <code>project_not_found</code>, <code>endpoint_not_found</code>, <code>method_not_allowed</code>.</p>
+<h2>Markdown content negotiation</h2>
+<p>Send <code>Accept: text/markdown</code> to this page, the homepage, <code>/about</code>, <code>/contact</code> or <code>/privacy</code> and the markdown source is returned instead of HTML, per <a href="https://acceptmarkdown.com">acceptmarkdown.com</a>. Responses carry <code>Vary: Accept</code> so caches keep the variants separate.</p>
+<p>``<code> curl -H &quot;Accept: text/markdown&quot; https://www.yaduraj.me/about </code>``</p>
+<h2>Function calling</h2>
+<p>The OpenAPI document is 3.1.0, and every operation has a unique <code>operationId</code>, a description, typed parameters and a response schema — so it can be converted directly into LLM tool definitions.</p>
+</main>
+<footer>
+// machine-readable: <a href="/llms.txt">llms.txt</a> · <a href="/openapi.json">openapi.json</a> · <a href="/md/docs.md">markdown</a>
+<br />&copy; 2026 Yaduraj Singh · <a href="https://www.yaduraj.me/">www.yaduraj.me</a>
+</footer>
+</div>
+</body>
+</html>

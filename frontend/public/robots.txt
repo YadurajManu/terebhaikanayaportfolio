@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
-Disallow:
 
-Sitemap: https://yaduraj.me/sitemap.xml
+# Machine-readable entry points for AI agents and crawlers
+# Agent index (llmstxt.org): https://www.yaduraj.me/llms.txt
+# OpenAPI 3.1 specification: https://www.yaduraj.me/openapi.json
+# Developer documentation:   https://www.yaduraj.me/docs
+
+Sitemap: https://www.yaduraj.me/sitemap.xml
