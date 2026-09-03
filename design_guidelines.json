@@ -1,26 +1,35 @@
 {
   "project_name": "Yaduraj Singh Portfolio",
+  "_note": "Descriptive, not aspirational. Every value here is checked against frontend/src/index.css, tailwind.config.js and the components. If you change the code, change this file — it is the design contract, not a wishlist.",
   "identity": {
     "name": "Yaduraj Singh",
     "age": 20,
     "role": "Full-stack engineer / AI-ML builder",
-    "differentiator": "Production code at 20. Self-hosted infra. 3 live apps.",
+    "differentiator": "Production code at 20. Self-hosted infra. Live apps with real users.",
     "vibe": "Code-first, confident builder, dark terminal meets Linear."
   },
   "theme": {
-    "mode": "dark",
+    "mode": "dark default, light via [data-theme=\"light\"] on <html>",
+    "source_of_truth": "frontend/src/index.css :root block",
     "colors": {
       "background": "#050505",
       "surface": "#0A0A0A",
       "surface_elevated": "#121212",
-      "border": "#222222",
-      "border_hover": "#333333",
-      "text_primary": "#F9FAFB",
+      "border": "#1f1f1f",
+      "border_hover": "#2f2f2f",
+      "text_primary": "#F5F5F5",
       "text_secondary": "#A1A1AA",
       "text_tertiary": "#52525B",
       "accent_terminal": "#4ADE80",
       "accent_white": "#FFFFFF"
-    }
+    },
+    "light_overrides": {
+      "background": "#FAFAF9",
+      "surface": "#FFFFFF",
+      "text_primary": "#09090B",
+      "accent_terminal": "#16A34A"
+    },
+    "usage": "Always reference var(--bg), var(--surface), var(--border), var(--text), var(--accent) rather than literals, so light mode follows for free. Light mode is implemented as targeted utility overrides at the bottom of index.css — a new hardcoded zinc/black utility may need an override added there."
   },
   "typography": {
     "fonts": {
@@ -28,67 +37,105 @@
       "body": "Geist, sans-serif",
       "mono": "JetBrains Mono, monospace"
     },
+    "loaded_via": "<link> in frontend/public/index.html — never re-declare @import in CSS",
     "hierarchy": {
-      "h1": "text-5xl md:text-6xl tracking-tighter font-medium text-white",
-      "h2": "text-2xl tracking-tight font-medium text-white",
+      "h1": "font-display text-[14vw] sm:text-[10vw] md:text-[88px] lg:text-[112px] leading-[0.92] font-medium text-white",
+      "h2": "font-display text-4xl md:text-5xl tracking-tighter font-medium text-white",
+      "h3_card": "font-display text-2xl md:text-3xl text-white tracking-tight",
       "body": "text-base text-zinc-400 leading-relaxed",
-      "mono_label": "font-mono text-xs text-zinc-500 tracking-tight"
-    }
+      "mono_label": "font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500"
+    },
+    "rules": [
+      "Section titles and nav labels are lowercase. Prose is sentence case.",
+      "Every label, badge, metric key, timestamp and micro-caption is mono.",
+      "Section subtitles are slash comments: `// shipped & live`.",
+      "Ordinal indices are zero-padded and accent-coloured: 01, 02, 03."
+    ]
   },
   "layout": {
-    "container": "max-w-3xl mx-auto px-6 md:px-8",
-    "spacing": "gap-24",
-    "section_pad": "py-24"
+    "container": "max-w-5xl mx-auto px-6 md:px-10",
+    "section_pad": "py-28 md:py-36",
+    "grid": "md:grid-cols-12 for split sections; md:grid-cols-2 for the project grid",
+    "radius": "rounded-2xl cards, rounded-xl inner tiles, rounded-full pills and buttons"
   },
   "ui_elements": {
-    "cards": "border border-zinc-800 bg-[#0A0A0A] p-6 rounded-xl hover:border-zinc-600 transition-colors",
-    "buttons_primary": "bg-white text-black h-10 px-6 rounded-md font-medium text-sm hover:bg-zinc-200 transition-colors",
-    "buttons_ghost": "bg-transparent text-zinc-400 h-10 px-4 rounded-md font-mono text-sm hover:text-white transition-colors",
-    "badges": "px-2.5 py-1 rounded-md border border-zinc-800 bg-zinc-900/50 text-xs font-mono text-zinc-400"
+    "cards": "rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7",
+    "buttons_primary": "bg-white text-black h-11 px-5 rounded-full font-medium text-sm hover:bg-zinc-200 transition-colors",
+    "buttons_ghost": "bg-transparent text-zinc-300 border border-white/15 h-11 px-5 rounded-full font-mono text-sm hover:text-white hover:border-white/30 transition-colors",
+    "badges": "px-2 py-0.5 rounded-md border border-white/[0.08] bg-white/[0.015] text-[10.5px] font-mono text-zinc-400",
+    "live_dot": "Green ping dot — a stacked animate-ping halo over a solid bg-[var(--accent)] dot. Used anywhere something is genuinely live.",
+    "section_header": "components/SectionHeader.jsx — index + rule + `// subtitle`, then the title with an accent full stop."
   },
-  "sections": [
+  "sections_in_order": [
+    {
+      "name": "BootScreen",
+      "details": "First visit only, gated on sessionStorage `yr-booted`. Fake systemd boot log, 1.5s, then fades. Project and stack counts are derived from portfolio.json — never typed by hand."
+    },
     {
       "name": "Navigation",
-      "details": "Sticky top floating pill. backdrop-blur-md, bg-black/50, border-white/10. Links to sections."
+      "details": "Fixed floating pill, backdrop-blur-xl, border/bg darken past 24px scroll. Holds section links, time-on-site, ⌘K trigger, ambient-audio toggle, theme toggle, mobile menu."
     },
     {
       "name": "Hero",
-      "details": "Terminal `$ whoami` in green. Massive Name in Outfit. Tagline. 'Download Resume' (placeholder button) + 'View Work'."
+      "details": "Full-height, grid-bg + radial accent spotlight. Scrambling name in Outfit at display size, tagline, `view work` + `download resume` (/cv), socials. Right column is the interactive LiveTerminal."
     },
     {
-      "name": "About",
-      "details": "List points: Self-hosted Linux infra (Nginx/PM2), 3 live production apps, Hackathon winner."
+      "name": "Stats",
+      "details": "Four-up strip, pulled up over the hero fade with -mt-12. Values are display-size tabular numerals over mono labels."
     },
     {
-      "name": "Now Building",
-      "details": "Special highlighted card for SubSlot (subscription slot-sharing marketplace). Emerald border glow."
+      "name": "About — 01",
+      "details": "12-col split. Large statement left, checklist of ABOUT_POINTS right."
     },
     {
-      "name": "Experience",
-      "details": "Timeline style. LEAP iOS Lead, Lead Software Developer at GBU."
+      "name": "Now Building — 02",
+      "details": "Single highlighted card for the current product. Accent border, glow-border hover, sweeping press-feedback-card sheen, radial accent bloom, bullet tiles, mono `git status` footer line."
     },
     {
-      "name": "Projects",
-      "details": "2-col grid. Cards for Aarogya Setu, MuhDikhai, CineVerse, SecondMind/CortX, Likhai, GBU Timetable, Maakosh, Bolonyay. Live URLs."
+      "name": "Experience — 03",
+      "details": "Vertical timeline with accent ring nodes and a fading rule."
     },
     {
-      "name": "Tech Stack",
-      "details": "Badges grouped by: Web, Mobile, AI/ML, Embedded, DevOps/Infra."
+      "name": "Projects — 04",
+      "details": "FeaturedProject card (metrics grid + fake curl 200 OK line) followed by a 2-col grid of ProjectCards. Every card opens ProjectModal with the case study. Prose counts derive from PROJECTS.length."
     },
     {
-      "name": "Contact",
-      "details": "mailto link. Copy phone number to clipboard (triggers Sonner toast). GitHub, LinkedIn."
+      "name": "Tech Stack — 05",
+      "details": "Two columns of mono badge groups, each headed by a /slug-path label and a fading rule."
+    },
+    {
+      "name": "Contact — 06",
+      "details": "Statement + big mailto left; phone (copy to clipboard, Sonner toast), GitHub, LinkedIn, portfolio rows right."
+    },
+    {
+      "name": "Footer",
+      "details": "Agent-facing links (/about, /docs, /contact, /privacy, /llms.txt, /openapi.json) as plain <a> — real documents outside the SPA — over a mono echo line."
     }
   ],
-  "media": {
-    "hero_bg": "https://static.prod-images.emergentagent.com/jobs/bf010826-c7ca-41be-8010-1ed05ec50c4c/images/1fa49ed2f4c59bd75f1898deb8c6933253abf9c5991fe0798fa29e984b010fde.png",
-    "avatar_placeholder": "https://images.unsplash.com/photo-1744957661600-e1172b3c5630?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjBwb3J0cmFpdCUyMGRhcmslMjBzaWxob3VldHRlfGVufDB8fHx8MTc3ODE3MTUyNHww&ixlib=rb-4.1.0&q=85"
+  "overlays": [
+    "CommandPalette — ⌘K or `/`. Navigate, open any project, copy email/phone, open socials, toggle theme.",
+    "ProjectModal — case study: problem, approach, decisions, stack, metrics.",
+    "CursorSpotlight — accent radial that trails the cursor, disabled on (hover: none)."
+  ],
+  "data": {
+    "source_of_truth": "frontend/src/data/portfolio.json",
+    "consumers": [
+      "React components via src/data/portfolio.js",
+      "serverless API under frontend/api/",
+      "scripts/gen-openapi.js -> public/openapi.json",
+      "scripts/gen-pages.js -> public/{about,contact,docs,privacy}/index.html, public/md/*.md, public/llms.txt",
+      "scripts/prerender.js -> no-JS content injected into build/index.html and build/404.html"
+    ],
+    "rule": "Add or edit content in the JSON only. Anything that restates a count in prose must derive it from the data, not repeat it."
   },
   "motion": {
-    "scroll": "Lenis smooth scroll mandatory.",
-    "animations": "Subtle framer-motion slide-ups (y: 10, opacity: 0 -> 1). Staggered lists."
+    "scroll": "Native CSS scroll-behavior: smooth. No Lenis — do not add a scroll library.",
+    "animations": "components/Reveal.jsx — IntersectionObserver fade + 14px lift, cubic-bezier(0.22, 1, 0.36, 1), staggered by a delay prop. No framer-motion; the dependency is not installed and the CSS keyframes in index.css cover the rest.",
+    "keyframes": "revealUp, blink (cursor), marquee — all in index.css"
   },
-  "testing": {
-    "requirements": "data-testid on EVERY interactive element. e.g., data-testid='nav-about', data-testid='contact-copy-phone'"
+  "accessibility_and_testing": {
+    "requirements": "data-testid on EVERY interactive element, e.g. data-testid='nav-about', data-testid='contact-copy-phone'.",
+    "agent_readability": "The site is built to be readable without JavaScript. Any new section must also appear in scripts/prerender.js and scripts/gen-pages.js, or it exists for humans only.",
+    "checks": "npm test (frontend) and npm run verify:agent-readiness -- <origin>"
   }
 }

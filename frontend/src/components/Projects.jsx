@@ -2,7 +2,16 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
 import FeaturedProject from "./FeaturedProject";
+import ProjectCover from "./ProjectCover";
 import Reveal from "./Reveal";
+
+/** Keeps the prose reading like prose without hardcoding a count that drifts. */
+const NUMBER_WORDS = [
+  "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+  "Nine", "Ten", "Eleven", "Twelve",
+];
+
+const spellCount = (n) => NUMBER_WORDS[n] ?? String(n);
 
 export default function Projects({ onOpenProject }) {
   const featured = PROJECTS.find((p) => p.featured);
@@ -25,8 +34,9 @@ export default function Projects({ onOpenProject }) {
 
         <Reveal delay={80}>
           <p className="mt-6 max-w-2xl text-zinc-400">
-            Seven production projects across SaaS, real-time, AI/ML, embedded, and
-            iOS. Click any card for a deeper case study.
+            {spellCount(PROJECTS.length)} production projects across SaaS,
+            real-time, AI/ML, embedded, and iOS. Click any card for a deeper case
+            study.
           </p>
         </Reveal>
 
@@ -63,6 +73,8 @@ function ProjectCard({ p, index, onOpen }) {
       className="group relative block text-left overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7"
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-white/[0.025] to-transparent pointer-events-none" />
+
+      <ProjectCover project={p} className="relative mb-6" />
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">

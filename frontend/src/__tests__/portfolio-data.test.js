@@ -62,6 +62,20 @@ describe("projects", () => {
   });
 });
 
+describe("stats", () => {
+  /**
+   * The homepage, the JSON API, the markdown pages and the prerender all read
+   * this number from the JSON, while the projects section and boot screen count
+   * PROJECTS directly. It drifted to "08" against seven projects once; this is
+   * what stops it drifting again.
+   */
+  it("reports the same project count the projects list actually holds", () => {
+    const shipped = STATS.find((s) => s.label === "shipped projects");
+    expect(shipped).toBeDefined();
+    expect(Number(shipped.value)).toBe(PROJECTS.length);
+  });
+});
+
 describe("stack", () => {
   it("is grouped with non-empty item lists", () => {
     for (const group of STACK) {

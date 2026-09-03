@@ -19,7 +19,12 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
+    // Reduced motion, or no observer to lean on: show the content, skip the
+    // choreography. Never leave it at opacity 0 waiting for an event.
+    const reduced =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || typeof IntersectionObserver === "undefined") {
       setShown(true);
       return;
     }

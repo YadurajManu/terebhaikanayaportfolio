@@ -26,16 +26,69 @@
     }
   ],
   "NOW_BUILDING": {
-    "name": "Tollgate",
-    "status": "private beta",
-    "url": "https://tollgate.yaduraj.me/",
+    "name": "Fleet OS",
+    "status": "open source · mit",
+    "statusLine": "open source · heterogeneous fleet orchestration",
+    "url": "https://fleet.plastikworld.xyz",
+    "repo": "https://github.com/YadurajManu/fleet-os",
     "cta": "open product",
-    "pitch": "Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic, and OpenAI-compatible providers — one base URL for per-feature cost, exact-match caching, budgets, and runaway-agent alerts.",
+    "pitch": "Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.",
     "bullets": [
-      "Point one base_url at Tollgate — OpenAI, Anthropic, xAI, OpenRouter, Gemini, and more. No SDK rewrite.",
-      "Per-feature (tag) spend visibility, exact-match prompt caching, and hard budgets.",
-      "Runaway-agent alerts & guards — stop burn before another overnight surprise bill."
-    ]
+      "Outbound-only Go agents — no inbound Docker socket, no SSH key, no port to forward. A Pi behind a home router is a first-class node.",
+      "Weighted scheduling across CPU, memory headroom, reliability tier, tags, GPU and affinity — and the placement plan explains every node it rejected.",
+      "Health-gated rollouts: the release that works keeps serving until its replacement proves it can serve too."
+    ],
+    "id": "fleet-os",
+    "tag": "Infra · Orchestration",
+    "diagram": "fleet-topology",
+    "stack": [
+      "Go",
+      "TypeScript",
+      "Fastify",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Redis",
+      "Docker Buildx",
+      "React",
+      "Vite",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
+    "metrics": [
+      {
+        "k": "Inbound ports",
+        "v": "0"
+      },
+      {
+        "k": "Agent",
+        "v": "Go static"
+      },
+      {
+        "k": "Arches",
+        "v": "arm64 · armv7 · amd64"
+      },
+      {
+        "k": "License",
+        "v": "MIT"
+      }
+    ],
+    "caseStudy": {
+      "problem": "Coolify, Dokploy and CapRover are excellent single-server deployment tools, but their scheduling model assumes one stable host or a fairly uniform cluster. Balena assumes a fleet of similarly managed devices. None of them fit the hardware most people actually have lying around — a Raspberry Pi, an old laptop and a spare VPS, on different architectures, behind different networks, none of them reliably online.",
+      "approach": [
+        "Outbound-only Go agents: each node reports its capabilities and heartbeats over outbound HTTPS and reconciles container state locally. No inbound Docker socket, no SSH key, no port to forward.",
+        "The control plane holds a reverse tunnel for ingress, so a machine on a college LAN or behind a home router can serve public traffic without a port forward.",
+        "Weighted scheduling across CPU, memory headroom, reliability tier, tags, GPU, affinity and anti-affinity — with a dry-run placement plan that explains every node it rejected.",
+        "Architecture-aware multi-platform builds through Docker Buildx, pushed to a registry the fleet pulls from, so an arm64 Pi and an amd64 VPS each get an image they can run.",
+        "Health-gated rollouts plus heartbeat liveness, cordon/drain controls, and automatic failover for flexible services."
+      ],
+      "decisions": [
+        "Heterogeneous, intermittently connected hardware is the design centre, not an edge case — capability discovery is reported by agents rather than assumed by the scheduler.",
+        "Pinned stateful services are treated differently from movable stateless ones, because rescheduling a database is not the same as rescheduling a web process.",
+        "Per-organisation GitHub App installations, so a shared control plane never lets one tenant reach another's repositories.",
+        "Envelope-encrypted secrets with per-secret keys, injected only into the services that declare them.",
+        "MIT with no open-core split and no enterprise fork — what is in the repository is the product."
+      ]
+    }
   },
   "PROFILE": {
     "name": "Yaduraj Singh",
@@ -99,6 +152,54 @@
           "Chose Prisma over raw SQL for type-safety across 9 modules.",
           "Picked self-hosted over Vercel — cost predictability + SSH debug access.",
           "OPD/IPD queue logic kept stateful in Redis — sub-100ms updates."
+        ]
+      }
+    },
+    {
+      "id": "tollgate",
+      "name": "Tollgate",
+      "blurb": "Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts.",
+      "stack": [
+        "OpenAI API",
+        "Anthropic API",
+        "OpenRouter",
+        "Vercel"
+      ],
+      "url": "https://tollgate.yaduraj.me/",
+      "repo": null,
+      "tag": "LLMOps · Proxy",
+      "live": true,
+      "lastDeploy": "private beta",
+      "metrics": [
+        {
+          "k": "Integration",
+          "v": "1 base_url"
+        },
+        {
+          "k": "Caching",
+          "v": "Exact-match"
+        },
+        {
+          "k": "Budgets",
+          "v": "Hard caps"
+        },
+        {
+          "k": "Providers",
+          "v": "OpenAI-compatible"
+        }
+      ],
+      "caseStudy": {
+        "problem": "LLM spend is invisible until the invoice arrives. There is no per-feature breakdown, no cache between identical calls, and nothing standing between a looping agent and an overnight surprise bill.",
+        "approach": [
+          "Point one base_url at Tollgate — OpenAI, Anthropic, xAI, OpenRouter, Gemini and more. No SDK rewrite.",
+          "Per-feature (tag) spend visibility, so cost is attributed to the feature that caused it.",
+          "Exact-match prompt caching, so identical calls stop being paid for twice.",
+          "Hard budgets plus runaway-agent alerts and guards — stop burn before it becomes a bill."
+        ],
+        "decisions": [
+          "OpenAI-compatible surface over a client library — adopting it is a base URL change, not a migration.",
+          "Proxy rather than SDK wrapper, so every language and framework is covered at once.",
+          "Budgets enforced at the gateway — a guard the calling code cannot forget to apply."
         ]
       }
     },
@@ -350,7 +451,10 @@
         "TypeScript",
         "Node.js",
         "Express",
+        "Fastify",
         "tRPC",
+        "Drizzle ORM",
+        "Vite",
         "Tailwind",
         "shadcn/ui"
       ]
@@ -418,8 +522,10 @@
     {
       "group": "DevOps / infra",
       "items": [
+        "Go",
         "Docker",
         "Compose",
+        "Docker Buildx",
         "GitHub Actions",
         "Nginx",
         "PM2",

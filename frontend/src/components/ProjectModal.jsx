@@ -1,9 +1,19 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ArrowUpRight, Github, X } from "lucide-react";
+import FleetTopology from "./diagrams/FleetTopology";
+
+/**
+ * Opt-in architecture drawings, keyed by the `diagram` field in portfolio.json.
+ * A project without one simply renders no diagram section.
+ */
+const DIAGRAMS = {
+  "fleet-topology": FleetTopology,
+};
 
 export default function ProjectModal({ project, open, onOpenChange }) {
   if (!project) return null;
   const cs = project.caseStudy || {};
+  const Diagram = project.diagram ? DIAGRAMS[project.diagram] : null;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -74,6 +84,22 @@ export default function ProjectModal({ project, open, onOpenChange }) {
             label="// problem"
             content={<p className="text-zinc-300 leading-relaxed">{cs.problem}</p>}
           />
+
+          {Diagram && (
+            <Section
+              label="// architecture"
+              content={
+                <div
+                  data-testid="project-modal-diagram"
+                  className="rounded-xl border border-white/[0.06] bg-black/40 p-4 md:p-6 overflow-x-auto"
+                >
+                  <div className="min-w-[560px]">
+                    <Diagram />
+                  </div>
+                </div>
+              }
+            />
+          )}
 
           <Section
             label="// approach"

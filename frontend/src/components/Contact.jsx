@@ -25,7 +25,7 @@ export default function Contact() {
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            index="07"
+            index="06"
             title="get in touch"
             subtitle="// let's build something"
           />

@@ -22,11 +22,11 @@ Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Deh
 
 ## Now building
 
-**Tollgate** (private beta) — Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic, and OpenAI-compatible providers — one base URL for per-feature cost, exact-match caching, budgets, and runaway-agent alerts.
+**Fleet OS** (open source · mit) — Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.
 
-- Point one base_url at Tollgate — OpenAI, Anthropic, xAI, OpenRouter, Gemini, and more. No SDK rewrite.
-- Per-feature (tag) spend visibility, exact-match prompt caching, and hard budgets.
-- Runaway-agent alerts & guards — stop burn before another overnight surprise bill.
+- Outbound-only Go agents — no inbound Docker socket, no SSH key, no port to forward. A Pi behind a home router is a first-class node.
+- Weighted scheduling across CPU, memory headroom, reliability tier, tags, GPU and affinity — and the placement plan explains every node it rejected.
+- Health-gated rollouts: the release that works keeps serving until its replacement proves it can serve too.
 
 ## Projects
 
@@ -37,6 +37,14 @@ Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharm
 - Category: SaaS · Self-hosted
 - Stack: Next.js 14, TypeScript, Prisma, PostgreSQL, Redis, Docker
 - Live: https://arogya.yaduraj.me
+
+### Tollgate
+
+Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts.
+
+- Category: LLMOps · Proxy
+- Stack: OpenAI API, Anthropic API, OpenRouter, Vercel
+- Live: https://tollgate.yaduraj.me/
 
 ### MuhDikhai
 
@@ -86,13 +94,13 @@ Multilingual legal aid iOS app — petitioners with regional advocates. Voice-as
 
 ## Stack
 
-- **Full-stack web:** Next.js 14, React 18, TypeScript, Node.js, Express, tRPC, Tailwind, shadcn/ui
+- **Full-stack web:** Next.js 14, React 18, TypeScript, Node.js, Express, Fastify, tRPC, Drizzle ORM, Vite, Tailwind, shadcn/ui
 - **Mobile / iOS:** Swift, SwiftUI, UIKit, Combine, WidgetKit, AVFoundation, Flutter, Dart
 - **Real-time & networking:** WebRTC, Socket.io, REST, GraphQL, Cloudflare Tunnels
 - **AI / ML:** faster-whisper, LM Studio, Coqui TTS, Qdrant, Neo4j, Celery/Redis, xlm-roberta, spaCy, Ollama
 - **Embedded / hardware:** ESP32-S3, FreeRTOS, I2S, BLE, Opus, PSRAM, C/C++
 - **Databases:** PostgreSQL, Prisma, Firebase, Redis, MongoDB, MySQL
-- **DevOps / infra:** Docker, Compose, GitHub Actions, Nginx, PM2, Certbot, systemd, Vercel, SSH
+- **DevOps / infra:** Go, Docker, Compose, Docker Buildx, GitHub Actions, Nginx, PM2, Certbot, systemd, Vercel, SSH
 
 ## Contact
 

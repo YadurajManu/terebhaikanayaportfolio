@@ -5,9 +5,10 @@ export default function CursorSpotlight() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    // disable on touch devices
+    // disable on touch devices, and for anyone who asked for less motion
     const isTouch = window.matchMedia("(hover: none)").matches;
-    if (isTouch) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isTouch || reduced) return;
     setEnabled(true);
 
     let raf = 0;

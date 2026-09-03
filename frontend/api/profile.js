@@ -33,8 +33,13 @@ module.exports = function handler(req, res) {
       name: NOW_BUILDING.name,
       status: NOW_BUILDING.status,
       url: NOW_BUILDING.url,
+      repository: NOW_BUILDING.repo || null,
+      category: NOW_BUILDING.tag || null,
       pitch: NOW_BUILDING.pitch,
       highlights: NOW_BUILDING.bullets,
+      stack: NOW_BUILDING.stack || [],
+      metrics: (NOW_BUILDING.metrics || []).map((m) => ({ label: m.k, value: m.v })),
+      caseStudy: NOW_BUILDING.caseStudy || null,
     },
   });
 };

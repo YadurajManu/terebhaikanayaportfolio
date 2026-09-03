@@ -163,6 +163,27 @@ body {
     transform: scale(0.986);
 }
 
+/* ── Reduced motion ───────────────────────────────────────────────────
+   The site leans on animation for character: the boot sequence, scramble
+   text, reveals, the marquee, the ping dots and the cursor spotlight. None
+   of it carries meaning, so all of it yields to the OS setting. Components
+   that gate on JS (BootScreen, Reveal, CursorSpotlight) check the same
+   query themselves so they skip the work entirely rather than run it fast. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+    }
+}
+
 /* Tailwind-friendly base mappings (kept minimal) */
 @layer base {
     body {

@@ -188,6 +188,7 @@
               "type": "string",
               "enum": [
                 "aarogya-setu",
+                "tollgate",
                 "muhdikhai",
                 "cineverse",
                 "cortx",
@@ -516,6 +517,7 @@
             "type": "string",
             "enum": [
               "aarogya-setu",
+              "tollgate",
               "muhdikhai",
               "cineverse",
               "cortx",

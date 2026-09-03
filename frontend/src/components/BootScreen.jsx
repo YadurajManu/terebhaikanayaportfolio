@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
+import { PROJECTS, STACK } from "../data/portfolio";
+
+const projectCount = String(PROJECTS.length).padStart(2, "0");
 
 const LINES = [
   { t: 60, text: "[ ok ] booting yaduraj.os v1.0.0…" },
   { t: 220, text: "[ ok ] mounting /modules/portfolio" },
-  { t: 380, text: "[ ok ] loading 07 projects · 7 stack categories" },
+  {
+    t: 380,
+    text: `[ ok ] loading ${projectCount} projects · ${STACK.length} stack categories`,
+  },
   { t: 540, text: "[ ok ] establishing self-hosted link · TLS 1.3" },
   { t: 700, text: "[ ok ] available for select projects" },
   { t: 880, text: "$ ready." },
@@ -11,16 +17,43 @@ const LINES = [
 
 const TOTAL = 1500;
 
+/**
+ * Nobody should have to watch this twice, and some people should never have to
+ * watch it at all — it is 1.5s of withheld content on a first visit. So it is
+ * skippable by any key, click or scroll, and is not shown at all to anyone who
+ * has asked the OS to reduce motion.
+ */
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function BootScreen({ onDone }) {
   const [visible, setVisible] = useState(true);
   const [printed, setPrinted] = useState([]);
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
-    // skip on subsequent navigations within the same tab
-    if (typeof window !== "undefined" && sessionStorage.getItem("yr-booted")) {
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
       setVisible(false);
+      try {
+        sessionStorage.setItem("yr-booted", "1");
+      } catch {
+        /* private mode — the sequence simply replays next time */
+      }
       onDone?.();
+    };
+
+    // Already booted this tab, or the visitor has asked for less motion.
+    if (
+      (typeof window !== "undefined" && sessionStorage.getItem("yr-booted")) ||
+      prefersReducedMotion()
+    ) {
+      finish();
       return;
     }
 
@@ -32,16 +65,28 @@ export default function BootScreen({ onDone }) {
     });
 
     const fadeT = setTimeout(() => setFading(true), TOTAL - 320);
-    const doneT = setTimeout(() => {
-      setVisible(false);
-      sessionStorage.setItem("yr-booted", "1");
-      onDone?.();
-    }, TOTAL);
+    const doneT = setTimeout(finish, TOTAL);
+
+    // Any deliberate input means "I have seen enough" — fade out and get out
+    // of the way rather than making them wait for the timer.
+    const skip = () => {
+      setFading(true);
+      timeouts.forEach(clearTimeout);
+      clearTimeout(fadeT);
+      clearTimeout(doneT);
+      setTimeout(finish, 180);
+    };
+
+    const events = ["keydown", "pointerdown", "wheel", "touchstart"];
+    events.forEach((e) =>
+      window.addEventListener(e, skip, { once: true, passive: true })
+    );
 
     return () => {
       timeouts.forEach(clearTimeout);
       clearTimeout(fadeT);
       clearTimeout(doneT);
+      events.forEach((e) => window.removeEventListener(e, skip));
     };
   }, [onDone]);
 
@@ -89,6 +134,10 @@ export default function BootScreen({ onDone }) {
             </li>
           )}
         </ul>
+
+        <p className="mt-6 text-[11px] text-zinc-600">
+          press any key to skip
+        </p>
       </div>
     </div>
   );

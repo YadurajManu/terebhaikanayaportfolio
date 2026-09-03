@@ -1,4 +1,5 @@
 import { ArrowUpRight, Github, Sparkles } from "lucide-react";
+import ProjectCover from "./ProjectCover";
 
 export default function FeaturedProject({ project, onOpen }) {
   if (!project) return null;
@@ -92,6 +93,7 @@ export default function FeaturedProject({ project, onOpen }) {
 
         {/* right — metrics */}
         <div className="md:col-span-5 grid grid-cols-2 gap-3 self-stretch content-start">
+          <ProjectCover project={project} className="col-span-2" />
           {project.metrics?.map((m, i) => (
             <div
               key={i}

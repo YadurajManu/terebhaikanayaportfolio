@@ -14,7 +14,6 @@ import {
   Cpu,
   FolderGit2,
   Github,
-  Globe2,
   Layers,
   Linkedin,
   Mail,
@@ -24,7 +23,7 @@ import {
   User,
 } from "lucide-react";
 import { toast } from "sonner";
-import { PROFILE, PROJECTS } from "../data/portfolio";
+import { NOW_BUILDING, PROFILE, PROJECTS } from "../data/portfolio";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function CommandPalette({ open, setOpen, onOpenProject }) {
@@ -59,11 +58,10 @@ export default function CommandPalette({ open, setOpen, onOpenProject }) {
 
   const sections = [
     { id: "about", label: "about", icon: User },
-    { id: "now-building", label: "now building — Tollgate", icon: Rocket },
+    { id: "now-building", label: `now building — ${NOW_BUILDING.name}`, icon: Rocket },
     { id: "experience", label: "experience", icon: Briefcase },
     { id: "projects", label: "projects", icon: FolderGit2 },
     { id: "stack", label: "tech stack", icon: Layers },
-    { id: "visitors", label: "visitor flag wall", icon: Globe2 },
     { id: "contact", label: "contact", icon: AtSign },
   ];
 
@@ -97,6 +95,20 @@ export default function CommandPalette({ open, setOpen, onOpenProject }) {
         </CommandGroup>
 
         <CommandGroup heading="projects">
+          <CommandItem
+            data-testid="cmd-project-now-building"
+            value={`open project ${NOW_BUILDING.name} ${NOW_BUILDING.tag || ""} now building`}
+            onSelect={() => {
+              close();
+              onOpenProject?.(NOW_BUILDING);
+            }}
+          >
+            <Rocket />
+            <span>open {NOW_BUILDING.name}</span>
+            <span className="ml-auto font-mono text-[10px] text-zinc-500">
+              now building
+            </span>
+          </CommandItem>
           {PROJECTS.map((p) => (
             <CommandItem
               key={p.id}

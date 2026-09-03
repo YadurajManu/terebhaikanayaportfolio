@@ -5,7 +5,7 @@ const HELP = [
   ["projects", "scroll to projects"],
   ["stack", "scroll to tech stack"],
   ["contact", "scroll to contact"],
-  ["resume", "show resume status"],
+  ["resume", "open résumé pdf"],
   ["github", "open github profile"],
   ["linkedin", "open linkedin profile"],
   ["email", "copy email to clipboard"],
@@ -64,8 +64,10 @@ export default function LiveTerminal({ onTheme }) {
     } else if (cmd === "projects" || cmd === "stack" || cmd === "contact" || cmd === "about" || cmd === "experience") {
       scrollTo(cmd);
       append([`→ scrolling to ${cmd}/`]);
-    } else if (cmd === "resume") {
-      append(["resume.pdf — coming soon. email yadurajsingham@gmail.com"]);
+    } else if (cmd === "resume" || cmd === "cv") {
+      // /cv is a 308 to /Resume_Web.pdf (vercel.json) — same document either way.
+      window.open("/cv", "_blank");
+      append(["→ opening /cv → Resume_Web.pdf"]);
     } else if (cmd === "github") {
       window.open("https://github.com/YadurajManu", "_blank");
       append(["→ opening github/YadurajManu"]);

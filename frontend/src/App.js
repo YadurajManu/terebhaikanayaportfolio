@@ -9,7 +9,6 @@ import NowBuilding from "./components/NowBuilding";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Stack from "./components/Stack";
-import VisitorFlagWall from "./components/VisitorFlagWall";
 import Contact from "./components/Contact";
 import Stats from "./components/Stats";
 import Footer from "./components/Footer";
@@ -41,11 +40,10 @@ function HomePage() {
         <Hero />
         <Stats />
         <About />
-        <NowBuilding />
+        <NowBuilding onOpenProject={openProject} />
         <Experience />
         <Projects onOpenProject={openProject} />
         <Stack />
-        <VisitorFlagWall />
         <Contact />
       </main>
       <Footer />

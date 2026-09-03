@@ -9,7 +9,7 @@ The site runs two analytics tools:
 - **Plausible Analytics** — privacy-focused, cookieless analytics. It records aggregate page views, referrers and coarse country-level location. It does not use cookies and does not track individuals across sites.
 - **PostHog** — product analytics used to understand which sections of the site are used.
 
-Aggregate, country-level visitor counts from Plausible are displayed publicly on the homepage as a visitor map. Those figures are counts only and identify no individual.
+Neither tool's data is published anywhere on this site. The figures are aggregate counts only and identify no individual.
 
 ## Browser storage
 

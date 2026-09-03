@@ -32,11 +32,12 @@ Stack: Node.js, Express, JWT RBAC, React
 
 ## Currently building
 
-**Tollgate** (private beta) — Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic, and OpenAI-compatible providers — one base URL for per-feature cost, exact-match caching, budgets, and runaway-agent alerts.
+**Fleet OS** (open source · mit) — Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.
 
 ## Selected work
 
 - **Aarogya Setu** — Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC. _(Next.js 14, TypeScript, Prisma, PostgreSQL, Redis, Docker)_
+- **Tollgate** — Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts. _(OpenAI API, Anthropic API, OpenRouter, Vercel)_
 - **MuhDikhai** — Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing. _(Node.js, TypeScript, WebRTC, Socket.io, PostgreSQL)_
 - **CineVerse** — Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles. _(Next.js, Firebase, TMDB API, Nginx, PM2)_
 - **SecondMind / CortX** — Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression. _(ESP32-S3, FastAPI, Flutter, Neo4j, Qdrant)_

@@ -52,6 +52,7 @@ tool definitions for function calling.
 ## Projects
 
 - [Aarogya Setu](https://www.yaduraj.me/api/projects/aarogya-setu): Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC.
+- [Tollgate](https://www.yaduraj.me/api/projects/tollgate): Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts.
 - [MuhDikhai](https://www.yaduraj.me/api/projects/muhdikhai): Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing.
 - [CineVerse](https://www.yaduraj.me/api/projects/cineverse): Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.
 - [SecondMind / CortX](https://www.yaduraj.me/api/projects/cortx): Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression.
@@ -61,5 +62,5 @@ tool definitions for function calling.
 
 ## Optional
 
-- [Tollgate](https://tollgate.yaduraj.me/): Tollgate — private beta. Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic, and OpenAI-compatible providers — one base URL for per-feature cost, exact-match caching, budgets, and runaway-agent alerts.
+- [Fleet OS](https://fleet.plastikworld.xyz): currently building — open source · mit. Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.
 - [GitHub profile](https://github.com/YadurajManu): Source repositories.
