@@ -462,8 +462,7 @@
         "Node.js",
         "Fastify",
         "Express",
-        "tRPC",
-        "GraphQL",
+        "FastAPI",
         "Tailwind"
       ]
     },
@@ -483,10 +482,7 @@
       "items": [
         "faster-whisper",
         "Coqui TTS",
-        "Ollama",
-        "LM Studio",
-        "spaCy",
-        "xlm-roberta"
+        "LM Studio"
       ]
     },
     {
@@ -494,7 +490,6 @@
       "items": [
         "PostgreSQL",
         "Redis",
-        "MongoDB",
         "Firebase",
         "Prisma",
         "Drizzle ORM",
@@ -520,6 +515,8 @@
       "group": "Real-time",
       "items": [
         "WebRTC",
+        "ICE/STUN/TURN",
+        "coturn",
         "Socket.io",
         "Cloudflare Tunnel"
       ]

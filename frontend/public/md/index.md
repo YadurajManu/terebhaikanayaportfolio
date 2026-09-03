@@ -95,12 +95,12 @@ Multilingual legal aid iOS app — petitioners with regional advocates. Voice-as
 ## Stack
 
 - **Languages:** TypeScript, Python, Go, Swift, C/C++, Dart
-- **Web & APIs:** Next.js, React, Node.js, Fastify, Express, tRPC, GraphQL, Tailwind
+- **Web & APIs:** Next.js, React, Node.js, Fastify, Express, FastAPI, Tailwind
 - **Mobile:** SwiftUI, UIKit, Combine, WidgetKit, AVFoundation, Flutter
-- **AI & ML:** faster-whisper, Coqui TTS, Ollama, LM Studio, spaCy, xlm-roberta
-- **Data:** PostgreSQL, Redis, MongoDB, Firebase, Prisma, Drizzle ORM, Qdrant, Neo4j
+- **AI & ML:** faster-whisper, Coqui TTS, LM Studio
+- **Data:** PostgreSQL, Redis, Firebase, Prisma, Drizzle ORM, Qdrant, Neo4j
 - **Infrastructure:** Linux, Docker, Docker Buildx, GitHub Actions, Nginx, systemd, PM2, Certbot, Vercel
-- **Real-time:** WebRTC, Socket.io, Cloudflare Tunnel
+- **Real-time:** WebRTC, ICE/STUN/TURN, coturn, Socket.io, Cloudflare Tunnel
 - **Embedded:** ESP32-S3, FreeRTOS, BLE, Opus
 
 ## Contact
