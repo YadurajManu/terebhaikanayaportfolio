@@ -94,13 +94,14 @@ Multilingual legal aid iOS app — petitioners with regional advocates. Voice-as
 
 ## Stack
 
-- **Full-stack web:** Next.js 14, React 18, TypeScript, Node.js, Express, Fastify, tRPC, Drizzle ORM, Vite, Tailwind, shadcn/ui
-- **Mobile / iOS:** Swift, SwiftUI, UIKit, Combine, WidgetKit, AVFoundation, Flutter, Dart
-- **Real-time & networking:** WebRTC, Socket.io, REST, GraphQL, Cloudflare Tunnels
-- **AI / ML:** faster-whisper, LM Studio, Coqui TTS, Qdrant, Neo4j, Celery/Redis, xlm-roberta, spaCy, Ollama
-- **Embedded / hardware:** ESP32-S3, FreeRTOS, I2S, BLE, Opus, PSRAM, C/C++
-- **Databases:** PostgreSQL, Prisma, Firebase, Redis, MongoDB, MySQL
-- **DevOps / infra:** Go, Docker, Compose, Docker Buildx, GitHub Actions, Nginx, PM2, Certbot, systemd, Vercel, SSH
+- **Languages:** TypeScript, Python, Go, Swift, C/C++, Dart
+- **Web & APIs:** Next.js, React, Node.js, Fastify, Express, tRPC, GraphQL, Tailwind
+- **Mobile:** SwiftUI, UIKit, Combine, WidgetKit, AVFoundation, Flutter
+- **AI & ML:** faster-whisper, Coqui TTS, Ollama, LM Studio, spaCy, xlm-roberta
+- **Data:** PostgreSQL, Redis, MongoDB, Firebase, Prisma, Drizzle ORM, Qdrant, Neo4j
+- **Infrastructure:** Linux, Docker, Docker Buildx, GitHub Actions, Nginx, systemd, PM2, Certbot, Vercel
+- **Real-time:** WebRTC, Socket.io, Cloudflare Tunnel
+- **Embedded:** ESP32-S3, FreeRTOS, BLE, Opus
 
 ## Contact
 

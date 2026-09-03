@@ -444,95 +444,93 @@
   ],
   "STACK": [
     {
-      "group": "Full-stack web",
+      "group": "Languages",
       "items": [
-        "Next.js 14",
-        "React 18",
         "TypeScript",
-        "Node.js",
-        "Express",
-        "Fastify",
-        "tRPC",
-        "Drizzle ORM",
-        "Vite",
-        "Tailwind",
-        "shadcn/ui"
+        "Python",
+        "Go",
+        "Swift",
+        "C/C++",
+        "Dart"
       ]
     },
     {
-      "group": "Mobile / iOS",
+      "group": "Web & APIs",
       "items": [
-        "Swift",
+        "Next.js",
+        "React",
+        "Node.js",
+        "Fastify",
+        "Express",
+        "tRPC",
+        "GraphQL",
+        "Tailwind"
+      ]
+    },
+    {
+      "group": "Mobile",
+      "items": [
         "SwiftUI",
         "UIKit",
         "Combine",
         "WidgetKit",
         "AVFoundation",
-        "Flutter",
-        "Dart"
+        "Flutter"
       ]
     },
     {
-      "group": "Real-time & networking",
-      "items": [
-        "WebRTC",
-        "Socket.io",
-        "REST",
-        "GraphQL",
-        "Cloudflare Tunnels"
-      ]
-    },
-    {
-      "group": "AI / ML",
+      "group": "AI & ML",
       "items": [
         "faster-whisper",
-        "LM Studio",
         "Coqui TTS",
-        "Qdrant",
-        "Neo4j",
-        "Celery/Redis",
-        "xlm-roberta",
+        "Ollama",
+        "LM Studio",
         "spaCy",
-        "Ollama"
+        "xlm-roberta"
       ]
     },
     {
-      "group": "Embedded / hardware",
-      "items": [
-        "ESP32-S3",
-        "FreeRTOS",
-        "I2S",
-        "BLE",
-        "Opus",
-        "PSRAM",
-        "C/C++"
-      ]
-    },
-    {
-      "group": "Databases",
+      "group": "Data",
       "items": [
         "PostgreSQL",
-        "Prisma",
-        "Firebase",
         "Redis",
         "MongoDB",
-        "MySQL"
+        "Firebase",
+        "Prisma",
+        "Drizzle ORM",
+        "Qdrant",
+        "Neo4j"
       ]
     },
     {
-      "group": "DevOps / infra",
+      "group": "Infrastructure",
       "items": [
-        "Go",
+        "Linux",
         "Docker",
-        "Compose",
         "Docker Buildx",
         "GitHub Actions",
         "Nginx",
+        "systemd",
         "PM2",
         "Certbot",
-        "systemd",
-        "Vercel",
-        "SSH"
+        "Vercel"
+      ]
+    },
+    {
+      "group": "Real-time",
+      "items": [
+        "WebRTC",
+        "Socket.io",
+        "Cloudflare Tunnel"
+      ]
+    },
+    {
+      "group": "Embedded",
+      "items": [
+        "ESP32-S3",
+        "FreeRTOS",
+        "BLE",
+        "Opus"
       ]
     }
   ],
