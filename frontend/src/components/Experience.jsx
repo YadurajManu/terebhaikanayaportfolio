@@ -12,7 +12,7 @@ export default function Experience() {
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            index="03"
+            index="01"
             title="experience"
             subtitle="// work history"
           />

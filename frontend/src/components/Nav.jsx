@@ -5,10 +5,10 @@ import AmbientAudio from "./AmbientAudio";
 import TimeOnSite from "./TimeOnSite";
 
 const LINKS = [
-  { id: "about", label: "about" },
-  { id: "now-building", label: "now-building" },
   { id: "experience", label: "experience" },
+  { id: "now-building", label: "fleet os" },
   { id: "projects", label: "projects" },
+  { id: "about", label: "about" },
   { id: "stack", label: "stack" },
   { id: "contact", label: "contact" },
 ];

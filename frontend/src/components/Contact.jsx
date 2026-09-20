@@ -34,25 +34,25 @@ export default function Contact() {
         <div className="grid md:grid-cols-12 gap-10 mt-14">
           <Reveal delay={80} className="md:col-span-6">
             <p className="font-display text-3xl md:text-4xl tracking-tight text-white leading-[1.15]">
-              Got a real product to build?
+              Hiring an engineer?
               <br />
-              <span className="text-zinc-500">I'd like to hear about it.</span>
+              <span className="text-zinc-500">Let’s talk about your team.</span>
             </p>
             <p className="mt-6 text-zinc-400 leading-relaxed max-w-md">
-              Open to internships at MNCs, founding-engineer roles at early-stage
-              startups, and serious freelance contracts. Reach me at the email
-              below — I reply within a day.
+              {PROFILE.availability}. I’m particularly interested in full-stack and
+              backend development, with infrastructure and AI integration as strengths.
+              Email me the role, team and hiring timeline.
             </p>
 
             <a
               data-testid="contact-cta-email"
-              href={`mailto:${PROFILE.email}?subject=Hello%20Yaduraj`}
+              href={`mailto:${PROFILE.email}?subject=Software%20engineering%20opportunity`}
               className="inline-flex items-center gap-3 mt-8 group"
             >
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-black group-hover:bg-[var(--accent)] transition-colors">
                 <Mail size={18} />
               </span>
-              <span className="font-display text-xl md:text-2xl text-white group-hover:text-[var(--accent)] transition-colors">
+              <span className="font-display text-base sm:text-xl md:text-2xl break-all text-white group-hover:text-[var(--accent)] transition-colors">
                 {PROFILE.email}
               </span>
             </a>

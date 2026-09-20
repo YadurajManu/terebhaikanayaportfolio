@@ -2,6 +2,10 @@
 
 > Ships production-grade systems solo — firmware on ESP32, scalable SaaS, iOS apps. Three live products with real users before 21.
 
+Open to software engineering internships and junior roles. I build full-stack applications, real-time systems and self-hosted infrastructure, with hands-on experience integrating AI into products.
+
+Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML · Graduating 2028.
+
 Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Dehradun · Greater Noida, India.
 
 ## Highlights

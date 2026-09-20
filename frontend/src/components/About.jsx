@@ -1,4 +1,4 @@
-import { ABOUT_POINTS } from "../data/portfolio";
+import { ABOUT_POINTS, PROFILE } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
 import Reveal from "./Reveal";
 import { Check } from "lucide-react";
@@ -13,7 +13,7 @@ export default function About() {
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            index="01"
+            index="04"
             title="about"
             subtitle="// what sets me apart"
           />
@@ -22,16 +22,16 @@ export default function About() {
         <div className="grid md:grid-cols-12 gap-10 mt-14">
           <Reveal delay={80} className="md:col-span-5">
             <p className="font-display text-3xl md:text-4xl leading-[1.15] text-white tracking-tight">
-              I don't write side projects.{" "}
+              From coursework to production.{" "}
               <span className="text-zinc-500">
-                I ship live products with real users.
+                I learn by building and operating software.
               </span>
             </p>
             <p className="mt-6 text-zinc-400 leading-relaxed">
-              Currently in my second year of B.Tech CSE (AI) at Gautam Buddha
-              University. I run my own Linux servers, design SaaS from blank
-              repos, and write firmware that makes hardware listen and respond.
-              Solo founder mindset.
+              {PROFILE.education}. I study at Gautam Buddha University and build
+              across web, infrastructure and embedded systems. I’m looking to
+              contribute to an engineering team and learn through code reviews,
+              collaboration and real product work.
             </p>
           </Reveal>
 

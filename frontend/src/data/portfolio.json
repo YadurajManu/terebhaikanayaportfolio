@@ -100,7 +100,10 @@
     "portfolio": "yaduraj.me",
     "github": "https://github.com/YadurajManu",
     "linkedin": "https://www.linkedin.com/in/yadurajenc",
-    "tagline": "Ships production-grade systems solo — firmware on ESP32, scalable SaaS, iOS apps. Three live products with real users before 21."
+    "tagline": "Ships production-grade systems solo — firmware on ESP32, scalable SaaS, iOS apps. Three live products with real users before 21.",
+    "availability": "Open to software engineering internships and junior roles",
+    "intro": "I build full-stack applications, real-time systems and self-hosted infrastructure, with hands-on experience integrating AI into products.",
+    "education": "Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML · Graduating 2028"
   },
   "PROJECTS": [
     {

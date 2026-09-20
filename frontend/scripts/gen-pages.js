@@ -25,6 +25,10 @@ const about = `# About Yaduraj Singh
 
 ${PROFILE.name} is a ${PROFILE.age}-year-old ${PROFILE.role.toLowerCase()} based in ${PROFILE.location}. He builds and operates production software end to end — from firmware running on microcontrollers to multi-tenant SaaS platforms serving real users — and runs the infrastructure underneath it himself.
 
+## Education
+
+${PROFILE.education}.
+
 ## What that means in practice
 
 ${ABOUT_POINTS.map((p) => `- ${p}`).join("\n")}
@@ -68,7 +72,9 @@ The fastest way to reach ${PROFILE.name} is email. Every channel below is monito
 
 ## Location and availability
 
-Based in ${PROFILE.location}. Available for select engineering projects — full-stack product work, real-time systems, AI/ML pipelines, embedded firmware, and self-hosted infrastructure.
+Based in ${PROFILE.location}. ${PROFILE.availability}. ${PROFILE.intro}
+
+${PROFILE.education}.
 
 ## What to get in touch about
 
@@ -185,6 +191,10 @@ The OpenAPI document is 3.1.0, and every operation has a unique \`operationId\`,
 const home = `# ${PROFILE.name} — ${PROFILE.role}
 
 > ${PROFILE.tagline}
+
+${PROFILE.availability}. ${PROFILE.intro}
+
+${PROFILE.education}.
 
 ${PROFILE.name} is a ${PROFILE.age}-year-old ${PROFILE.role.toLowerCase()} based in ${PROFILE.location}.
 

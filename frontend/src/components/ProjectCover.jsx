@@ -64,7 +64,7 @@ function Matrix({ id }) {
   return <g>{cells}</g>;
 }
 
-export default function ProjectCover({ project, className = "" }) {
+export default function ProjectCover({ project, className = "", compact = false }) {
   const { image, id } = project;
 
   if (image?.src) {
@@ -89,7 +89,7 @@ export default function ProjectCover({ project, className = "" }) {
       data-testid={`project-cover-${id}`}
       aria-hidden="true"
       className={`relative overflow-hidden rounded-xl border border-white/[0.06] bg-black/40 text-zinc-500 ${className}`}
-      style={{ aspectRatio: "16 / 9" }}
+      style={{ aspectRatio: compact ? "3 / 1" : "16 / 9" }}
     >
       <svg
         viewBox="0 0 364 184"

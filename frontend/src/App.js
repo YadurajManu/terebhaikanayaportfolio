@@ -22,9 +22,11 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 function HomePage() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
-  const [booted, setBooted] = useState(() =>
-    typeof window !== "undefined" && !!sessionStorage.getItem("yr-booted")
-  );
+  const [booted, setBooted] = useState(true);
+  const playIntro = () => {
+    try { sessionStorage.removeItem("yr-booted"); } catch { /* Storage may be unavailable. */ }
+    setBooted(false);
+  };
 
   const openProject = (p) => setActiveProject(p);
   const closeProject = (open) => {
@@ -37,12 +39,12 @@ function HomePage() {
       <CursorSpotlight />
       <Nav onOpenPalette={() => setPaletteOpen(true)} />
       <main>
-        <Hero />
+        <Hero onPlayIntro={playIntro} />
         <Stats />
-        <About />
-        <NowBuilding onOpenProject={openProject} />
         <Experience />
+        <NowBuilding onOpenProject={openProject} />
         <Projects onOpenProject={openProject} />
+        <About />
         <Stack />
         <Contact />
       </main>

@@ -15,7 +15,8 @@ const spellCount = (n) => NUMBER_WORDS[n] ?? String(n);
 
 export default function Projects({ onOpenProject }) {
   const featured = PROJECTS.find((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  const selected = PROJECTS.filter((p) => p.id === "muhdikhai");
+  const rest = PROJECTS.filter((p) => !p.featured && p.id !== "muhdikhai");
 
   return (
     <section
@@ -26,7 +27,7 @@ export default function Projects({ onOpenProject }) {
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            index="04"
+            index="03"
             title="projects"
             subtitle="// shipped & live"
           />
@@ -34,9 +35,8 @@ export default function Projects({ onOpenProject }) {
 
         <Reveal delay={80}>
           <p className="mt-6 max-w-2xl text-zinc-400">
-            {spellCount(PROJECTS.length)} production projects across SaaS,
-            real-time, AI/ML, embedded, and iOS. Click any card for a deeper case
-            study. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
+            Start with Fleet OS above for infrastructure, Aarogya Setu for backend
+            and multi-tenancy, and MuhDikhai for real-time systems. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
           </p>
         </Reveal>
 
@@ -46,10 +46,11 @@ export default function Projects({ onOpenProject }) {
           </Reveal>
         )}
 
-        <div className="mt-6 grid md:grid-cols-2 gap-4">
-          {rest.map((p, i) => (
+        <div className="mt-6 grid gap-4">
+          {selected.map((p, i) => (
             <Reveal key={p.id} delay={80 + i * 70}>
               <ProjectCard
+                horizontal
                 p={p}
                 index={i}
                 onOpen={() => onOpenProject?.(p)}
@@ -57,24 +58,34 @@ export default function Projects({ onOpenProject }) {
             </Reveal>
           ))}
         </div>
+        <details className="mt-8 rounded-2xl border border-white/10 p-6">
+          <summary className="cursor-pointer font-mono text-sm text-zinc-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+            More projects — {spellCount(rest.length).toLowerCase()} across AI, mobile and developer tools
+          </summary>
+          <div className="mt-6 grid md:grid-cols-2 gap-4">
+            {rest.map((p, i) => <ProjectCard key={p.id} p={p} index={i + selected.length} onOpen={() => onOpenProject?.(p)} />)}
+          </div>
+        </details>
       </div>
     </section>
   );
 }
 
-function ProjectCard({ p, index, onOpen }) {
+function ProjectCard({ p, index, onOpen, horizontal = false }) {
   const idx = String(index + 2).padStart(2, "0"); // start at 02, since 01 is featured
 
   return (
     <article
       data-testid={`project-card-${p.id}`}
-      className="group relative block text-left overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7"
+      className={`group relative h-full text-left overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7 ${horizontal ? "grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-6 md:gap-8 items-center" : "flex flex-col"}`}
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-white/[0.025] to-transparent pointer-events-none" />
 
-      <button type="button" onClick={onOpen} aria-label={`Read ${p.name} case study`} className="block w-full text-left">
-      <ProjectCover project={p} className="relative mb-6" />
+      <button type="button" onClick={onOpen} aria-label={`Read ${p.name} case study`} className={`relative block w-full text-left rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${horizontal ? "" : "mb-5"}`}>
+        <ProjectCover project={p} compact={!horizontal} />
       </button>
+
+      <div className="relative flex flex-col flex-1 min-w-0 h-full">
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
@@ -116,7 +127,7 @@ function ProjectCard({ p, index, onOpen }) {
         </div>
       </div>
 
-      <h3 className="relative mt-6 font-display text-2xl md:text-3xl text-white tracking-tight">
+      <h3 className="relative mt-4 font-display text-2xl md:text-3xl text-white tracking-tight">
         <a href={`/projects/${p.id}`}>{p.name}</a>
       </h3>
 
@@ -124,7 +135,7 @@ function ProjectCard({ p, index, onOpen }) {
         {p.blurb}
       </p>
 
-      <div className="relative mt-5 flex flex-wrap gap-1.5">
+      <div className="relative mt-4 mb-5 flex flex-wrap gap-1.5">
         {p.stack.slice(0, 5).map((s) => (
           <span
             key={s}
@@ -135,21 +146,22 @@ function ProjectCard({ p, index, onOpen }) {
         ))}
       </div>
 
-      <div className="relative mt-5 pt-5 border-t border-white/[0.05] flex items-center justify-between font-mono text-[11px]">
+      <div className="relative mt-auto pt-4 gap-3 flex-wrap border-t border-white/[0.05] flex items-center justify-between font-mono text-[11px]">
         {p.live ? (
           <span className="inline-flex items-center gap-2 text-zinc-400">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
             </span>
-            <span>live · {p.lastDeploy}</span>
+            <span>Live demo</span>
           </span>
         ) : (
-          <span className="text-zinc-600">archived · open-source</span>
+          <span className="text-zinc-600">Project archive</span>
         )}
         <button type="button" onClick={onOpen} className="text-zinc-500 group-hover:text-[var(--accent)] transition-colors">
           read case study →
         </button>
+      </div>
       </div>
     </article>
   );

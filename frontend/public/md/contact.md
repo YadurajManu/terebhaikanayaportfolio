@@ -14,7 +14,9 @@ The fastest way to reach Yaduraj Singh is email. Every channel below is monitore
 
 ## Location and availability
 
-Based in Dehradun · Greater Noida, India. Available for select engineering projects — full-stack product work, real-time systems, AI/ML pipelines, embedded firmware, and self-hosted infrastructure.
+Based in Dehradun · Greater Noida, India. Open to software engineering internships and junior roles. I build full-stack applications, real-time systems and self-hosted infrastructure, with hands-on experience integrating AI into products.
+
+Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML · Graduating 2028.
 
 ## What to get in touch about
 

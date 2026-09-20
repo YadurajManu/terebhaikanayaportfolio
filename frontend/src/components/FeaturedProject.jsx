@@ -29,7 +29,7 @@ export default function FeaturedProject({ project, onOpen }) {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                 </span>
-                live · {project.lastDeploy}
+                Live demo
               </span>
             )}
           </div>

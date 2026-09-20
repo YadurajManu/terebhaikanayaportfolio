@@ -4,13 +4,9 @@ import LiveTerminal from "./LiveTerminal";
 import ScrambleText from "./ScrambleText";
 import { useTheme } from "../contexts/ThemeContext";
 
-export default function Hero() {
+export default function Hero({ onPlayIntro }) {
   const { toggle: toggleTheme } = useTheme();
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section
@@ -32,7 +28,7 @@ export default function Hero() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
                 </span>
-                <span className="text-zinc-300">available for select projects</span>
+                <span className="text-zinc-300">{PROFILE.availability}</span>
               </span>
               <span className="text-zinc-700">·</span>
               <span className="flex items-center gap-1.5">
@@ -64,34 +60,38 @@ export default function Hero() {
               className="reveal mt-8 max-w-2xl text-base md:text-lg text-zinc-400 leading-relaxed"
               style={{ animationDelay: "160ms" }}
             >
-              {PROFILE.role}, 20.{" "}
-              <span className="text-zinc-200">{PROFILE.tagline}</span>
+              <span className="text-zinc-200">Software engineer.</span>{" "}
+              {PROFILE.intro}
             </p>
+
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-400">{PROFILE.education}</p>
 
             {/* CTA row */}
             <div
               className="reveal mt-10 flex flex-wrap items-center gap-3"
               style={{ animationDelay: "240ms" }}
             >
-              <button
+              <a
                 data-testid="hero-cta-work"
-                onClick={() => scrollTo("projects")}
+                href="#projects"
                 className="group inline-flex items-center gap-2 bg-white text-black h-11 px-5 rounded-full font-medium text-sm hover:bg-zinc-200 transition-colors"
               >
-                view work
+                view projects
                 <ArrowDownRight
                   size={16}
                   className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                 />
-              </button>
+              </a>
 
               <a
                 data-testid="hero-cta-resume"
-                href="/cv"
+                href="/Resume_Web.pdf"
                 className="inline-flex items-center gap-2 bg-transparent text-zinc-300 border border-white/15 h-11 px-5 rounded-full font-mono text-sm hover:text-white hover:border-white/30 transition-colors"
               >
                 download resume
               </a>
+
+              <a href={`mailto:${PROFILE.email}?subject=Software%20engineering%20opportunity`} className="inline-flex items-center h-11 px-5 rounded-full border border-white/15 text-sm text-zinc-200 hover:border-white/40">contact me</a>
 
               <span className="hidden sm:inline-flex items-center gap-1.5 ml-1 font-mono text-[11px] text-zinc-500">
                 press
@@ -155,8 +155,8 @@ export default function Hero() {
       {/* Bottom bar */}
       <div className="absolute bottom-6 left-0 right-0 z-10 px-6 md:px-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600">
-          <span>// scroll</span>
-          <span className="hidden sm:inline">production code at twenty</span>
+          <button type="button" onClick={onPlayIntro} className="hover:text-white">play intro ↗</button>
+          <span className="hidden sm:inline">full-stack · backend · infrastructure</span>
           <span>v1.0.0 · {new Date().getFullYear()}</span>
         </div>
       </div>

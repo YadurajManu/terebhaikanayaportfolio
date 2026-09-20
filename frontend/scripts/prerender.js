@@ -35,6 +35,9 @@ function homepageMarkup() {
     PROFILE.name
   )} — ${e(PROFILE.role)}</h1>
 <p style="font-size:1.1rem;color:#F5F5F5">${e(PROFILE.tagline)}</p>
+<p>${e(PROFILE.education)}</p>
+<p>${e(PROFILE.availability)}. ${e(PROFILE.intro)}</p>
+<p><a href="/projects">View projects</a> · <a href="/Resume_Web.pdf">Download résumé</a> · <a href="mailto:${e(PROFILE.email)}">Contact me</a></p>
 <p>${e(PROFILE.name)} is a ${PROFILE.age}-year-old ${e(
     PROFILE.role.toLowerCase()
   )} based in ${e(PROFILE.location)}. He designs, builds and operates production software end to end — from firmware running on microcontrollers through to multi-tenant SaaS platforms with real users — and runs the infrastructure underneath it himself.</p>

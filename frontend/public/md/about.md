@@ -2,6 +2,10 @@
 
 Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Dehradun · Greater Noida, India. He builds and operates production software end to end — from firmware running on microcontrollers to multi-tenant SaaS platforms serving real users — and runs the infrastructure underneath it himself.
 
+## Education
+
+Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML · Graduating 2028.
+
 ## What that means in practice
 
 - Self-hosted Linux infrastructure — Nginx, SSL, PM2, systemd. Not just Vercel deploys.
