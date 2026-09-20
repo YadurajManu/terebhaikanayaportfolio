@@ -108,4 +108,4 @@ Multilingual legal aid iOS app — petitioners with regional advocates. Voice-as
 - Email: yadurajsingham@gmail.com
 - GitHub: https://github.com/YadurajManu
 - LinkedIn: https://www.linkedin.com/in/yadurajenc
-- Résumé: https://www.yaduraj.me/Resume_Web.pdf
+- Résumé: https://yaduraj.me/Resume_Web.pdf

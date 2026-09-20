@@ -6,8 +6,8 @@
  * markup.
  */
 
-const DOCS_URL = "https://www.yaduraj.me/docs";
-const SPEC_URL = "https://www.yaduraj.me/openapi.json";
+const DOCS_URL = "https://yaduraj.me/docs";
+const SPEC_URL = "https://yaduraj.me/openapi.json";
 
 /** Read-only public data: safe to cache hard at the edge and allow anywhere. */
 function baseHeaders() {
@@ -21,6 +21,7 @@ function baseHeaders() {
     Vary: "Accept, Accept-Encoding",
     "Cache-Control": "public, max-age=0, s-maxage=600, stale-while-revalidate=86400",
     "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, follow",
   };
 }
 

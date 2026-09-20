@@ -10,7 +10,7 @@ The fastest way to reach Yaduraj Singh is email. Every channel below is monitore
 | Phone | [+91 9220916445](tel:+919220916445) |
 | GitHub | [https://github.com/YadurajManu](https://github.com/YadurajManu) |
 | LinkedIn | [https://www.linkedin.com/in/yadurajenc](https://www.linkedin.com/in/yadurajenc) |
-| Portfolio | [https://www.yaduraj.me](https://www.yaduraj.me) |
+| Portfolio | [https://yaduraj.me](https://yaduraj.me) |
 
 ## Location and availability
 
@@ -26,4 +26,4 @@ Based in Dehradun · Greater Noida, India. Available for select engineering proj
 
 ## For automated agents
 
-A structured version of these contact details is available as JSON at [`/api/profile`](https://www.yaduraj.me/api/profile) under the `links` key. Prefer that endpoint over scraping this page. Résumé: [https://www.yaduraj.me/Resume_Web.pdf](https://www.yaduraj.me/Resume_Web.pdf).
+A structured version of these contact details is available as JSON at [`/api/profile`](https://yaduraj.me/api/profile) under the `links` key. Prefer that endpoint over scraping this page. Résumé: [https://yaduraj.me/Resume_Web.pdf](https://yaduraj.me/Resume_Web.pdf).

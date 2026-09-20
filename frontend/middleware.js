@@ -1,3 +1,5 @@
+import portfolio from "./src/data/portfolio.json";
+
 /**
  * Markdown content negotiation, per acceptmarkdown.com.
  *
@@ -11,10 +13,12 @@
  */
 
 export const config = {
-  matcher: ["/", "/about", "/contact", "/privacy", "/docs"],
+  matcher: "/:path*",
 };
 
 const SLUGS = {
+  "/projects": "projects",
+  ...Object.fromEntries([...portfolio.PROJECTS, portfolio.NOW_BUILDING].filter(p => p.caseStudy?.problem && p.caseStudy?.approach?.length).map(p => [`/projects/${p.id}`, `projects/${p.id}`])),
   "/": "index",
   "/about": "about",
   "/contact": "contact",
@@ -55,10 +59,41 @@ export function prefersMarkdown(header) {
   return markdown > 0 && markdown >= html;
 }
 
+const PUBLIC_FILES = new Set([
+  "/robots.txt", "/sitemap.xml", "/llms.txt", "/openapi.json", "/Resume_Web.pdf",
+  "/favicon.svg", "/og.png", "/asset-manifest.json", "/404.html",
+  ...Object.values(SLUGS).map(slug => `/md/${slug}.md`),
+]);
+
+// API filters are meaningful; page query strings never select portfolio content.
+export function pageRedirect(requestUrl) {
+  const url = new URL(requestUrl);
+  let pathname = url.pathname.replace(/\/index(?:\.html)?$/, "/").replace(/\.html$/, "");
+  pathname = pathname.length > 1 ? pathname.replace(/\/+$/, "") : "/";
+  if (!Object.hasOwn(SLUGS, pathname)) return null;
+  if (url.pathname === pathname && !url.search) return null;
+  url.pathname = pathname;
+  url.search = "";
+  return url.toString();
+}
+
 export default async function middleware(request) {
   const url = new URL(request.url);
   const pathname = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, "") : "/";
-  const slug = SLUGS[pathname || "/"];
+  if (request.method !== "GET" && request.method !== "HEAD") return;
+  const redirect = pageRedirect(request.url);
+  if (redirect) return new Response(null, {status:308, headers:{Location:redirect}});
+  const slug = Object.hasOwn(SLUGS, pathname) ? SLUGS[pathname] : null;
+  if (!slug && !PUBLIC_FILES.has(pathname) && !pathname.startsWith("/api/") &&
+      !pathname.startsWith("/static/") && !["/cv", "/resume", "/developers", "/api-docs"].includes(pathname)) {
+    // Explicitly preserve the status even if a hosting SPA fallback is re-enabled.
+    let body = '<!doctype html><html lang="en"><head><title>Page not found — Yaduraj Singh</title><meta name="robots" content="noindex, follow"></head><body><main><h1>404 — Page not found</h1><p>This page does not exist.</p><a href="/">Return home</a> · <a href="/projects">Projects</a></main></body></html>';
+    try {
+      const page = await fetch(new URL("/404.html", url.origin));
+      if (page.ok) body = await page.text();
+    } catch { /* The useful fallback still returns 404. */ }
+    return new Response(request.method === "HEAD" ? null : body, {status:404, headers:{"Content-Type":"text/html; charset=utf-8", "X-Robots-Tag":"noindex, follow", "Cache-Control":"no-store"}});
+  }
 
   if (!slug) return;
   if (request.method !== "GET" && request.method !== "HEAD") return;
@@ -83,7 +118,7 @@ export default async function middleware(request) {
       "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
       "Access-Control-Allow-Origin": "*",
       "X-Content-Type-Options": "nosniff",
-      Link: `<${url.origin}/md/${slug}.md>; rel="alternate"; type="text/markdown"`,
+      Link: `<https://yaduraj.me${pathname}>; rel="canonical"`,
     },
   });
 }

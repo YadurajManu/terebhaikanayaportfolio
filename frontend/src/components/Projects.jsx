@@ -36,7 +36,7 @@ export default function Projects({ onOpenProject }) {
           <p className="mt-6 max-w-2xl text-zinc-400">
             {spellCount(PROJECTS.length)} production projects across SaaS,
             real-time, AI/ML, embedded, and iOS. Click any card for a deeper case
-            study.
+            study. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
           </p>
         </Reveal>
 
@@ -66,15 +66,15 @@ function ProjectCard({ p, index, onOpen }) {
   const idx = String(index + 2).padStart(2, "0"); // start at 02, since 01 is featured
 
   return (
-    <button
-      type="button"
-      onClick={onOpen}
+    <article
       data-testid={`project-card-${p.id}`}
       className="group relative block text-left overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0A0A0A] hover:border-white/20 transition-colors p-6 md:p-7"
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-white/[0.025] to-transparent pointer-events-none" />
 
+      <button type="button" onClick={onOpen} aria-label={`Read ${p.name} case study`} className="block w-full text-left">
       <ProjectCover project={p} className="relative mb-6" />
+      </button>
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
@@ -117,7 +117,7 @@ function ProjectCard({ p, index, onOpen }) {
       </div>
 
       <h3 className="relative mt-6 font-display text-2xl md:text-3xl text-white tracking-tight">
-        {p.name}
+        <a href={`/projects/${p.id}`}>{p.name}</a>
       </h3>
 
       <p className="relative mt-3 text-sm text-zinc-400 leading-relaxed line-clamp-3">
@@ -147,10 +147,10 @@ function ProjectCard({ p, index, onOpen }) {
         ) : (
           <span className="text-zinc-600">archived · open-source</span>
         )}
-        <span className="text-zinc-500 group-hover:text-[var(--accent)] transition-colors">
+        <button type="button" onClick={onOpen} className="text-zinc-500 group-hover:text-[var(--accent)] transition-colors">
           read case study →
-        </span>
+        </button>
       </div>
-    </button>
+    </article>
   );
 }

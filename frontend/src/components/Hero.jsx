@@ -43,6 +43,7 @@ export default function Hero() {
             {/* Name */}
             <h1
               data-testid="hero-name"
+              aria-label={PROFILE.name}
               className="reveal font-display text-[14vw] sm:text-[10vw] md:text-[88px] lg:text-[112px] leading-[0.92] font-medium text-white"
               style={{ animationDelay: "60ms" }}
             >

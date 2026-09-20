@@ -85,7 +85,7 @@ describe("listProjects", () => {
     expect(body.count).toBe(data.PROJECTS.length);
     expect(body.projects).toHaveLength(data.PROJECTS.length);
     for (const p of body.projects) {
-      expect(p.detailUrl).toBe(`https://www.yaduraj.me/api/projects/${p.id}`);
+      expect(p.detailUrl).toBe(`https://yaduraj.me/api/projects/${p.id}`);
     }
   });
 

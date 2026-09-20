@@ -59,7 +59,8 @@
     "build": "craco build",
     "postbuild": "node scripts/prerender.js",
     "test": "craco test",
-    "verify:agent-readiness": "node scripts/verify-agent-readiness.js"
+    "verify:agent-readiness": "node scripts/verify-agent-readiness.js",
+    "verify:seo": "node scripts/verify-seo.js"
   },
   "browserslist": {
     "production": [

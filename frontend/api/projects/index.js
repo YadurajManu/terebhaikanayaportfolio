@@ -12,7 +12,7 @@ function summarise(p) {
     repository: p.repo,
     featured: Boolean(p.featured),
     live: Boolean(p.live),
-    detailUrl: `https://www.yaduraj.me/api/projects/${p.id}`,
+    detailUrl: `https://yaduraj.me/api/projects/${p.id}`,
   };
 }
 

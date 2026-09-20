@@ -32,7 +32,7 @@ describe("OpenAPI specification", () => {
 
   it("is OpenAPI 3.1 with servers and contact metadata", () => {
     expect(spec.openapi).toMatch(/^3\.1/);
-    expect(spec.servers[0].url).toBe("https://www.yaduraj.me");
+    expect(spec.servers[0].url).toBe("https://yaduraj.me");
     expect(spec.info.contact.email).toBe(data.PROFILE.email);
   });
 
@@ -110,9 +110,9 @@ describe("llms.txt", () => {
   });
 
   it("links the API, the spec and the docs", () => {
-    expect(llms).toContain("https://www.yaduraj.me/openapi.json");
-    expect(llms).toContain("https://www.yaduraj.me/docs");
-    expect(llms).toContain("https://www.yaduraj.me/api/profile");
+    expect(llms).toContain("https://yaduraj.me/openapi.json");
+    expect(llms).toContain("https://yaduraj.me/docs");
+    expect(llms).toContain("https://yaduraj.me/api/profile");
   });
 
   it("lists every project", () => {
@@ -129,8 +129,8 @@ describe("trust anchor pages", () => {
 
   it.each(PAGES)("/%s declares a canonical URL and a markdown alternate", (slug) => {
     const html = read(path.join(slug, "index.html"));
-    expect(html).toContain(`<link rel="canonical" href="https://www.yaduraj.me/${slug}"`);
-    expect(html).toContain(`type="text/markdown" href="https://www.yaduraj.me/md/${slug}.md"`);
+    expect(html).toContain(`<link rel="canonical" href="https://yaduraj.me/${slug}"`);
+    expect(html).toContain(`type="text/markdown" href="https://yaduraj.me/md/${slug}.md"`);
   });
 
   it.each(PAGES)("/%s has a markdown twin with the same headline", (slug) => {
@@ -163,13 +163,13 @@ describe("sitemap and robots", () => {
 
   it("includes the trust anchor pages", () => {
     for (const slug of ["about", "contact", "privacy", "docs"]) {
-      expect(sitemap).toContain(`https://www.yaduraj.me/${slug}`);
+      expect(sitemap).toContain(`https://yaduraj.me/${slug}`);
     }
   });
 
   it("points robots.txt at the sitemap and the agent index", () => {
     const robots = read("robots.txt");
-    expect(robots).toContain("Sitemap: https://www.yaduraj.me/sitemap.xml");
+    expect(robots).toContain("Sitemap: https://yaduraj.me/sitemap.xml");
     expect(robots).toContain("/llms.txt");
   });
 });

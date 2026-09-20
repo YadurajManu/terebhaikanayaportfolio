@@ -18,7 +18,7 @@ module.exports = function handler(req, res) {
       github: PROFILE.github,
       linkedin: PROFILE.linkedin,
       email: PROFILE.email,
-      resume: "https://www.yaduraj.me/Resume_Web.pdf",
+      resume: "https://yaduraj.me/Resume_Web.pdf",
     },
     stats: STATS.map((s) => ({ value: s.value, label: s.label })),
     highlights: ABOUT_POINTS,

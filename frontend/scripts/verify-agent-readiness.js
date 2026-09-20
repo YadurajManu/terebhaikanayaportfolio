@@ -2,7 +2,7 @@
 /**
  * Verifies the agent-readiness fixes against a running origin.
  *
- *   node scripts/verify-agent-readiness.js https://www.yaduraj.me
+ *   node scripts/verify-agent-readiness.js https://yaduraj.me
  *   node scripts/verify-agent-readiness.js http://localhost:5000
  *
  * Checks marked `hosting` depend on vercel.json / middleware and therefore only
@@ -11,7 +11,7 @@
  *
  * Exit code is non-zero if any non-hosting check fails.
  */
-const ORIGIN = (process.argv[2] || "https://www.yaduraj.me").replace(/\/$/, "");
+const ORIGIN = (process.argv[2] || "https://yaduraj.me").replace(/\/$/, "");
 
 const results = [];
 

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#050505" />
+<title>Fleet OS — Yaduraj Singh</title>
+<meta name="description" content="Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover." />
+<link rel="canonical" href="https://yaduraj.me/projects/fleet-os" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate" type="text/markdown" href="https://yaduraj.me/md/projects/fleet-os.md" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yaduraj.me/projects/fleet-os" />
+<meta property="og:title" content="Fleet OS — Yaduraj Singh" />
+<meta property="og:description" content="Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover." />
+<meta property="og:image" content="https://yaduraj.me/og.png" />
+<meta name="twitter:title" content="Fleet OS — Yaduraj Singh" />
+<meta name="twitter:description" content="Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover." />
+<meta name="twitter:image" content="https://yaduraj.me/og.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://yaduraj.me/projects/fleet-os#webpage","url":"https://yaduraj.me/projects/fleet-os","name":"Fleet OS — Yaduraj Singh","about":{"@id":"https://yaduraj.me/#person"},"isPartOf":{"@id":"https://yaduraj.me/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yaduraj.me/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://yaduraj.me/projects"},{"@type":"ListItem","position":3,"name":"Fleet OS — Yaduraj Singh","item":"https://yaduraj.me/projects/fleet-os"}]}]}</script>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#050505;--surface:#0A0A0A;--border:#1f1f1f;--text:#F5F5F5;--text-2:#A1A1AA;--text-3:#52525B;--accent:#4ADE80}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+nav{display:flex;flex-wrap:wrap;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+nav a{color:var(--text-2);text-decoration:none}
+nav a:hover,nav a[aria-current]{color:var(--accent)}
+h1{font-size:2.25rem;line-height:1.15;letter-spacing:-.04em;margin:0 0 1.25rem}
+h2{font-size:1.35rem;letter-spacing:-.02em;margin:2.5rem 0 .75rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+h3{font-size:1.05rem;margin:1.75rem 0 .5rem;color:var(--text)}
+p,li{color:var(--text-2)}
+a{color:var(--accent)}
+ul{padding-left:1.1rem}
+li{margin:.35rem 0}
+strong{color:var(--text);font-weight:600}
+code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:.1rem .35rem;color:var(--text)}
+blockquote{margin:1.5rem 0;padding:.5rem 0 .5rem 1rem;border-left:2px solid var(--accent)}
+blockquote p{color:var(--text);font-size:1.1rem}
+table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.92rem;display:block;overflow-x:auto}
+th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--border)}
+th{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)}
+td{color:var(--text-2)}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-3)}
+footer a{color:var(--text-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><nav aria-label="Main navigation"><a href="/">home</a><a href="/about">about</a><a href="/projects">projects</a><a href="/docs">docs</a><a href="/contact">contact</a><a href="/privacy">privacy</a></nav></header>
+<main>
+<h1>Fleet OS</h1>
+<p>By <a href="/about">Yaduraj Singh</a>.</p>
+<p>Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.</p>
+<h2>Problem</h2>
+<p>Coolify, Dokploy and CapRover are excellent single-server deployment tools, but their scheduling model assumes one stable host or a fairly uniform cluster. Balena assumes a fleet of similarly managed devices. None of them fit the hardware most people actually have lying around — a Raspberry Pi, an old laptop and a spare VPS, on different architectures, behind different networks, none of them reliably online.</p>
+<h2>Engineering approach</h2>
+<ul><li>Outbound-only Go agents: each node reports its capabilities and heartbeats over outbound HTTPS and reconciles container state locally. No inbound Docker socket, no SSH key, no port to forward.</li><li>The control plane holds a reverse tunnel for ingress, so a machine on a college LAN or behind a home router can serve public traffic without a port forward.</li><li>Weighted scheduling across CPU, memory headroom, reliability tier, tags, GPU, affinity and anti-affinity — with a dry-run placement plan that explains every node it rejected.</li><li>Architecture-aware multi-platform builds through Docker Buildx, pushed to a registry the fleet pulls from, so an arm64 Pi and an amd64 VPS each get an image they can run.</li><li>Health-gated rollouts plus heartbeat liveness, cordon/drain controls, and automatic failover for flexible services.</li></ul>
+<h2>Technical decisions</h2>
+<ul><li>Heterogeneous, intermittently connected hardware is the design centre, not an edge case — capability discovery is reported by agents rather than assumed by the scheduler.</li><li>Pinned stateful services are treated differently from movable stateless ones, because rescheduling a database is not the same as rescheduling a web process.</li><li>Per-organisation GitHub App installations, so a shared control plane never lets one tenant reach another's repositories.</li><li>Envelope-encrypted secrets with per-secret keys, injected only into the services that declare them.</li><li>MIT with no open-core split and no enterprise fork — what is in the repository is the product.</li></ul>
+<h2>Technology stack</h2>
+<p>Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker Buildx, React, Vite, nginx, Cloudflare Tunnel</p>
+<h2>Links</h2>
+<p><a href="https://fleet.plastikworld.xyz">Project website</a></p>
+<p><a href="https://github.com/YadurajManu/fleet-os">Source profile or repository</a></p>
+<p><a href="/projects">All projects</a> · <a href="/contact">Contact Yaduraj Singh</a></p>
+</main>
+<footer>
+// machine-readable: <a href="/llms.txt">llms.txt</a> · <a href="/openapi.json">openapi.json</a> · <a href="/md/projects/fleet-os.md">markdown</a>
+<br />&copy; 2026 Yaduraj Singh · <a href="https://yaduraj.me/">yaduraj.me</a>
+</footer>
+</div>
+</body>
+</html>

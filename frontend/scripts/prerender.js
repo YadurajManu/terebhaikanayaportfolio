@@ -19,7 +19,7 @@ const { escapeHtml } = require("./lib/md");
 const data = require("../src/data/portfolio.json");
 
 const BUILD = path.join(__dirname, "..", "build");
-const ORIGIN = "https://www.yaduraj.me";
+const ORIGIN = "https://yaduraj.me";
 const { PROFILE, STATS, ABOUT_POINTS, EXPERIENCE, PROJECTS, STACK, NOW_BUILDING } = data;
 
 const e = escapeHtml;
@@ -30,7 +30,7 @@ const SHELL_STYLE =
   "color:#A1A1AA;line-height:1.7";
 
 function homepageMarkup() {
-  return `<div id="prerender" style="${SHELL_STYLE}">
+  return `<main id="prerender" style="${SHELL_STYLE}">
 <h1 style="color:#F5F5F5;font-size:2.5rem;letter-spacing:-0.04em;line-height:1.1;margin:0 0 1rem">${e(
     PROFILE.name
   )} — ${e(PROFILE.role)}</h1>
@@ -60,7 +60,7 @@ ${EXPERIENCE.map(
 <h2>Projects</h2>
 ${PROJECTS.map(
     (p) =>
-      `<h3>${e(p.name)}</h3><p>${e(p.blurb)}</p><p>Category: ${e(p.tag)}. Stack: ${e(
+      `<h3><a href="/projects/${e(p.id)}">${e(p.name)}</a></h3><p>${e(p.blurb)}</p><p>Category: ${e(p.tag)}. Stack: ${e(
         p.stack.join(", ")
       )}.${p.url ? ` Live at <a href="${e(p.url)}">${e(p.url)}</a>.` : ""}</p>`
   ).join("")}
@@ -84,12 +84,12 @@ ${PROJECTS.map(
 <li><a href="/contact">Contact</a> — every direct channel</li>
 <li><a href="/privacy">Privacy</a> — what this site collects</li>
 </ul>
-</div>`;
+</main>`;
 }
 
 /** Short markdown body, per the agent-friendly-404 guidance. */
 function notFoundMarkup() {
-  return `<div id="prerender" style="${SHELL_STYLE}">
+  return `<main id="prerender" style="${SHELL_STYLE}">
 <h1 style="color:#F5F5F5;font-size:2rem;letter-spacing:-0.03em;margin:0 0 1rem">404 — page not found</h1>
 <p>This URL does not exist on ${ORIGIN}. Nothing was moved; there is no page here.</p>
 <p>If you are an automated agent, start from one of these:</p>
@@ -101,7 +101,7 @@ function notFoundMarkup() {
 <li><a href="/">/</a> — homepage</li>
 </ul>
 <p>The public API returns JSON errors with a stable <code>code</code> and a <code>hint</code>; unknown <code>/api/*</code> paths return a JSON 404 rather than HTML.</p>
-</div>`;
+</main>`;
 }
 
 function inject(html, markup) {
@@ -113,6 +113,9 @@ function inject(html, markup) {
 
 function buildNotFound(original) {
   return inject(original, notFoundMarkup())
+    .replace(/<link rel="canonical"[^>]*>/g, "")
+    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, "")
+    .replace(/<meta (?:property|name)="(?:og:|twitter:)[^>]*>/g, "")
     .replace(/<title>[^<]*<\/title>/, "<title>404 — page not found · Yaduraj Singh</title>")
     .replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, follow" />');
 }

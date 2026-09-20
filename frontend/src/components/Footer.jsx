@@ -6,6 +6,7 @@ import { PROFILE } from "../data/portfolio";
  */
 const AGENT_LINKS = [
   { href: "/about", label: "about" },
+  { href: "/projects", label: "projects" },
   { href: "/docs", label: "api docs" },
   { href: "/contact", label: "contact" },
   { href: "/privacy", label: "privacy" },

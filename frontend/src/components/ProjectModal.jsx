@@ -30,6 +30,7 @@ export default function ProjectModal({ project, open, onOpenChange }) {
           </div>
           <button
             data-testid="project-modal-close"
+            aria-label="Close project case study"
             onClick={() => onOpenChange(false)}
             className="inline-flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 hover:text-white hover:bg-white/5"
           >
@@ -48,6 +49,7 @@ export default function ProjectModal({ project, open, onOpenChange }) {
           </DialogDescription>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
+            <a href={`/projects/${project.id}`} className="text-sm underline">Open full case study</a>
             {project.url && (
               <a
                 href={project.url}

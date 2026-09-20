@@ -4,11 +4,11 @@ A public, read-only JSON API describing the engineering portfolio of Yaduraj Sin
 
 ## At a glance
 
-- **Base URL:** `https://www.yaduraj.me`
+- **Base URL:** `https://yaduraj.me`
 - **Authentication:** none — every endpoint is public
 - **Rate limit:** none published
-- **OpenAPI specification:** [/openapi.json](https://www.yaduraj.me/openapi.json)
-- **Agent index:** [/llms.txt](https://www.yaduraj.me/llms.txt)
+- **OpenAPI specification:** [/openapi.json](https://yaduraj.me/openapi.json)
+- **Agent index:** [/llms.txt](https://yaduraj.me/llms.txt)
 
 ## Endpoints
 
@@ -25,7 +25,7 @@ Valid project ids: `aarogya-setu`, `tollgate`, `muhdikhai`, `cineverse`, `cortx`
 ## Example request
 
 ```
-curl -s https://www.yaduraj.me/api/projects/aarogya-setu
+curl -s https://yaduraj.me/api/projects/aarogya-setu
 ```
 
 ## Errors
@@ -39,8 +39,8 @@ Every failure returns JSON — never an HTML error page — with a stable `code`
     "code": "project_not_found",
     "message": "No project exists with id 'nope'.",
     "hint": "Valid ids: ... List them at /api/projects.",
-    "documentation": "https://www.yaduraj.me/docs",
-    "specification": "https://www.yaduraj.me/openapi.json"
+    "documentation": "https://yaduraj.me/docs",
+    "specification": "https://yaduraj.me/openapi.json"
   }
 }
 ```
@@ -52,7 +52,7 @@ Error codes: `invalid_parameter`, `project_not_found`, `endpoint_not_found`, `me
 Send `Accept: text/markdown` to this page, the homepage, `/about`, `/contact` or `/privacy` and the markdown source is returned instead of HTML, per [acceptmarkdown.com](https://acceptmarkdown.com). Responses carry `Vary: Accept` so caches keep the variants separate.
 
 ```
-curl -H "Accept: text/markdown" https://www.yaduraj.me/about
+curl -H "Accept: text/markdown" https://yaduraj.me/about
 ```
 
 ## Function calling

@@ -16,7 +16,7 @@ const { render, escapeHtml } = require("./lib/md");
 const data = require("../src/data/portfolio.json");
 
 const PUBLIC = path.join(__dirname, "..", "public");
-const ORIGIN = "https://www.yaduraj.me";
+const ORIGIN = "https://yaduraj.me";
 const { PROFILE, PROJECTS, STACK, EXPERIENCE, NOW_BUILDING, ABOUT_POINTS, STATS } = data;
 
 /* ── page content ─────────────────────────────────────────────────────── */
@@ -288,6 +288,7 @@ ${PROJECTS.map((p) => `- [${p.name}](${ORIGIN}/api/projects/${p.id}): ${p.blurb}
 const NAV = [
   ["/", "home"],
   ["/about", "about"],
+  ["/projects", "projects"],
   ["/docs", "docs"],
   ["/contact", "contact"],
   ["/privacy", "privacy"],
@@ -311,6 +312,10 @@ function shell({ slug, title, description, body }) {
 <meta property="og:title" content="${escapeHtml(title)}" />
 <meta property="og:description" content="${escapeHtml(description)}" />
 <meta property="og:image" content="${ORIGIN}/og.png" />
+<meta name="twitter:title" content="${escapeHtml(title)}" />
+<meta name="twitter:description" content="${escapeHtml(description)}" />
+<meta name="twitter:image" content="${ORIGIN}/og.png" />
+<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org", "@graph":[{"@type":"WebPage", "@id":canonical+"#webpage", url:canonical, name:title, about:{"@id":ORIGIN+"/#person"}, isPartOf:{"@id":ORIGIN+"/#website"}},{"@type":"BreadcrumbList", itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:ORIGIN+"/"}, ...(slug.startsWith("projects/") ? [{"@type":"ListItem",position:2,name:"Projects",item:ORIGIN+"/projects"}] : []), {"@type":"ListItem",position:slug.startsWith("projects/") ? 3 : 2,name:title,item:canonical}]}]}).replace(/</g,"\\u003c")}</script>
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -322,7 +327,7 @@ function shell({ slug, title, description, body }) {
 body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 .wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
 nav{display:flex;flex-wrap:wrap;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
-nav a{color:var(--text-3);text-decoration:none}
+nav a{color:var(--text-2);text-decoration:none}
 nav a:hover,nav a[aria-current]{color:var(--accent)}
 h1{font-size:2.25rem;line-height:1.15;letter-spacing:-.04em;margin:0 0 1.25rem}
 h2{font-size:1.35rem;letter-spacing:-.02em;margin:2.5rem 0 .75rem;padding-top:1.5rem;border-top:1px solid var(--border)}
@@ -345,10 +350,10 @@ footer a{color:var(--text-3)}
 </head>
 <body>
 <div class="wrap">
-<nav>${NAV.map(
+<header><nav aria-label="Main navigation">${NAV.map(
     ([href, label]) =>
       `<a href="${href}"${href === (slug ? `/${slug}` : "/") ? ' aria-current="page"' : ""}>${label}</a>`
-  ).join("")}</nav>
+  ).join("")}</nav></header>
 <main>
 ${body}
 </main>
@@ -392,6 +397,21 @@ const pages = [
   },
 ];
 
+
+// A finite list of existing, substantive case studies; never derive routes from requests.
+const caseStudies = [...PROJECTS, ...(PROJECTS.some(p => p.id === NOW_BUILDING.id) ? [] : [NOW_BUILDING])]
+  .filter(p => p.caseStudy?.problem && p.caseStudy?.approach?.length);
+const ids = caseStudies.map(p => p.id);
+if (new Set(ids).size !== ids.length || ids.some(id => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id))) {
+  throw new Error("Project route IDs must be unique URL slugs");
+}
+pages.push({slug:"projects", title:`Projects — ${PROFILE.name}`, description:`Software, AI, infrastructure and mobile projects by ${PROFILE.name}, with engineering case studies and technology choices.`, md: `# Projects by ${PROFILE.name}\n\n${caseStudies.map(p => `## [${p.name}](/projects/${p.id})\n\n${p.blurb || p.pitch}\n\nTechnologies: ${p.stack.join(", ")}`).join("\n\n")}`});
+for (const p of caseStudies) {
+  const cs = p.caseStudy;
+  pages.push({slug:`projects/${p.id}`, title:`${p.name} — ${PROFILE.name}`, description:p.blurb || p.pitch,
+    md:`# ${p.name}\n\nBy [${PROFILE.name}](/about).\n\n${p.blurb || p.pitch}\n\n## Problem\n\n${cs.problem}\n\n## Engineering approach\n\n${cs.approach.map(x => `- ${x}`).join("\n")}\n\n## Technical decisions\n\n${(cs.decisions || []).map(x => `- ${x}`).join("\n")}\n\n## Technology stack\n\n${p.stack.join(", ")}\n\n## Links\n\n${p.url ? `[Project website](${p.url})` : ""}\n\n${p.repo ? `[Source profile or repository](${p.repo})` : ""}\n\n[All projects](/projects) · [Contact ${PROFILE.name}](/contact)\n`});
+}
+
 function write(file, contents) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, contents);
@@ -417,14 +437,7 @@ written.push(write(path.join(PUBLIC, "llms.txt"), llms));
 // Only real, indexable URLs. The previous sitemap listed on-page fragments
 // (/#about, /#projects) which are not separate documents, and /cv which is now
 // a 308 redirect — neither belongs in a sitemap.
-const today = new Date().toISOString().slice(0, 10);
-const urls = [
-  { loc: `${ORIGIN}/`, priority: "1.0", changefreq: "weekly" },
-  { loc: `${ORIGIN}/about`, priority: "0.8", changefreq: "monthly" },
-  { loc: `${ORIGIN}/docs`, priority: "0.8", changefreq: "monthly" },
-  { loc: `${ORIGIN}/contact`, priority: "0.7", changefreq: "monthly" },
-  { loc: `${ORIGIN}/privacy`, priority: "0.4", changefreq: "yearly" },
-];
+const urls = [{loc: `${ORIGIN}/`}, ...pages.map(p => ({loc: `${ORIGIN}/${p.slug}`}))];
 
 written.push(
   write(
@@ -434,8 +447,7 @@ written.push(
 ${urls
       .map(
         (u) =>
-          `    <url>\n        <loc>${u.loc}</loc>\n        <lastmod>${today}</lastmod>\n` +
-          `        <changefreq>${u.changefreq}</changefreq>\n        <priority>${u.priority}</priority>\n    </url>`
+          `    <url><loc>${u.loc}</loc></url>`
       )
       .join("\n")}
 </urlset>

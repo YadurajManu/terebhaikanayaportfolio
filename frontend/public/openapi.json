@@ -8,7 +8,7 @@
     "contact": {
       "name": "Yaduraj Singh",
       "email": "yadurajsingham@gmail.com",
-      "url": "https://www.yaduraj.me"
+      "url": "https://yaduraj.me"
     },
     "license": {
       "name": "CC-BY-4.0",
@@ -17,13 +17,13 @@
   },
   "servers": [
     {
-      "url": "https://www.yaduraj.me",
+      "url": "https://yaduraj.me",
       "description": "Production"
     }
   ],
   "externalDocs": {
     "description": "Developer documentation",
-    "url": "https://www.yaduraj.me/docs"
+    "url": "https://yaduraj.me/docs"
   },
   "tags": [
     {

@@ -6,6 +6,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.yaduraj.me"
+        }
+      ],
+      "destination": "https://yaduraj.me/:path*",
+      "permanent": true
+    },
+    {
       "source": "/cv",
       "destination": "/Resume_Web.pdf",
       "permanent": true
@@ -14,44 +25,109 @@
       "source": "/resume",
       "destination": "/Resume_Web.pdf",
       "permanent": true
+    },
+    {
+      "source": "/developers",
+      "destination": "/docs",
+      "permanent": true
+    },
+    {
+      "source": "/api-docs",
+      "destination": "/docs",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*/index",
+      "destination": "/:path*",
+      "permanent": true
     }
-  ],
-  "rewrites": [
-    { "source": "/developers", "destination": "/docs/index.html" },
-    { "source": "/api-docs", "destination": "/docs/index.html" }
   ],
   "headers": [
     {
       "source": "/",
-      "headers": [{ "key": "Vary", "value": "Accept, Accept-Encoding" }]
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
+        }
+      ]
     },
     {
       "source": "/(about|contact|privacy|docs)",
-      "headers": [{ "key": "Vary", "value": "Accept, Accept-Encoding" }]
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
+        }
+      ]
     },
     {
       "source": "/md/(.*)",
       "headers": [
-        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
-        { "key": "Vary", "value": "Accept, Accept-Encoding" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        },
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/llms.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/openapi.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/(api/.*|md/.*|openapi.json|llms.txt|404.html)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
       ]
     }
   ]

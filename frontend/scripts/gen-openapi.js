@@ -13,7 +13,7 @@ const path = require("path");
 const data = require("../src/data/portfolio.json");
 
 const OUT = path.join(__dirname, "..", "public", "openapi.json");
-const ORIGIN = "https://www.yaduraj.me";
+const ORIGIN = "https://yaduraj.me";
 const projectIds = data.PROJECTS.map((p) => p.id);
 
 const errorResponse = (description) => ({
