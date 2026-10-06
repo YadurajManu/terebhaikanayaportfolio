@@ -301,11 +301,20 @@ const spec = {
               },
               caseStudy: {
                 type: ["object", "null"],
-                description: "Problem, approach and engineering decisions.",
+                description: "Problem, approach, engineering decisions and optional detailed case-study sections.",
                 properties: {
                   problem: { type: "string" },
                   approach: { type: "array", items: { type: "string" } },
                   decisions: { type: "array", items: { type: "string" } },
+                  sections: { type: "array", items: { type: "object", properties: {
+                    title: { type: "string" },
+                    paragraphs: { type: "array", items: { type: "string" } },
+                    items: { type: "array", items: { type: "string" } },
+                    code: { type: "string" },
+                    links: { type: "array", items: { type: "object", properties: {
+                      label: { type: "string" }, url: { type: "string", format: "uri" }
+                    } } }
+                  } } },
                 },
               },
             },

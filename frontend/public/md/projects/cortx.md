@@ -28,6 +28,4 @@ ESP32-S3, FastAPI, Flutter, Neo4j, Qdrant
 
 [Project website](https://cortx.yaduraj.me)
 
-
-
 [All projects](/projects) · [Contact Yaduraj Singh](/contact)

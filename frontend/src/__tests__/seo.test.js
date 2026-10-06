@@ -81,3 +81,27 @@ test('404 removes homepage canonical and identity markup', () => {
   expect(html).not.toContain('application/ld+json');
   expect(html).toContain('noindex, follow');
 });
+
+test('MuhDikhai case study includes readable signaling diagram and revision-specific evidence', () => {
+  const html = read('projects/muhdikhai/index.html');
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  expect(doc.title).toContain('WebRTC signaling server with Node.js');
+  expect(doc.querySelector('pre code').textContent).toContain('SDP offer');
+  expect(doc.querySelector('pre code').textContent).toContain('WebRTC media');
+  expect(html).toContain('8ae5018cfd9c2216d6ed596fa18214d3c515ae01');
+  for (const route of ['index.html', 'projects/muhdikhai/index.html', 'projects/tollgate/index.html', 'projects/fleet-os/index.html']) {
+    const page = new DOMParser().parseFromString(read(route), 'text/html');
+    expect(page.querySelector('meta[name="description"]').content.length).toBeLessThanOrEqual(160);
+  }
+});
+
+test('legacy indexed resume reaches the current PDF rather than the unknown-path handler', async () => {
+  expect(config.redirects.find(r => r.source === '/Resume.pdf')).toEqual({source:'/Resume.pdf', destination:'/Resume_Web.pdf', permanent:true});
+  expect(await middleware({url:'https://yaduraj.me/Resume.pdf', method:'GET', headers:{get:()=>null}})).toBeUndefined();
+});
+
+test('markdown code fences preserve newlines and escape markup', () => {
+  const {render} = require('../../scripts/lib/md');
+  expect(render('```text\nA <-> B\nsecond line\n```')).toBe('<pre><code>A &lt;-&gt; B\nsecond line</code></pre>');
+  expect(() => render('```\nunclosed')).toThrow('Unclosed markdown code fence');
+});

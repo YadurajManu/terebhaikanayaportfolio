@@ -53,7 +53,7 @@ tool definitions for function calling.
 
 - [Aarogya Setu](https://yaduraj.me/api/projects/aarogya-setu): Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC.
 - [Tollgate](https://yaduraj.me/api/projects/tollgate): Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts.
-- [MuhDikhai](https://yaduraj.me/api/projects/muhdikhai): Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing.
+- [MuhDikhai](https://yaduraj.me/api/projects/muhdikhai): WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback.
 - [CineVerse](https://yaduraj.me/api/projects/cineverse): Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.
 - [SecondMind / CortX](https://yaduraj.me/api/projects/cortx): Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression.
 - [GBU Timetable](https://yaduraj.me/api/projects/gbu-timetable): Official iOS app for GBU students. Live home-screen widgets via WidgetKit. Real-time schedule updates.

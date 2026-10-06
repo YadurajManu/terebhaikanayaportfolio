@@ -25,8 +25,6 @@ Swift, Firebase, ThingSpeak
 
 ## Links
 
-
-
 [Source profile or repository](https://github.com/YadurajManu)
 
 [All projects](/projects) · [Contact Yaduraj Singh](/contact)

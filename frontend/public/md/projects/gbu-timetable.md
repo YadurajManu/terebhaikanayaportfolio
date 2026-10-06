@@ -27,6 +27,4 @@ SwiftUI, Combine, WidgetKit
 
 [Project website](https://apps.apple.com)
 
-
-
 [All projects](/projects) · [Contact Yaduraj Singh](/contact)

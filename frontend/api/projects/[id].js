@@ -34,6 +34,7 @@ module.exports = function handler(req, res) {
           problem: project.caseStudy.problem,
           approach: project.caseStudy.approach,
           decisions: project.caseStudy.decisions,
+          sections: project.caseStudy.sections || [],
         }
       : null,
   });

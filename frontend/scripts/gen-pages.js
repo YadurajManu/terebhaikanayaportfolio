@@ -348,6 +348,8 @@ ul{padding-left:1.1rem}
 li{margin:.35rem 0}
 strong{color:var(--text);font-weight:600}
 code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:.1rem .35rem;color:var(--text)}
+pre{overflow-x:auto;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:.8rem;line-height:1.7}
+pre code{border:0;padding:0}
 blockquote{margin:1.5rem 0;padding:.5rem 0 .5rem 1rem;border-left:2px solid var(--accent)}
 blockquote p{color:var(--text);font-size:1.1rem}
 table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.92rem;display:block;overflow-x:auto}
@@ -418,8 +420,8 @@ if (new Set(ids).size !== ids.length || ids.some(id => !/^[a-z0-9]+(?:-[a-z0-9]+
 pages.push({slug:"projects", title:`Projects — ${PROFILE.name}`, description:`Software, AI, infrastructure and mobile projects by ${PROFILE.name}, with engineering case studies and technology choices.`, md: `# Projects by ${PROFILE.name}\n\n${caseStudies.map(p => `## [${p.name}](/projects/${p.id})\n\n${p.blurb || p.pitch}\n\nTechnologies: ${p.stack.join(", ")}`).join("\n\n")}`});
 for (const p of caseStudies) {
   const cs = p.caseStudy;
-  pages.push({slug:`projects/${p.id}`, title:`${p.name} — ${PROFILE.name}`, description:p.blurb || p.pitch,
-    md:`# ${p.name}\n\nBy [${PROFILE.name}](/about).\n\n${p.blurb || p.pitch}\n\n## Problem\n\n${cs.problem}\n\n## Engineering approach\n\n${cs.approach.map(x => `- ${x}`).join("\n")}\n\n## Technical decisions\n\n${(cs.decisions || []).map(x => `- ${x}`).join("\n")}\n\n## Technology stack\n\n${p.stack.join(", ")}\n\n## Links\n\n${p.url ? `[Project website](${p.url})` : ""}\n\n${p.repo ? `[Source profile or repository](${p.repo})` : ""}\n\n[All projects](/projects) · [Contact ${PROFILE.name}](/contact)\n`});
+  pages.push({slug:`projects/${p.id}`, title:`${p.seoTitle || p.name} — ${PROFILE.name}`, description:p.seoDescription || p.blurb || p.pitch,
+    md:`# ${p.seoTitle || p.name}\n\nBy [${PROFILE.name}](/about).\n\n${p.blurb || p.pitch}\n\n## Problem\n\n${cs.problem}\n\n## Engineering approach\n\n${cs.approach.map(x => `- ${x}`).join("\n")}\n\n## Technical decisions\n\n${(cs.decisions || []).map(x => `- ${x}`).join("\n")}\n\n${(cs.sections || []).map(section => `## ${section.title}\n\n${(section.paragraphs || []).join("\n\n")}\n\n${section.code ? "```text\n" + section.code + "\n```\n\n" : ""}${(section.items || []).map(item => `- ${item}`).join("\n")}\n\n${(section.links || []).map(link => `- [${link.label}](${link.url})`).join("\n")}`).join("\n\n")}\n\n## Technology stack\n\n${p.stack.join(", ")}\n\n## Links\n\n${p.url ? `[Project website](${p.url})` : ""}\n\n${p.repo ? `[Source profile or repository](${p.repo})` : ""}\n\n[All projects](/projects) · [Contact ${PROFILE.name}](/contact)\n`.replace(/\n{3,}/g, "\n\n")});
 }
 
 function write(file, contents) {

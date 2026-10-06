@@ -25,8 +25,6 @@ Swift, Firestore, PDFKit, STT
 
 ## Links
 
-
-
 [Source profile or repository](https://github.com/YadurajManu)
 
 [All projects](/projects) · [Contact Yaduraj Singh](/contact)

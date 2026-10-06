@@ -40,6 +40,8 @@ ul{padding-left:1.1rem}
 li{margin:.35rem 0}
 strong{color:var(--text);font-weight:600}
 code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:.1rem .35rem;color:var(--text)}
+pre{overflow-x:auto;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:.8rem;line-height:1.7}
+pre code{border:0;padding:0}
 blockquote{margin:1.5rem 0;padding:.5rem 0 .5rem 1rem;border-left:2px solid var(--accent)}
 blockquote p{color:var(--text);font-size:1.1rem}
 table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.92rem;display:block;overflow-x:auto}
@@ -62,8 +64,8 @@ footer a{color:var(--text-3)}
 <p>Cost &amp; usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts.</p>
 <p>Technologies: OpenAI API, Anthropic API, OpenRouter, Vercel</p>
 <h2><a href="/projects/muhdikhai">MuhDikhai</a></h2>
-<p>Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing.</p>
-<p>Technologies: Node.js, TypeScript, WebRTC, Socket.io, PostgreSQL</p>
+<p>WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback.</p>
+<p>Technologies: Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL</p>
 <h2><a href="/projects/cineverse">CineVerse</a></h2>
 <p>Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.</p>
 <p>Technologies: Next.js, Firebase, TMDB API, Nginx, PM2</p>

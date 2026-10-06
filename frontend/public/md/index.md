@@ -52,10 +52,10 @@ Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and
 
 ### MuhDikhai
 
-Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing.
+WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback.
 
 - Category: Real-time · WebRTC
-- Stack: Node.js, TypeScript, WebRTC, Socket.io, PostgreSQL
+- Stack: Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL
 - Live: https://batchit.yaduraj.me
 
 ### CineVerse

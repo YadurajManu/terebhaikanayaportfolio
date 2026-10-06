@@ -131,6 +131,21 @@ export default function ProjectModal({ project, open, onOpenChange }) {
             }
           />
 
+          {cs.sections?.map((section) => (
+            <Section key={section.title} label={section.title} content={
+              <div className="space-y-4 text-zinc-300 leading-relaxed">
+                {section.paragraphs?.map((text) => <p key={text}>{text}</p>)}
+                {section.code && <pre className="overflow-x-auto rounded-lg border border-white/10 p-4 text-xs"><code>{section.code}</code></pre>}
+                {section.items?.length > 0 && <ul className="list-disc pl-5 space-y-2">
+                  {section.items.map((text) => <li key={text}>{text}</li>)}
+                </ul>}
+                {section.links?.map((link) => <p key={link.url}>
+                  <a href={link.url} target="_blank" rel="noreferrer" className="underline text-[var(--accent)]">{link.label}</a>
+                </p>)}
+              </div>
+            } />
+          ))}
+
           <Section
             label="// stack"
             content={

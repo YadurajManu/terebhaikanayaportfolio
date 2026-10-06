@@ -14,9 +14,9 @@ Technologies: OpenAI API, Anthropic API, OpenRouter, Vercel
 
 ## [MuhDikhai](/projects/muhdikhai)
 
-Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing.
+WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback.
 
-Technologies: Node.js, TypeScript, WebRTC, Socket.io, PostgreSQL
+Technologies: Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL
 
 ## [CineVerse](/projects/cineverse)
 

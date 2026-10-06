@@ -38,3 +38,11 @@ npm --prefix frontend run verify:seo -- https://yaduraj.me
 ## Completion record
 
 Record actual deployment URL/time, HTTP verification result, sitemap submission outcome, homepage indexing-request confirmation, issue validation statuses and any account-access blocker. An unchecked action is not a claim that it was performed. Google decides whether and when to index; **Request indexing** and **Validate fix** start processes, not immediate completion.
+
+## October 7, 2026 audit implementation
+
+- MuhDikhai now describes the public source at revision `8ae5018`: offer/answer/ICE sequence, configurable TURN, Redis matching, five-second disconnect cleanup, and source links. Previous unverified latency and overload claims were removed.
+- Homepage, Tollgate and Fleet OS descriptions were shortened; the recruiter path and finite sitemap were retained.
+- The indexed legacy path `https://www.yaduraj.me/Resume.pdf` was checked: www redirects to apex, then returns 404. A permanent `/Resume.pdf` → `/Resume_Web.pdf` redirect is now configured to recover those existing links.
+- After deployment, inspect the homepage and `/projects/muhdikhai` in the existing Search Console property. Request indexing once after live tests pass; record the Google-selected canonical. Compare name-query and WebRTC impressions after recrawl. These account-side actions are pending, not completed by this commit.
+- Fleet OS and Tollgate remain future content opportunities. No tutorial was invented from keyword volume alone.

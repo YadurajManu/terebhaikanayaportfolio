@@ -27,6 +27,4 @@ Next.js, Firebase, TMDB API, Nginx, PM2
 
 [Project website](https://cine.yaduraj.me)
 
-
-
 [All projects](/projects) · [Contact Yaduraj Singh](/contact)

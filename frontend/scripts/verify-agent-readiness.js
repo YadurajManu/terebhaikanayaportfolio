@@ -179,7 +179,7 @@ async function main() {
     record(`trust-${slug}`, `/${slug} has 500+ chars`, r.status === 200 && len >= 500, `${len} chars`);
   }
 
-  // 15 — Organization schema completeness
+  // 15 — personal portfolio identity (including JSON-LD graph nodes)
   const blocks = [...home.body.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
     .map((m) => {
       try {
@@ -189,12 +189,12 @@ async function main() {
       }
     })
     .filter(Boolean);
-  const org = blocks.find((b) => b["@type"] === "Organization");
+  const person = blocks.flatMap(b => b["@graph"] || [b]).find(b => b["@type"] === "Person");
   record(
-    "org-schema",
-    "Organization schema has contactPoint + address",
-    !!org && !!org.contactPoint && !!org.address,
-    org ? "found" : "no Organization block"
+    "person-schema",
+    "Person schema has name, canonical URL and profile links",
+    !!person?.name && person.url === "https://yaduraj.me/" && Array.isArray(person.sameAs) && person.sameAs.length > 0,
+    person ? "found" : "no Person block"
   );
 
   // report

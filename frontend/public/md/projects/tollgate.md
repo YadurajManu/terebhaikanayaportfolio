@@ -29,6 +29,4 @@ OpenAI API, Anthropic API, OpenRouter, Vercel
 
 [Project website](https://tollgate.yaduraj.me/)
 
-
-
 [All projects](/projects) · [Contact Yaduraj Singh](/contact)

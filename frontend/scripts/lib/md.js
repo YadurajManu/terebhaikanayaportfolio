@@ -36,6 +36,16 @@ function render(md) {
       continue;
     }
 
+    if (/^```/.test(line)) {
+      const code = [];
+      i += 1;
+      while (i < lines.length && !/^```/.test(lines[i])) code.push(lines[i++]);
+      if (i === lines.length) throw new Error("Unclosed markdown code fence");
+      i += 1;
+      out.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
+      continue;
+    }
+
     const heading = /^(#{1,4})\s+(.*)$/.exec(line);
     if (heading) {
       const level = heading[1].length;
@@ -87,7 +97,7 @@ function render(md) {
     }
 
     const para = [];
-    while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|[-*]\s|\||>)/.test(lines[i])) {
+    while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|[-*]\s|\||>|```)/.test(lines[i])) {
       para.push(lines[i].trim());
       i += 1;
     }

@@ -17,6 +17,11 @@
       "permanent": true
     },
     {
+      "source": "/Resume.pdf",
+      "destination": "/Resume_Web.pdf",
+      "permanent": true
+    },
+    {
       "source": "/cv",
       "destination": "/Resume_Web.pdf",
       "permanent": true

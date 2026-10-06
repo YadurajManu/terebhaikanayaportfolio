@@ -42,7 +42,7 @@ Stack: Node.js, Express, JWT RBAC, React
 
 - **Aarogya Setu** — Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC. _(Next.js 14, TypeScript, Prisma, PostgreSQL, Redis, Docker)_
 - **Tollgate** — Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts. _(OpenAI API, Anthropic API, OpenRouter, Vercel)_
-- **MuhDikhai** — Omegle-style anonymous video chat. Full WebRTC peer lifecycle built manually over Socket.io. Sub-2s pairing. _(Node.js, TypeScript, WebRTC, Socket.io, PostgreSQL)_
+- **MuhDikhai** — WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback. _(Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL)_
 - **CineVerse** — Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles. _(Next.js, Firebase, TMDB API, Nginx, PM2)_
 - **SecondMind / CortX** — Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression. _(ESP32-S3, FastAPI, Flutter, Neo4j, Qdrant)_
 - **GBU Timetable** — Official iOS app for GBU students. Live home-screen widgets via WidgetKit. Real-time schedule updates. _(SwiftUI, Combine, WidgetKit)_
