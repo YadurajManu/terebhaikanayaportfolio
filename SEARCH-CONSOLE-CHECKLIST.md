@@ -46,3 +46,11 @@ Record actual deployment URL/time, HTTP verification result, sitemap submission 
 - The indexed legacy path `https://www.yaduraj.me/Resume.pdf` was checked: www redirects to apex, then returns 404. A permanent `/Resume.pdf` → `/Resume_Web.pdf` redirect is now configured to recover those existing links.
 - After deployment, inspect the homepage and `/projects/muhdikhai` in the existing Search Console property. Request indexing once after live tests pass; record the Google-selected canonical. Compare name-query and WebRTC impressions after recrawl. These account-side actions are pending, not completed by this commit.
 - Fleet OS and Tollgate remain future content opportunities. No tutorial was invented from keyword volume alone.
+
+## Name discovery: Yaduraj
+
+- Homepage site-name metadata consistently uses `Yaduraj Singh`, with `Yaduraj` and `yaduraj.me` as alternate website names. Person markup also identifies the visible first name and public GitHub handle. This clarifies identity and site-name preference; it does not guarantee rankings.
+- In Search Console, inspect the apex homepage, confirm Google's selected canonical, and request indexing after a successful live test. Track the exact query `yaduraj` separately from `yaduraj singh` and developer-related variants.
+- Use the same full name and portfolio URL on your GitHub and LinkedIn profiles. Add an author/about link from your own public project websites and repository READMEs where useful to visitors. These external edits have not been performed by this commit.
+- Earn relevant references through published technical case studies, university/hackathon profiles and the verified paper's author page where editable. Do not buy links or create unrelated listings to target the first name.
+- Ranking first for an ambiguous first name remains a competitive goal; there is no fixed recrawl date or guaranteed position.
