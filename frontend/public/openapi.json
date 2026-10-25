@@ -187,6 +187,7 @@
             "schema": {
               "type": "string",
               "enum": [
+                "raunak",
                 "aarogya-setu",
                 "tollgate",
                 "muhdikhai",
@@ -197,7 +198,7 @@
                 "bolonyay"
               ],
               "examples": [
-                "aarogya-setu"
+                "raunak"
               ]
             }
           }
@@ -516,6 +517,7 @@
           "id": {
             "type": "string",
             "enum": [
+              "raunak",
               "aarogya-setu",
               "tollgate",
               "muhdikhai",

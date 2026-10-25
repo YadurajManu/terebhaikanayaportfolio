@@ -35,8 +35,7 @@ export default function Projects({ onOpenProject }) {
 
         <Reveal delay={80}>
           <p className="mt-6 max-w-2xl text-zinc-400">
-            Start with Fleet OS above for infrastructure, Aarogya Setu for backend
-            and multi-tenancy, and MuhDikhai for real-time systems. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
+            Start with Raunak for event tech, Fleet OS for infrastructure, and MuhDikhai for real-time systems. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
           </p>
         </Reveal>
 

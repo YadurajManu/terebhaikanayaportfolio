@@ -51,6 +51,7 @@ tool definitions for function calling.
 
 ## Projects
 
+- [Raunak](https://yaduraj.me/api/projects/raunak): An India-first event ticketing platform that takes organizers from event setup to paid bookings and QR-based entry.
 - [Aarogya Setu](https://yaduraj.me/api/projects/aarogya-setu): Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC.
 - [Tollgate](https://yaduraj.me/api/projects/tollgate): Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts.
 - [MuhDikhai](https://yaduraj.me/api/projects/muhdikhai): WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback.

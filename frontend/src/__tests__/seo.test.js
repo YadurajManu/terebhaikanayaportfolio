@@ -8,7 +8,7 @@ const read = p => fs.readFileSync(path.join(PUBLIC, p), 'utf8');
 const urls = [...read('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m => new URL(m[1]));
 
 test('finite canonical sitemap and deploy routing', () => {
-  expect(urls.length).toBe(15);
+  expect(urls.length).toBe(16);
   expect(new Set(urls.map(u => u.href)).size).toBe(urls.length);
   expect(config.framework).toBe(null);
   expect(config.rewrites).toBeUndefined();

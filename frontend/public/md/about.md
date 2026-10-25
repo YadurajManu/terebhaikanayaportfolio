@@ -18,7 +18,7 @@ Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML �
 ## Track record
 
 - **2,000+** users in production
-- **08** shipped projects
+- **09** shipped projects
 - **03** hackathons won
 - **04** self-hosted servers
 
@@ -40,6 +40,7 @@ Stack: Node.js, Express, JWT RBAC, React
 
 ## Selected work
 
+- **Raunak** — An India-first event ticketing platform that takes organizers from event setup to paid bookings and QR-based entry. _(Next.js 16, TypeScript, PostgreSQL, Prisma, Cashfree)_
 - **Aarogya Setu** — Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC. _(Next.js 14, TypeScript, Prisma, PostgreSQL, Redis, Docker)_
 - **Tollgate** — Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts. _(OpenAI API, Anthropic API, OpenRouter, Vercel)_
 - **MuhDikhai** — WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchange, Redis matchmaking and configurable TURN fallback. _(Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL)_

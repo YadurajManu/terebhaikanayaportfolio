@@ -20,7 +20,7 @@ Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Deh
 ## By the numbers
 
 - **2,000+** users in production
-- **08** shipped projects
+- **09** shipped projects
 - **03** hackathons won
 - **04** self-hosted servers
 
@@ -33,6 +33,14 @@ Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Deh
 - Health-gated rollouts: the release that works keeps serving until its replacement proves it can serve too.
 
 ## Projects
+
+### Raunak
+
+An India-first event ticketing platform that takes organizers from event setup to paid bookings and QR-based entry.
+
+- Category: Event Tech · Full-Stack Product
+- Stack: Next.js 16, TypeScript, PostgreSQL, Prisma, Cashfree
+- Live: https://raunak.yaduraj.me
 
 ### Aarogya Setu
 

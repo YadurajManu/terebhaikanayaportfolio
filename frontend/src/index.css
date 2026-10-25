@@ -163,6 +163,15 @@ body {
     transform: scale(0.986);
 }
 
+@keyframes raunak-preview-enter {
+    from { opacity: 0; transform: translateY(12px) scale(0.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.raunak-preview-enter {
+    animation: raunak-preview-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* ── Reduced motion ───────────────────────────────────────────────────
    The site leans on animation for character: the boot sequence, scramble
    text, reveals, the marquee, the ping dots and the cursor spotlight. None

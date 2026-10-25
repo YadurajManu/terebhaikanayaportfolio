@@ -1,5 +1,11 @@
 # Projects by Yaduraj Singh
 
+## [Raunak](/projects/raunak)
+
+An India-first event ticketing platform that takes organizers from event setup to paid bookings and QR-based entry.
+
+Technologies: Next.js 16, TypeScript, PostgreSQL, Prisma, Cashfree
+
 ## [Aarogya Setu](/projects/aarogya-setu)
 
 Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC.

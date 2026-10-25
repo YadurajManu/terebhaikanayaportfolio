@@ -20,7 +20,7 @@ export default function FeaturedProject({ project, onOpen }) {
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/25 bg-[var(--accent)]/[0.06] px-2.5 py-1">
               <Sparkles size={11} className="text-[var(--accent)]" />
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
-                featured
+                {project.new ? "new · featured" : "featured"}
               </span>
             </div>
             {project.live && (
@@ -58,15 +58,26 @@ export default function FeaturedProject({ project, onOpen }) {
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
+            {project.primaryCta && project.url && (
+              <a
+                data-testid="featured-live-url"
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white text-black h-10 px-5 rounded-full font-medium text-[13px] hover:bg-zinc-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] transition-colors"
+              >
+                {project.primaryCta} <ArrowUpRight size={14} />
+              </a>
+            )}
             <button
               data-testid="featured-case-study"
               onClick={() => onOpen(project)}
-              className="inline-flex items-center gap-2 bg-white text-black h-10 px-5 rounded-full font-medium text-[13px] hover:bg-zinc-200 transition-colors"
+              className={`inline-flex items-center gap-2 h-10 px-5 rounded-full font-medium text-[13px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] ${project.primaryCta ? "text-zinc-300 border border-white/15 hover:text-white hover:border-white/30" : "bg-white text-black hover:bg-zinc-200"}`}
             >
-              read case study
+              {project.primaryCta ? "Read case study" : "read case study"}
               <ArrowUpRight size={14} />
             </button>
-            {project.url && (
+            {project.url && !project.primaryCta && (
               <a
                 data-testid="featured-live-url"
                 href={project.url}
@@ -83,7 +94,7 @@ export default function FeaturedProject({ project, onOpen }) {
                 href={project.repo}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white text-xs font-mono"
+                className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white text-xs font-mono focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
               >
                 <Github size={13} /> source
               </a>
@@ -107,10 +118,12 @@ export default function FeaturedProject({ project, onOpen }) {
               </div>
             </div>
           ))}
-          <div className="col-span-2 rounded-xl border border-white/[0.04] bg-black/30 p-4 font-mono text-[11px] text-zinc-500">
-            <span className="text-zinc-600">$</span> curl -I {project.url?.replace(/^https?:\/\//, "")}{" "}
-            <span className="text-[var(--accent)]/80">→ 200 OK</span>
-          </div>
+          {!project.primaryCta && (
+            <div className="col-span-2 rounded-xl border border-white/[0.04] bg-black/30 p-4 font-mono text-[11px] text-zinc-500">
+              <span className="text-zinc-600">$</span> curl -I {project.url?.replace(/^https?:\/\//, "")}{" "}
+              <span className="text-[var(--accent)]/80">→ 200 OK</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
