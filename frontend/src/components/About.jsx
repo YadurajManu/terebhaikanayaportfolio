@@ -13,7 +13,7 @@ export default function About() {
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            index="04"
+            index="05"
             title="about"
             subtitle="// what sets me apart"
           />

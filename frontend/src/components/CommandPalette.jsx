@@ -10,6 +10,7 @@ import {
 import {
   ArrowUpRight,
   AtSign,
+  BookOpen,
   Briefcase,
   Cpu,
   FolderGit2,
@@ -61,6 +62,7 @@ export default function CommandPalette({ open, setOpen, onOpenProject }) {
     { id: "now-building", label: `now building — ${NOW_BUILDING.name}`, icon: Rocket },
     { id: "experience", label: "experience", icon: Briefcase },
     { id: "projects", label: "projects", icon: FolderGit2 },
+    { id: "research", label: "research & publications", icon: BookOpen },
     { id: "stack", label: "tech stack", icon: Layers },
     { id: "contact", label: "contact", icon: AtSign },
   ];

@@ -23,7 +23,7 @@ export default function Stack() {
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            index="05"
+            index="06"
             title="tech stack"
             subtitle="// daily drivers"
           />

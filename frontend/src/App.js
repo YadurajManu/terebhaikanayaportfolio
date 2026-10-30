@@ -8,6 +8,7 @@ import About from "./components/About";
 import NowBuilding from "./components/NowBuilding";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
+import Research from "./components/Research";
 import Stack from "./components/Stack";
 import Contact from "./components/Contact";
 import Stats from "./components/Stats";
@@ -44,6 +45,7 @@ function HomePage() {
         <Experience />
         <NowBuilding onOpenProject={openProject} />
         <Projects onOpenProject={openProject} />
+        <Research />
         <About />
         <Stack />
         <Contact />
