@@ -363,45 +363,6 @@
       "seoDescription": "A WebRTC signaling server case study: Node.js, Socket.io, offer/answer exchange, ICE candidates, Redis matchmaking and reconnect handling."
     },
     {
-      "id": "cineverse",
-      "name": "CineVerse",
-      "blurb": "Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.",
-      "stack": [
-        "Next.js",
-        "Firebase",
-        "TMDB API",
-        "Nginx",
-        "PM2"
-      ],
-      "url": "https://cine.yaduraj.me",
-      "repo": null,
-      "tag": "Social · SSR",
-      "live": true,
-      "lastDeploy": "2w ago",
-      "metrics": [
-        {
-          "k": "TMDB titles",
-          "v": "500k+"
-        },
-        {
-          "k": "Render",
-          "v": "SSR"
-        }
-      ],
-      "caseStudy": {
-        "problem": "Letterboxd is great but bloated, and no one tracks regional films well. Built a lighter, faster alternative.",
-        "approach": [
-          "Next.js SSR for SEO-friendly title pages.",
-          "Firestore for user data; TMDB API proxied for caching.",
-          "Discovery feed ranks by friend activity + recency."
-        ],
-        "decisions": [
-          "Firebase over custom auth — speed of shipping > purity.",
-          "Nginx + PM2 self-host for full log access."
-        ]
-      }
-    },
-    {
       "id": "cortx",
       "name": "SecondMind / CortX",
       "blurb": "Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression.",

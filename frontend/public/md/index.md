@@ -66,14 +66,6 @@ WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchan
 - Stack: Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL
 - Live: https://batchit.yaduraj.me
 
-### CineVerse
-
-Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.
-
-- Category: Social · SSR
-- Stack: Next.js, Firebase, TMDB API, Nginx, PM2
-- Live: https://cine.yaduraj.me
-
 ### SecondMind / CortX
 
 Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression.

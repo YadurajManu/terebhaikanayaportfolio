@@ -24,12 +24,6 @@ WebRTC video chat with a Node.js signaling server, Socket.io offer/answer exchan
 
 Technologies: Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL
 
-## [CineVerse](/projects/cineverse)
-
-Social film tracking — watchlists, ratings, reviews, discovery feeds. TMDB API across 500k+ titles.
-
-Technologies: Next.js, Firebase, TMDB API, Nginx, PM2
-
 ## [SecondMind / CortX](/projects/cortx)
 
 Cognitive OS on ESP32-S3 Sense. Voice → faster-whisper → local LLM → Coqui TTS. VAD firmware, Opus compression.
