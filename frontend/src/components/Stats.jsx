@@ -20,7 +20,7 @@ export default function Stats() {
               >
                 {s.value}
               </span>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400">
                 {s.label}
               </span>
             </div>

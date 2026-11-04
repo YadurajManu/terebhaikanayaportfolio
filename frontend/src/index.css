@@ -1,4 +1,4 @@
-/* Fonts loaded via <link> in index.html — do not duplicate here */
+/* Font faces and preloads are in the HTML shell. */
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +12,7 @@
     --border-hover: #2f2f2f;
     --text: #F5F5F5;
     --text-2: #A1A1AA;
-    --text-3: #52525B;
+    --text-3: #A1A1AA;
     --accent: #4ADE80;
 }
 
@@ -236,8 +236,8 @@ body {
     --border-hover: #D4D4D8;
     --text: #09090B;
     --text-2: #52525B;
-    --text-3: #A1A1AA;
-    --accent: #16A34A;
+    --text-3: #52525B;
+    --accent: #15803D;
 
     --background: 0 0% 98%;
     --foreground: 0 0% 4%;
@@ -300,8 +300,8 @@ body {
 [data-theme="light"] .text-zinc-300 { color: #27272A !important; }
 [data-theme="light"] .text-zinc-400 { color: #52525B !important; }
 [data-theme="light"] .text-zinc-500 { color: #71717A !important; }
-[data-theme="light"] .text-zinc-600 { color: #A1A1AA !important; }
-[data-theme="light"] .text-zinc-700 { color: #D4D4D8 !important; }
+[data-theme="light"] .text-zinc-600 { color: #52525B !important; }
+[data-theme="light"] .text-zinc-700 { color: #52525B !important; }
 
 /* Backgrounds — pure black surfaces become white */
 [data-theme="light"] .bg-\[\#0A0A0A\] { background-color: #FFFFFF !important; }
@@ -350,7 +350,7 @@ body {
 [data-theme="light"] .hover\:bg-zinc-200:hover { background-color: #27272A !important; }
 
 /* Hero name "Singh." secondary */
-[data-theme="light"] h1 .text-zinc-500 { color: #A1A1AA !important; }
+[data-theme="light"] h1 .text-zinc-500 { color: #71717A !important; }
 
 /* Now-building gradient adjust */
 [data-theme="light"] .from-\[var\(--accent\)\]\/\[0\.04\] {
@@ -368,3 +368,6 @@ body {
 }
 
 /* Popover/dialog adjustments are handled via shadcn vars above */
+
+/* Small muted labels must remain legible on both themes. */
+.text-zinc-500, .text-zinc-600, .text-zinc-700 { color: var(--text-3); }

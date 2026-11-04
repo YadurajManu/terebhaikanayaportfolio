@@ -31,9 +31,13 @@ export default function LiveTerminal({ onTheme }) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    // The initial history fits. Only scroll after a command, after layout settles.
+    if (history.length <= 1) return;
+    const frame = requestAnimationFrame(() => {
+      const el = scrollRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
+    return () => cancelAnimationFrame(frame);
   }, [history]);
 
   const scrollTo = (id) => {
@@ -145,6 +149,7 @@ export default function LiveTerminal({ onTheme }) {
           <input
             ref={inputRef}
             data-testid="live-terminal-input"
+            aria-label="Terminal command input"
             value={input}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}

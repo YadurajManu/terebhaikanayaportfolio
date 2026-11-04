@@ -22,7 +22,7 @@ export default function Hero({ onPlayIntro }) {
         <div className="grid md:grid-cols-12 gap-10 items-end">
           <div className="md:col-span-7">
             {/* Status pill */}
-            <div className="reveal flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-zinc-400 mb-10">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-zinc-400 mb-10">
               <span className="inline-flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
