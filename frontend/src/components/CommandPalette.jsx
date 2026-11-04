@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -23,31 +23,12 @@ import {
   Rocket,
   User,
 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "../lib/notify";
 import { NOW_BUILDING, PROFILE, PROJECTS } from "../data/portfolio";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function CommandPalette({ open, setOpen, onOpenProject }) {
   const { toggle } = useTheme();
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setOpen((v) => !v);
-      }
-      if (e.key === "/" && !open) {
-        const t = e.target;
-        const tag = (t?.tagName || "").toLowerCase();
-        if (tag !== "input" && tag !== "textarea" && !t?.isContentEditable) {
-          e.preventDefault();
-          setOpen(true);
-        }
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, setOpen]);
 
   const close = () => setOpen(false);
 

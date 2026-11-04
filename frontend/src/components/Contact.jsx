@@ -1,5 +1,5 @@
 import { Copy, Github, Linkedin, Mail, Phone } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "../lib/notify";
 import { PROFILE } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
 import Reveal from "./Reveal";

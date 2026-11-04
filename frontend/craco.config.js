@@ -35,6 +35,10 @@ let webpackConfig = {
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      ...(!isDevServer ? {
+        'react-router$': path.join(path.dirname(require.resolve('react-router/package.json')), 'dist/production/index.mjs'),
+        'react-router/dom$': path.join(path.dirname(require.resolve('react-router/package.json')), 'dist/production/dom-export.mjs'),
+      } : {}),
     },
     configure: (webpackConfig) => {
 
