@@ -95,12 +95,11 @@ This is a personal portfolio site. It sells nothing, has no user accounts, and a
 
 ## What is collected
 
-The site runs two analytics tools:
+The site uses PostHog for product analytics:
 
-- **Plausible Analytics** — privacy-focused, cookieless analytics. It records aggregate page views, referrers and coarse country-level location. It does not use cookies and does not track individuals across sites.
 - **PostHog** — product analytics used to understand which sections of the site are used.
 
-Neither tool's data is published anywhere on this site. The figures are aggregate counts only and identify no individual.
+Analytics data is not published anywhere on this site. Session recording and surveys are disabled.
 
 ## Browser storage
 

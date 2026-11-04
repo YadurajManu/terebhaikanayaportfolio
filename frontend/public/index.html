@@ -52,19 +52,6 @@
 
 
 
-        <!-- Privacy-friendly analytics by Plausible -->
-        <script async src="https://plausible.io/js/pa-hDLS1MPNE16Kgz_GADKDX.js"></script>
-        <script>
-            window.plausible = window.plausible || function () {
-                (plausible.q = plausible.q || []).push(arguments);
-            };
-            plausible.init = plausible.init || function (i) {
-                plausible.o = i || {};
-            };
-            plausible.init();
-        </script>
-
-        <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
     </head>
     <body>
         <noscript>Interactive features require JavaScript. Portfolio information and project links are available below.</noscript>
@@ -109,10 +96,14 @@
                                     ".i.posthog.com",
                                     "-assets.i.posthog.com",
                                 ) + "/static/array.js"),
-                            (r =
-                                t.getElementsByTagName(
-                                    "script",
-                                )[0]).parentNode.insertBefore(p, r);
+                            (r = t.getElementsByTagName("script")[0]);
+                        function loadAnalytics() {
+                            var insert = function () { r.parentNode.insertBefore(p, r); };
+                            if (window.requestIdleCallback) window.requestIdleCallback(insert, { timeout: 2000 });
+                            else window.setTimeout(insert, 200);
+                        }
+                        if (document.readyState === "complete") loadAnalytics();
+                        else window.addEventListener("load", loadAnalytics, { once: true });
                         var u = e;
                         for (
                             void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
@@ -144,10 +135,8 @@
             posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
                 api_host: "https://us.i.posthog.com",
                 person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
-                session_recording: {
-                    recordCrossOriginIframes: true,
-                    capturePerformance: false,
-                },
+                disable_surveys: true,
+                disable_session_recording: true,
             });
         </script>
     </body>
