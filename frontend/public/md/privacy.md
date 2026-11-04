@@ -12,7 +12,7 @@ Analytics data is not published anywhere on this site. Session recording and sur
 
 ## Browser storage
 
-The site stores two values in your own browser. Neither is transmitted anywhere and neither identifies you:
+For site preferences, the app stores two values in your browser. Neither is transmitted anywhere and neither identifies you:
 
 - `yr-theme` in `localStorage` — remembers whether you chose the light or dark theme.
 - `yr-booted` in `sessionStorage` — remembers that the intro animation already played, so it does not replay on every page view.
@@ -25,7 +25,7 @@ No personal data is sold, rented or shared with advertisers. There is no adverti
 
 ## Third parties
 
-Pages load fonts from Google Fonts and the site is served by Vercel. Both receive standard request metadata such as IP address and user agent as an unavoidable part of delivering the page.
+Fonts are hosted with the site on Vercel. Vercel receives standard request metadata such as IP address and user agent to deliver the page. PostHog may use its own cookies or local storage to associate analytics events with a browser.
 
 ## Contact
 

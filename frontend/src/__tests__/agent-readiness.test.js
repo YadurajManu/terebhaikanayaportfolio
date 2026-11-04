@@ -140,9 +140,10 @@ describe("trust anchor pages", () => {
     expect(visibleText(read(path.join(slug, "index.html")))).toContain(mdTitle);
   });
 
-  it("privacy page names both analytics tools actually loaded", () => {
+  it("privacy page describes the active analytics configuration", () => {
     const privacy = read(path.join("md", "privacy.md"));
-    expect(privacy).toMatch(/Plausible/);
+    expect(privacy).not.toMatch(/Plausible|Google Fonts/);
+    expect(privacy).toMatch(/Session recording and surveys are disabled/);
     expect(privacy).toMatch(/PostHog/);
     // the two browser keys the app really writes
     expect(privacy).toContain("yr-theme");

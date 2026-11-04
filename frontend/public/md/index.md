@@ -20,7 +20,7 @@ Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Deh
 ## By the numbers
 
 - **2,000+** users in production
-- **09** shipped projects
+- **08** shipped projects
 - **03** hackathons won
 - **04** self-hosted servers
 

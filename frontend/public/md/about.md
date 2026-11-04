@@ -18,7 +18,7 @@ Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML Â
 ## Track record
 
 - **2,000+** users in production
-- **09** shipped projects
+- **08** shipped projects
 - **03** hackathons won
 - **04** self-hosted servers
 
