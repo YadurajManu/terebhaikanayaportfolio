@@ -2,7 +2,11 @@
 module.exports = {
     darkMode: ["class"],
     content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/*.{js,jsx,ts,tsx}",
+    "./src/{pages,contexts,hooks,lib,data}/**/*.{js,jsx,ts,tsx}",
+    "./src/components/*.{js,jsx,ts,tsx}",
+    "./src/components/diagrams/**/*.{js,jsx,ts,tsx}",
+    "./src/components/ui/{command,dialog}.jsx",
     "./public/index.html"
   ],
   theme: {

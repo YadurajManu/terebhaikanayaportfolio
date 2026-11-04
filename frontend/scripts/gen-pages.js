@@ -103,7 +103,7 @@ Analytics data is not published anywhere on this site. Session recording and sur
 
 ## Browser storage
 
-The site stores two values in your own browser. Neither is transmitted anywhere and neither identifies you:
+For site preferences, the app stores two values in your browser. Neither is transmitted anywhere and neither identifies you:
 
 - \`yr-theme\` in \`localStorage\` — remembers whether you chose the light or dark theme.
 - \`yr-booted\` in \`sessionStorage\` — remembers that the intro animation already played, so it does not replay on every page view.
@@ -116,7 +116,7 @@ No personal data is sold, rented or shared with advertisers. There is no adverti
 
 ## Third parties
 
-Pages load fonts from Google Fonts and the site is served by Vercel. Both receive standard request metadata such as IP address and user agent as an unavoidable part of delivering the page.
+Fonts are hosted with the site on Vercel. Vercel receives standard request metadata such as IP address and user agent to deliver the page. PostHog may use its own cookies or local storage to associate analytics events with a browser.
 
 ## Contact
 
@@ -327,11 +327,12 @@ function shell({ slug, title, description, body }) {
 <script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org", "@graph":[{"@type":"WebPage", "@id":canonical+"#webpage", url:canonical, name:title, about:{"@id":ORIGIN+"/#person"}, isPartOf:{"@id":ORIGIN+"/#website"}},{"@type":"BreadcrumbList", itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:ORIGIN+"/"}, ...(slug.startsWith("projects/") ? [{"@type":"ListItem",position:2,name:"Projects",item:ORIGIN+"/projects"}] : []), {"@type":"ListItem",position:slug.startsWith("projects/") ? 3 : 2,name:title,item:canonical}]}]}).replace(/</g,"\\u003c")}</script>
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="/fonts/jetbrains-mono-latin.1e06740a.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/outfit-latin.92684e4a.woff2" as="font" type="font/woff2" crossorigin />
 <style>
-:root{--bg:#050505;--surface:#0A0A0A;--border:#1f1f1f;--text:#F5F5F5;--text-2:#A1A1AA;--text-3:#52525B;--accent:#4ADE80}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/outfit-latin.92684e4a.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:300 600;font-display:swap;src:url('/fonts/jetbrains-mono-latin.1e06740a.woff2') format('woff2');}
+:root{--bg:#050505;--surface:#0A0A0A;--border:#1f1f1f;--text:#F5F5F5;--text-2:#A1A1AA;--text-3:#A1A1AA;--accent:#4ADE80}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 .wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
