@@ -1,0 +1,24 @@
+.signature-intro{position:fixed;inset:0;z-index:100;background:var(--bg);color:var(--text);overflow:hidden;animation:signature-exit .45s cubic-bezier(.76,0,.24,1) 1.35s both}
+.signature-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;opacity:.3;mask-image:radial-gradient(ellipse at center,black,transparent 70%)}
+.signature-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.signature-caption,.signature-role,.signature-skip{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em}
+.signature-caption{color:var(--text-2);position:absolute;top:25%;animation:signature-label .4s ease both}
+.signature-circuit{width:min(760px,100%);height:180px;position:absolute;top:calc(50% - 90px);animation:signature-circuit-out .4s ease .65s both}
+.signature-wire{stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:signature-draw .7s cubic-bezier(.22,1,.36,1) forwards;filter:drop-shadow(0 0 8px var(--accent))}
+.signature-name{display:flex;gap:.2em;font-family:'Outfit',sans-serif;font-weight:500;font-size:clamp(44px,10vw,130px);letter-spacing:-.065em;line-height:1.1;overflow:hidden}
+.signature-name>span{display:block;animation:signature-name-in .65s cubic-bezier(.16,1,.3,1) .55s both}
+.signature-name>span:nth-child(2){color:var(--text-2);animation-delay:.65s}.signature-dot{color:var(--accent)}
+.signature-role{color:var(--accent);margin-top:24px;animation:signature-label .4s ease .85s both}
+.signature-skip{position:absolute;bottom:30px;right:30px;color:var(--text-2);border:1px solid var(--border);background:var(--surface);padding:12px 16px;cursor:pointer;border-radius:4px}.signature-skip:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+@keyframes signature-draw{to{stroke-dashoffset:0}}@keyframes signature-circuit-out{to{opacity:0;transform:scale(1.08)}}@keyframes signature-name-in{from{transform:translateY(115%);opacity:0}to{transform:translateY(0);opacity:1}}@keyframes signature-label{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes signature-exit{to{clip-path:inset(0 0 100% 0);visibility:hidden}}
+@media(max-width:600px){.signature-caption{font-size:8px;letter-spacing:.12em}.signature-name{flex-direction:column;align-items:center;font-size:18vw;gap:0}.signature-skip{bottom:20px;right:20px}}
+@media(prefers-reduced-motion:reduce){.signature-intro{display:none}.signature-intro *{animation:none!important}}
+
+.signature-intro{animation:none}.signature-grid,.signature-caption{animation:signature-fade .3s ease .5s both}.signature-circuit{animation:signature-circuit-out .25s ease .45s both}
+.signature-pulse{stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-dasharray:.06 .94;stroke-dashoffset:1;filter:drop-shadow(0 0 6px var(--accent));animation:signature-draw .65s linear both}
+@keyframes signature-fade{to{opacity:0}}.hero-waiting [data-testid="hero-name"]{opacity:0}.hero-waiting .reveal{animation:none!important;opacity:0}.hero-waiting .animate-ping{animation-play-state:paused}.hero-waiting{pointer-events:none}
+::view-transition-group(project-art){animation-duration:550ms;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+::view-transition-old(project-art),::view-transition-new(project-art){height:100%;object-fit:cover;mix-blend-mode:normal}
+.project-detail[data-state="open"]{animation:none}
+@media(max-width:600px){.signature-skip{min-height:48px;bottom:20px;right:20px}.signature-circuit{animation-delay:.3s}::view-transition-group(project-art){animation-duration:350ms}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*){animation-duration:0s!important}}

@@ -1,144 +1,66 @@
-import { useEffect, useState } from "react";
-import { PROJECTS, STACK } from "../data/portfolio";
-
-const projectCount = String(PROJECTS.length).padStart(2, "0");
-
-const LINES = [
-  { t: 60, text: "[ ok ] booting yaduraj.os v1.0.0…" },
-  { t: 220, text: "[ ok ] mounting /modules/portfolio" },
-  {
-    t: 380,
-    text: `[ ok ] loading ${projectCount} projects · ${STACK.length} stack categories`,
-  },
-  { t: 540, text: "[ ok ] establishing self-hosted link · TLS 1.3" },
-  { t: 700, text: "[ ok ] available for select projects" },
-  { t: 880, text: "$ ready." },
-];
-
-const TOTAL = 1500;
-
-/**
- * Nobody should have to watch this twice, and some people should never have to
- * watch it at all — it is 1.5s of withheld content on a first visit. So it is
- * skippable by any key, click or scroll, and is not shown at all to anyone who
- * has asked the OS to reduce motion.
- */
-const prefersReducedMotion = () =>
-  typeof window !== "undefined" &&
-  typeof window.matchMedia === "function" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+import { useLayoutEffect, useRef } from "react";
+import "./BootScreen.css";
+export function shouldPlayIntro() {
+  if (typeof window === "undefined" || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return false;
+  try { return !sessionStorage.getItem("yr-booted"); } catch { return true; }
+}
 export default function BootScreen({ onDone }) {
-  const [visible, setVisible] = useState(true);
-  const [printed, setPrinted] = useState([]);
-  const [fading, setFading] = useState(false);
-
-  useEffect(() => {
+  const done = useRef(onDone);
+  done.current = onDone;
+  const root = useRef(null);
+  useLayoutEffect(() => {
     let finished = false;
-
     const finish = () => {
       if (finished) return;
       finished = true;
-      setVisible(false);
-      try {
-        sessionStorage.setItem("yr-booted", "1");
-      } catch {
-        /* private mode — the sequence simply replays next time */
-      }
-      onDone?.();
+      try { sessionStorage.setItem("yr-booted", "1"); } catch { /* Storage may be unavailable. */ }
+      done.current?.();
     };
-
-    // Already booted this tab, or the visitor has asked for less motion.
-    if (
-      (typeof window !== "undefined" && sessionStorage.getItem("yr-booted")) ||
-      prefersReducedMotion()
-    ) {
-      finish();
-      return;
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (media?.matches) { finish(); return; }
+    const mobile = window.matchMedia('(max-width: 600px)').matches;
+    const duration = mobile ? 500 : 750;
+    const delay = mobile ? 450 : 650;
+    const target = document.querySelector('[data-testid="hero-name"]');
+    let clone;
+    const animations = [];
+    if (target && root.current) {
+      const rect = target.getBoundingClientRect();
+      const computed = getComputedStyle(target);
+      clone = target.cloneNode(true);
+      clone.removeAttribute('data-testid');
+      clone.setAttribute('aria-hidden', 'true');
+      Object.assign(clone.style, { position: 'fixed', margin: '0', left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px`, font: computed.font, letterSpacing: computed.letterSpacing, opacity: '1', visibility: 'visible', transformOrigin: 'top left', animation: 'none' });
+      root.current.appendChild(clone);
+      const scale = mobile ? 1.1 : 1.25;
+      const x = (window.innerWidth - rect.width * scale) / 2 - rect.left;
+      const y = (window.innerHeight - rect.height * scale) / 2 - rect.top;
+      animations.push(clone.animate([{ opacity: 0, transform: `translate(${x}px,${y + 20}px) scale(${scale})` }, { opacity: 1, transform: `translate(${x}px,${y}px) scale(${scale})` }], { duration: 250, delay: delay - 200, fill: 'both' }));
+      animations.push(clone.animate([{ transform: `translate(${x}px,${y}px) scale(${scale})` }, { transform: 'translate(0,0) scale(1)' }], { duration, delay, easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+      animations.push(root.current.animate([{ backgroundColor: computed.getPropertyValue('--bg') }, { backgroundColor: 'transparent' }], { duration, delay, fill: 'forwards' }));
     }
-
-    const timeouts = [];
-    LINES.forEach((l, i) => {
-      timeouts.push(
-        setTimeout(() => setPrinted((p) => [...p, { ...l, i }]), l.t)
-      );
-    });
-
-    const fadeT = setTimeout(() => setFading(true), TOTAL - 320);
-    const doneT = setTimeout(finish, TOTAL);
-
-    // Any deliberate input means "I have seen enough" — fade out and get out
-    // of the way rather than making them wait for the timer.
-    const skip = () => {
-      setFading(true);
-      timeouts.forEach(clearTimeout);
-      clearTimeout(fadeT);
-      clearTimeout(doneT);
-      setTimeout(finish, 180);
-    };
-
-    const events = ["keydown", "pointerdown", "wheel", "touchstart"];
-    events.forEach((e) =>
-      window.addEventListener(e, skip, { once: true, passive: true })
-    );
-
+    const timer = setTimeout(finish, delay + duration);
+    const events = ["keydown", "click", "wheel", "touchstart", "resize"];
+    events.forEach(event => window.addEventListener(event, finish, { passive: true }));
+    media?.addEventListener?.("change", finish);
     return () => {
-      timeouts.forEach(clearTimeout);
-      clearTimeout(fadeT);
-      clearTimeout(doneT);
-      events.forEach((e) => window.removeEventListener(e, skip));
+      clearTimeout(timer);
+      animations.forEach(animation => animation.cancel());
+      clone?.remove();
+      events.forEach(event => window.removeEventListener(event, finish));
+      media?.removeEventListener?.("change", finish);
     };
-  }, [onDone]);
+  }, []);
+  return <div ref={root} className="signature-intro" data-testid="boot-screen" aria-label="Yaduraj Singh introduction">
+    <div className="signature-grid" aria-hidden="true" />
+    <div className="signature-stage" aria-hidden="true">
+      <span className="signature-caption">HARDWARE · SOFTWARE · INTELLIGENCE</span>
+      <svg className="signature-circuit" viewBox="0 0 600 160" fill="none">
+        <path className="signature-wire" pathLength="1" d="M220 25L255 65L290 25M255 65V135M385 30H325V75H380V130H320" />
+        <path className="signature-pulse" pathLength="1" d="M0 80H170L195 55L220 25L255 65V135H300L320 130H380V75H325V30H385L420 65H600" />
+      </svg>
 
-  if (!visible) return null;
-
-  return (
-    <div
-      data-testid="boot-screen"
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[var(--bg)] transition-opacity duration-300"
-      style={{ opacity: fading ? 0 : 1, pointerEvents: fading ? "none" : "auto" }}
-    >
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-      <div className="absolute inset-0 hero-spot pointer-events-none" />
-
-      <div
-        className="relative w-[min(560px,calc(100%-2rem))] font-mono text-[12.5px] text-zinc-300 leading-[1.7]"
-      >
-        <div className="flex items-center gap-2 mb-5">
-          <span className="inline-block h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_10px_rgba(74,222,128,0.7)]" />
-          <span className="text-zinc-500">yaduraj.os — boot sequence</span>
-        </div>
-        <ul className="space-y-1">
-          {printed.map((l) => (
-            <li key={l.i} className="opacity-0 animate-[revealUp_240ms_ease-out_forwards]">
-              {l.text.startsWith("[ ok ]") ? (
-                <>
-                  <span className="text-zinc-600">[</span>
-                  <span className="text-[var(--accent)]"> ok </span>
-                  <span className="text-zinc-600">]</span>
-                  <span className="text-zinc-300">{l.text.slice(6)}</span>
-                </>
-              ) : l.text.startsWith("$") ? (
-                <>
-                  <span className="text-zinc-600">$</span>
-                  <span className="text-[var(--accent)]">{l.text.slice(1)}</span>
-                </>
-              ) : (
-                l.text
-              )}
-            </li>
-          ))}
-          {printed.length < LINES.length && (
-            <li className="text-zinc-500">
-              <span className="cursor-blink">_</span>
-            </li>
-          )}
-        </ul>
-
-        <p className="mt-6 text-[11px] text-zinc-600">
-          press any key to skip
-        </p>
-      </div>
     </div>
-  );
+    <button className="signature-skip">Skip intro ↗</button>
+  </div>;
 }

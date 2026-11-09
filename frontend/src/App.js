@@ -14,16 +14,17 @@ const Contact = lazy(() => import("./components/Contact"));
 import Stats from "./components/Stats";
 import Footer from "./components/Footer";
 const CommandPalette = lazy(() => import("./components/CommandPalette"));
-const ProjectModal = lazy(() => import("./components/ProjectModal"));
+import ProjectModal from "./components/ProjectModal";
+import { flushSync } from "react-dom";
 import CursorSpotlight from "./components/CursorSpotlight";
-const BootScreen = lazy(() => import("./components/BootScreen"));
+import BootScreen, { shouldPlayIntro } from "./components/BootScreen";
 const NotFound = lazy(() => import("./pages/NotFound"));
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 function HomePage() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
-  const [booted, setBooted] = useState(true);
+  const [booted, setBooted] = useState(() => !shouldPlayIntro());
   useEffect(() => {
     const onKey = (e) => {
       const tag = e.target?.tagName?.toLowerCase();
@@ -41,12 +42,26 @@ function HomePage() {
 
   const playIntro = () => {
     try { sessionStorage.removeItem("yr-booted"); } catch { /* Storage may be unavailable. */ }
+    window.scrollTo({ top: 0, behavior: "instant" });
     setBooted(false);
   };
 
-  const openProject = (p) => setActiveProject(p);
+  const transitionProject = (next) => {
+    const id = (next || activeProject)?.id;
+    const source = [...document.querySelectorAll('[data-project-cover]')].find(el =>
+      el.dataset.projectCover === id && !el.closest('[role="dialog"]') && el.getBoundingClientRect().width > 0);
+    const update = () => flushSync(() => setActiveProject(next));
+    if (!document.startViewTransition || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || !source) { update(); return; }
+    if (next) source.style.viewTransitionName = 'project-art';
+    const transition = document.startViewTransition(() => {
+      source.style.viewTransitionName = next ? '' : 'project-art';
+      update();
+    });
+    transition.finished.catch(() => {}).finally(() => { source.style.viewTransitionName = ''; });
+  };
+  const openProject = (p) => transitionProject(p);
   const closeProject = (open) => {
-    if (!open) setActiveProject(null);
+    if (!open) transitionProject(null);
   };
 
   return (
@@ -55,7 +70,7 @@ function HomePage() {
       <CursorSpotlight />
       <Nav onOpenPalette={() => setPaletteOpen(true)} />
       <main>
-        <Hero onPlayIntro={playIntro} />
+        <Hero onPlayIntro={playIntro} ready={booted} />
         <Stats />
         <Suspense fallback={<section id="experience" className="min-h-screen" />}><Experience /></Suspense>
         <Suspense fallback={<section id="now-building" className="min-h-screen" />}><NowBuilding onOpenProject={openProject} /></Suspense>

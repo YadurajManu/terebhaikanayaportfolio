@@ -1,10 +1,10 @@
 import { ArrowDownRight, Github, Linkedin, MapPin } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import LiveTerminal from "./LiveTerminal";
-import ScrambleText from "./ScrambleText";
+
 import { useTheme } from "../contexts/ThemeContext";
 
-export default function Hero({ onPlayIntro }) {
+export default function Hero({ onPlayIntro, ready = true }) {
   const { toggle: toggleTheme } = useTheme();
 
 
@@ -12,7 +12,7 @@ export default function Hero({ onPlayIntro }) {
     <section
       id="hero"
       data-testid="hero-section"
-      className="relative min-h-[100svh] flex items-center overflow-hidden pb-32"
+      className={`${ready ? "hero-ready" : "hero-waiting"} relative min-h-[100svh] flex items-center overflow-hidden pb-32`}
     >
       <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
       <div className="absolute inset-0 hero-spot pointer-events-none" />
@@ -40,18 +40,11 @@ export default function Hero({ onPlayIntro }) {
             <h1
               data-testid="hero-name"
               aria-label={PROFILE.name}
-              className="reveal font-display text-[14vw] sm:text-[10vw] md:text-[88px] lg:text-[112px] leading-[0.92] font-medium text-white"
+              className="font-display text-[14vw] sm:text-[10vw] md:text-[88px] lg:text-[112px] leading-[0.92] font-medium text-white"
               style={{ animationDelay: "60ms" }}
             >
-              <ScrambleText text="Yaduraj" duration={650} delay={120} testId="hero-name-scramble-1" />
-              <br />
-              <ScrambleText
-                text="Singh."
-                duration={650}
-                delay={420}
-                className="text-zinc-500"
-                testId="hero-name-scramble-2"
-              />
+              <span>Yaduraj</span><br />
+              <span className="text-zinc-500">Singh<span style={{ color: "var(--accent)" }}>.</span></span>
             </h1>
 
             {/* Tagline */}
@@ -142,7 +135,7 @@ export default function Hero({ onPlayIntro }) {
             className="md:col-span-5 reveal"
             style={{ animationDelay: "360ms" }}
           >
-            <LiveTerminal onTheme={toggleTheme} />
+            {ready ? <LiveTerminal onTheme={toggleTheme} /> : <div className="min-h-[240px]" />}
             <p className="mt-3 font-mono text-[10px] text-zinc-600 px-1">
               // try: <span className="text-zinc-400">help</span>,{" "}
               <span className="text-zinc-400">whoami</span>,{" "}

@@ -70,6 +70,7 @@ export default function ProjectCover({ project, className = "", compact = false 
   if (image?.src) {
     return (
       <div
+        data-project-cover={id}
         className={`relative overflow-hidden rounded-xl border border-white/[0.06] bg-black/40 ${className}`}
         style={{ aspectRatio: "16 / 9" }}
       >
@@ -87,6 +88,7 @@ export default function ProjectCover({ project, className = "", compact = false 
 
   return (
     <div
+      data-project-cover={id}
       data-testid={`project-cover-${id}`}
       aria-hidden="true"
       className={`relative overflow-hidden rounded-xl border border-white/[0.06] bg-black/40 text-zinc-500 ${className}`}

@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ArrowUpRight, Github, X } from "lucide-react";
+import ProjectCover from "./ProjectCover";
 import FleetTopology from "./diagrams/FleetTopology";
 
 /**
@@ -18,7 +19,7 @@ export default function ProjectModal({ project, open, onOpenChange }) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         data-testid="project-modal"
-        className="max-w-3xl max-h-[88vh] overflow-y-auto border-white/10 bg-[#0A0A0A] text-white p-0 [&>button]:hidden rounded-2xl"
+        className="project-detail max-w-3xl max-h-[88vh] overflow-y-auto border-white/10 bg-[#0A0A0A] text-white p-0 [&>button]:hidden rounded-2xl"
       >
         <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 md:px-8 py-4 border-b border-white/[0.06] bg-[#0A0A0A]/90 backdrop-blur-md">
           <div className="flex items-center gap-3 min-w-0">
@@ -39,6 +40,7 @@ export default function ProjectModal({ project, open, onOpenChange }) {
         </div>
 
         <div className="px-6 md:px-8 py-8">
+          <div style={{ viewTransitionName: "project-art" }} className="mb-7"><ProjectCover project={project} /></div>
           <DialogTitle asChild>
             <h2 className="font-display text-3xl md:text-5xl tracking-tighter font-medium text-white">
               {project.name}
