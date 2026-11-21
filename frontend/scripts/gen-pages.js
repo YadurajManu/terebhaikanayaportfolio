@@ -13,6 +13,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { render, escapeHtml } = require("./lib/md");
+const { fleetStudy } = require("./lib/fleet-study");
 const data = require("../src/data/portfolio-content.cjs");
 
 const PUBLIC = path.join(__dirname, "..", "public");
@@ -304,6 +305,7 @@ const NAV = [
 ];
 
 function shell({ slug, title, description, body }) {
+  const isFleetStudy = slug === "projects/fleet-os";
   const canonical = slug ? `${ORIGIN}/${slug}` : `${ORIGIN}/`;
   return `<!doctype html>
 <html lang="en">
@@ -358,10 +360,10 @@ th{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:upperc
 td{color:var(--text-2)}
 footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-3)}
 footer a{color:var(--text-3)}
-</style>
+</style>${isFleetStudy ? '\n<link rel="stylesheet" href="/fleet-study/study.css" />\n<script type="module" src="/fleet-study/interactive.js"></script>' : ""}
 </head>
 <body>
-<div class="wrap">
+<div class="wrap${isFleetStudy ? " fleet-page" : ""}">
 <header><nav aria-label="Main navigation">${NAV.map(
     ([href, label]) =>
       `<a href="${href}"${href === (slug ? `/${slug}` : "/") ? ' aria-current="page"' : ""}>${label}</a>`
@@ -420,7 +422,7 @@ if (new Set(ids).size !== ids.length || ids.some(id => !/^[a-z0-9]+(?:-[a-z0-9]+
 pages.push({slug:"projects", title:`Projects — ${PROFILE.name}`, description:`Software, AI, infrastructure and mobile projects by ${PROFILE.name}, with engineering case studies and technology choices.`, md: `# Projects by ${PROFILE.name}\n\n${caseStudies.map(p => `## [${p.name}](/projects/${p.id})\n\n${p.blurb}\n\nTechnologies: ${p.stack.join(", ")}`).join("\n\n")}`});
 for (const p of caseStudies) {
   const cs = p.caseStudy;
-  pages.push({slug:`projects/${p.id}`, title:`${p.seoTitle || p.name} — ${PROFILE.name}`, description:p.seoDescription || p.blurb,
+  pages.push({slug:`projects/${p.id}`, title:`${p.seoTitle || p.name} — ${PROFILE.name}`, description:p.seoDescription || p.blurb, project: p,
     md:`# ${p.seoTitle || p.name}\n\nBy [${PROFILE.name}](/about).\n\n${p.blurb}\n\n## Problem\n\n${cs.problem}\n\n## Engineering approach\n\n${cs.approach.map(x => `- ${x}`).join("\n")}\n\n## Technical decisions\n\n${(cs.decisions || []).map(x => `- ${x}`).join("\n")}\n\n${(cs.sections || []).map(section => `## ${section.title}\n\n${(section.paragraphs || []).join("\n\n")}\n\n${section.code ? "```text\n" + section.code + "\n```\n\n" : ""}${(section.items || []).map(item => `- ${item}`).join("\n")}\n\n${(section.links || []).map(link => `- [${link.label}](${link.url})`).join("\n")}`).join("\n\n")}\n\n## Technology stack\n\n${p.stack.join(", ")}\n\n## Links\n\n${p.url ? `[Project website](${p.url})` : ""}\n\n${p.repo ? `[Source profile or repository](${p.repo})` : ""}\n\n[All projects](/projects) · [Contact ${PROFILE.name}](/contact)\n`.replace(/\n{3,}/g, "\n\n")});
 }
 
@@ -434,12 +436,10 @@ const written = [];
 
 for (const page of pages) {
   written.push(write(path.join(PUBLIC, "md", `${page.slug}.md`), page.md));
-  written.push(
-    write(
-      path.join(PUBLIC, page.slug, "index.html"),
-      shell({ slug: page.slug, title: page.title, description: page.description, body: render(page.md) })
-    )
-  );
+  const body = page.project?.id === "fleet-os"
+    ? fleetStudy(page.project, render(page.md.slice(page.md.indexOf("## Problem"))))
+    : render(page.md);
+  written.push(write(path.join(PUBLIC, page.slug, "index.html"), shell({ ...page, body })));
 }
 
 written.push(write(path.join(PUBLIC, "md", "index.md"), home));

@@ -22,6 +22,13 @@ A Raspberry Pi, an old laptop and a VPS can each run containers, but they have d
 - Keep desired state and build jobs in PostgreSQL. Use Redis for current heartbeat snapshots, progress and logs.
 - Keep persistent volumes tied to a node and let flexible stateless services move when suitable capacity is available.
 
+## Engineering decisions and trade-offs
+
+- Outbound Go agents. A worker can connect from behind NAT, and the ingress proxy can reach its container over that connection. The control plane and registry still need reachable endpoints, and an interrupted agent tunnel can affect app traffic.
+- Docker. A common Linux container engine lets the agent reconcile workloads on ARM and x86. Platform compatibility still governs placement, and on Docker Desktop the Linux VM determines the usable capacity.
+- PostgreSQL. Durable desired state, deployment records, and build jobs survive control-plane restarts. Redis handles current heartbeats and progress. Operating a stateful control plane requires application-aware backups and recovery.
+- Health-gated deployments. The previous stateless release keeps serving while its replacement is checked. A persistent-volume workload can require in-place replacement to avoid concurrent writers, so downtime is possible.
+
 ## Outbound agents and public ingress
 
 Agents initiate HTTPS and WebSocket connections to the control plane. Public app traffic reaches the ingress edge and can travel back to the agent over the connection it already opened. Worker nodes need no inbound router port forwarding. The control plane, ingress and registry still need reachable endpoints.

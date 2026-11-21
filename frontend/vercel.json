@@ -22,6 +22,11 @@
       "permanent": true
     },
     {
+      "source": "/projects/fleetos",
+      "destination": "/projects/fleet-os",
+      "permanent": true
+    },
+    {
       "source": "/cv",
       "destination": "/Resume_Web.pdf",
       "permanent": true

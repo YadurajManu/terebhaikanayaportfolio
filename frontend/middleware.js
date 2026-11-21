@@ -62,6 +62,8 @@ export function prefersMarkdown(header) {
 const PUBLIC_FILES = new Set([
   "/robots.txt", "/sitemap.xml", "/llms.txt", "/openapi.json", "/Resume_Web.pdf",
   "/favicon.svg", "/og.png", "/asset-manifest.json", "/404.html",
+  ...["study.css", "interactive.js", "scheduler.js", "nodes.png", "node-detail.png",
+      "demo-poster.png", "walkthrough.mp4", "walkthrough.vtt"].map(file => `/fleet-study/${file}`),
   ...Object.values(SLUGS).map(slug => `/md/${slug}.md`),
 ]);
 
@@ -85,7 +87,7 @@ export default async function middleware(request) {
   if (redirect) return new Response(null, {status:308, headers:{Location:redirect}});
   const slug = Object.hasOwn(SLUGS, pathname) ? SLUGS[pathname] : null;
   if (!slug && !PUBLIC_FILES.has(pathname) && !pathname.startsWith("/api/") &&
-      !pathname.startsWith("/static/") && !["/Resume.pdf", "/cv", "/resume", "/developers", "/api-docs"].includes(pathname)) {
+      !pathname.startsWith("/static/") && !["/Resume.pdf", "/cv", "/resume", "/developers", "/api-docs", "/projects/fleetos"].includes(pathname)) {
     // Explicitly preserve the status even if a hosting SPA fallback is re-enabled.
     let body = '<!doctype html><html lang="en"><head><title>Page not found — Yaduraj Singh</title><meta name="robots" content="noindex, follow"></head><body><main><h1>404 — Page not found</h1><p>This page does not exist.</p><a href="/">Return home</a> · <a href="/projects">Projects</a></main></body></html>';
     try {

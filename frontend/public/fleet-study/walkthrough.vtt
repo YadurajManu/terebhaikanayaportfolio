@@ -1,0 +1,55 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.623
+Fleet OS runs Linux containers across machines you already own, including workers behind NAT.
+
+00:00:06.667 --> 00:00:12.464
+A single-use token pairs each machine. Its Go agent opens the connection to the control plane.
+
+00:00:13.333 --> 00:00:18.664
+The dashboard shows the registered nodes, recent heartbeats, and Docker Engine capacity.
+
+00:00:20.000 --> 00:00:26.082
+Start with the Fleet quickstart sample. It uses a prebuilt Nginx image and declares a health check.
+
+00:00:26.667 --> 00:00:32.964
+Validate and apply the manifest with the CLI. A GitHub integration can also submit an exact commit.
+
+00:00:33.333 --> 00:00:38.655
+A local source deployment sends a snapshot. A prebuilt image skips the build stage.
+
+00:00:40.000 --> 00:00:45.289
+For a source deploy, the control plane plans a build job for each requested platform.
+
+00:00:46.667 --> 00:00:52.248
+An opted-in worker runs BuildKit, then pushes the image with a short-lived registry credential.
+
+00:00:53.333 --> 00:00:58.142
+The result is a pinned image digest. The builder can be different from the runtime node.
+
+00:01:00.000 --> 00:01:06.592
+Before scoring nodes, Fleet OS filters out offline machines, incompatible platforms, and insufficient capacity.
+
+00:01:06.667 --> 00:01:12.151
+It ranks the remaining nodes using headroom after placement, reliability, and idle capacity.
+
+00:01:13.333 --> 00:01:17.941
+Fleet where explains why a node was selected or why another machine was rejected.
+
+00:01:20.000 --> 00:01:24.760
+The runtime agent pulls the assigned digest and starts the container through Docker Engine.
+
+00:01:26.667 --> 00:01:32.282
+When the replacement passes its health check, the control plane can promote it and switch routing.
+
+00:01:33.333 --> 00:01:37.927
+Public HTTPS traffic can reach the app over the tunnel opened by the worker.
+
+00:01:40.000 --> 00:01:46.136
+For a stateless replacement, a failed build or an unhealthy container leaves the previous healthy release serving.
+
+00:01:46.667 --> 00:01:52.812
+Local volumes stay on their original node, so a pinned service can become unavailable when that node goes offline.
+
+00:01:53.333 --> 00:01:57.779
+You can replay both placement scenarios in the interactive Fleet OS case study.

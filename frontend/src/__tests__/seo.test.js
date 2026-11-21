@@ -107,3 +107,54 @@ test('markdown code fences preserve newlines and escape markup', () => {
   expect(render('```text\nA <-> B\nsecond line\n```')).toBe('<pre><code>A &lt;-&gt; B\nsecond line</code></pre>');
   expect(() => render('```\nunclosed')).toThrow('Unclosed markdown code fence');
 });
+
+test('Fleet OS serves one canonical interactive page with local media', async () => {
+  const doc = new DOMParser().parseFromString(read('projects/fleet-os/index.html'), 'text/html');
+  expect(doc.querySelector('#trade-offs').textContent).toBe('Engineering decisions and trade-offs');
+  expect(doc.querySelectorAll('video track[kind="captions"]')).toHaveLength(1);
+  expect(doc.querySelectorAll('.study-gallery img')).toHaveLength(2);
+  for (const asset of doc.querySelectorAll('[src^="/fleet-study/"], [href^="/fleet-study/"], video[poster]')) {
+    const url = asset.getAttribute('src') || asset.getAttribute('href') || asset.getAttribute('poster');
+    expect(fs.statSync(path.join(PUBLIC, url)).size).toBeGreaterThan(0);
+    const result = await middleware({url: 'https://yaduraj.me' + url, method: 'GET', headers: {get: () => null}});
+    expect(result).toBeUndefined();
+  }
+  expect(config.redirects).toContainEqual({
+    source: '/projects/fleetos', destination: '/projects/fleet-os', permanent: true,
+  });
+  expect(await middleware({
+    url: 'https://yaduraj.me/projects/fleetos', method: 'GET', headers: {get: () => null},
+  })).toBeUndefined();
+});
+
+test('Fleet OS switches flows and explains changes in placement', async () => {
+  const doc = new DOMParser().parseFromString(read('projects/fleet-os/index.html'), 'text/html');
+  document.body.innerHTML = doc.body.innerHTML;
+  try {
+    jest.isolateModules(() => require('../../public/fleet-study/interactive.js'));
+    const flow = document.querySelector('[data-pane="arch-2"]');
+    flow.click();
+    expect(flow.getAttribute('aria-pressed')).toBe('true');
+    expect(document.getElementById('arch-0').hidden).toBe(true);
+    expect(document.getElementById('arch-2').hidden).toBe(false);
+
+    const form = document.getElementById('placement-form');
+    const { platform, policy, offline } = form.elements;
+    const readOutcome = () => document.getElementById('placement-outcome').textContent;
+    expect(readOutcome()).toMatch(/^x86 VPS selected/);
+    platform.value = 'linux/arm64';
+    platform.dispatchEvent(new Event('change', {bubbles: true}));
+    expect(readOutcome()).toMatch(/^Apple Silicon Mac selected/);
+    expect(document.querySelector('[data-status="rejected"]').textContent).toContain('Image does not support');
+
+    policy.value = 'pinned';
+    offline.click();
+    expect(readOutcome()).toMatch(/^No eligible node/);
+    expect(document.getElementById('placement-results').textContent).toContain('holds its local volume');
+    form.reset();
+    await new Promise(resolve => queueMicrotask(resolve));
+    expect(readOutcome()).toMatch(/^x86 VPS selected/);
+  } finally {
+    document.body.replaceChildren();
+  }
+});

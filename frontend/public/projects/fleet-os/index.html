@@ -52,20 +52,157 @@ td{color:var(--text-2)}
 footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-3)}
 footer a{color:var(--text-3)}
 </style>
+<link rel="stylesheet" href="/fleet-study/study.css" />
+<script type="module" src="/fleet-study/interactive.js"></script>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap fleet-page">
 <header><nav aria-label="Main navigation"><a href="/">home</a><a href="/about">about</a><a href="/projects">projects</a><a href="/docs">docs</a><a href="/contact">contact</a><a href="/privacy">privacy</a></nav></header>
 <main>
-<h1>Fleet OS: self-hosted container orchestration across ARM and x86</h1>
-<p>By <a href="/about">Yaduraj Singh</a>.</p>
-<p>A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT.</p>
+
+<section class="study-hero" aria-labelledby="fleet-title">
+  <div>
+    <a class="study-back" href="/projects">← All projects</a>
+    <h1 id="fleet-title">Fleet OS</h1>
+    <p class="study-lead">Deploy Linux containers on the hardware you already own.</p>
+    <p>Build on opted-in nodes, route apps from behind NAT, and see why each deployment landed where it did.</p>
+    <div class="hero-actions">
+      <a class="action action-primary" href="#demo">Watch the 2-minute demo</a>
+      <a class="action" href="#placement">Explore a deployment</a>
+      <a class="source-link" href="https://github.com/YadurajManu/fleet-os">GitHub ↗</a>
+    </div>
+  </div>
+  <figure class="hero-preview">
+    <img src="/fleet-study/nodes.png" width="1024" height="681" alt="Fleet OS dashboard showing three nodes with CPU, memory, and disk utilization">
+    <figcaption>Fleet OS node inventory</figcaption>
+  </figure>
+</section>
+<nav class="study-nav" aria-label="Case study sections">
+  <a href="#architecture">Architecture</a><a href="#placement">Scheduler</a><a href="#agent">Go agent</a><a href="#build">BuildKit</a><a href="#demo">Demo</a><a href="#trade-offs">Trade-offs</a>
+</nav>
+<section id="architecture" class="study-section" data-pane-group>
+  <h2>System architecture</h2>
+  <p>Follow a deployment, a build, or an incoming web request through Fleet OS.</p>
+  <div class="switcher" hidden data-pane-controls role="group" aria-label="Architecture flow">
+<button type="button" data-pane="arch-0" aria-controls="arch-0" aria-pressed="false">Deploy</button><button type="button" data-pane="arch-1" aria-controls="arch-1" aria-pressed="false">Build</button><button type="button" data-pane="arch-2" aria-controls="arch-2" aria-pressed="false">Serve traffic</button>
+</div>
+  <div class="diagram" id="arch-0">
+    <h3>Deploy path</h3>
+    <ol class="diagram-flow">
+      <li><details><summary>CLI or GitHub</summary><p>Submits a prebuilt image, an uploaded local snapshot, or an exact Git commit.</p></details></li><li><details><summary>Fastify control plane</summary><p>Persists desired state in PostgreSQL and runs placement. Redis holds current agent heartbeat snapshots.</p></details></li><li><details><summary>Go runtime agent</summary><p>Polls desired state, pulls the assigned digest from the registry, and reconciles containers with Docker Engine.</p></details></li>
+    </ol>
+  </div><div class="diagram" id="arch-1">
+    <h3>Build path</h3>
+    <ol class="diagram-flow">
+      <li><details><summary>Platform planner</summary><p>Creates a durable build job for each target platform and assigns it to an eligible, opted-in builder.</p></details></li><li><details><summary>Go builder agent</summary><p>Receives the assignment over its outbound WebSocket connection and starts a per-job BuildKit worker.</p></details></li><li><details><summary>Registry gateway</summary><p>Accepts the scoped image push over TLS. The control plane can assemble multiple digests into a manifest.</p></details></li>
+    </ol>
+  </div><div class="diagram" id="arch-2">
+    <h3>Serve traffic path</h3>
+    <ol class="diagram-flow">
+      <li><details><summary>Public HTTPS request</summary><p>A visitor reaches the app through a hostname configured on the ingress edge.</p></details></li><li><details><summary>Caddy and ingress proxy</summary><p>Caddy terminates TLS. The proxy routes to the active deployment.</p></details></li><li><details><summary>Runtime agent and container</summary><p>The proxy can reuse the outbound connection opened by the agent to reach a container behind NAT.</p></details></li>
+    </ol>
+  </div>
+  <p class="diagram-note">Worker connections originate at the agent. The control plane, ingress, and registry still need reachable endpoints.</p>
+  <a class="source-link" href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/ARCHITECTURE.md">Architecture source ↗</a>
+</section>
+<section id="placement" class="study-section">
+  <h2>Why did Fleet OS pick this node?</h2>
+  <p>Hard constraints eliminate nodes first. Fleet OS ranks the remaining candidates by memory headroom after placement, reliability, and idle capacity.</p>
+  <div class="placement-grid">
+    <form id="placement-form" class="placement-form" hidden>
+      <label for="placement-platform">Image platform</label>
+      <select id="placement-platform" name="platform">
+        <option value="multi">Multi-architecture</option><option value="linux/arm64">Linux / ARM64</option><option value="linux/amd64">Linux / AMD64</option>
+      </select>
+      <label for="placement-ram">Memory reservation</label>
+      <select id="placement-ram" name="ram">
+        <option value="512">512 MiB</option><option value="2048">2 GiB</option><option value="4096">4 GiB</option><option value="8192">8 GiB</option>
+      </select>
+      <label for="placement-policy">Placement policy</label>
+      <select id="placement-policy" name="policy">
+        <option value="flexible">Flexible web service</option><option value="pinned">Pinned service with a local volume</option>
+      </select>
+      <label class="checkbox"><input type="checkbox" name="offline"> Take the Mac offline</label>
+      <button type="reset">Reset scenario</button>
+    </form>
+    <div class="placement-report">
+      <p id="placement-outcome" role="status">Example: an ARM64 image rules out the x86 VPS when emulation is disabled.</p>
+      <div id="placement-results" class="placement-results"></div>
+    </div>
+  </div>
+  <p class="diagram-note">Example fleet with fixed capacity and load values. This model uses Fleet OS’s 50% headroom, 30% reliability, and 20% idle-capacity weights. It exposes platform, memory, pinning, and node availability. The production scheduler also evaluates constraints such as CPU, tags, and affinity.</p>
+  <a class="source-link" href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/control-plane/src/scheduler/placement.ts">Placement algorithm source ↗</a>
+</section>
+<div class="study-workflows">
+  <section id="agent" class="study-section" data-pane-group>
+<h2>Go agent lifecycle</h2>
+<div class="switcher" hidden data-pane-controls role="group" aria-label="Go agent lifecycle">
+<button type="button" data-pane="agent-0" aria-controls="agent-0" aria-pressed="false">Pair</button><button type="button" data-pane="agent-1" aria-controls="agent-1" aria-pressed="false">Connect</button><button type="button" data-pane="agent-2" aria-controls="agent-2" aria-pressed="false">Report capabilities</button><button type="button" data-pane="agent-3" aria-controls="agent-3" aria-pressed="false">Reconcile</button><button type="button" data-pane="agent-4" aria-controls="agent-4" aria-pressed="false">Report health</button>
+</div>
+<div class="step-panels">
+<div class="step-panel" id="agent-0">
+<h3>Pair</h3><p>A single-use token registers a node. The Go agent persists its own identity for later connections.</p>
+</div><div class="step-panel" id="agent-1">
+<h3>Connect</h3><p>The agent initiates HTTPS and WSS to the control plane. The worker needs no inbound router port forwarding.</p>
+</div><div class="step-panel" id="agent-2">
+<h3>Report capabilities</h3><p>Heartbeats report Docker Engine platform, capacity, containers, and health. Docker Desktop reports capacity from its Linux VM.</p>
+</div><div class="step-panel" id="agent-3">
+<h3>Reconcile</h3><p>The agent polls desired state, pulls the assigned digest, and starts or updates the local container.</p>
+</div><div class="step-panel" id="agent-4">
+<h3>Report health</h3><p>The control plane uses observed health to promote a replacement. A missing heartbeat can trigger reevaluation for flexible workloads. Local volumes stay on their node.</p>
+</div>
+</div></section>
+  <section id="build" class="study-section" data-pane-group>
+<h2>BuildKit pipeline</h2>
+<div class="switcher" hidden data-pane-controls role="group" aria-label="BuildKit pipeline">
+<button type="button" data-pane="build-0" aria-controls="build-0" aria-pressed="false">Resolve source</button><button type="button" data-pane="build-1" aria-controls="build-1" aria-pressed="false">Plan platforms</button><button type="button" data-pane="build-2" aria-controls="build-2" aria-pressed="false">Run BuildKit</button><button type="button" data-pane="build-3" aria-controls="build-3" aria-pressed="false">Publish digest</button><button type="button" data-pane="build-4" aria-controls="build-4" aria-pressed="false">Roll out</button>
+</div>
+<div class="step-panels">
+<div class="step-panel" id="build-0">
+<h3>Resolve source</h3><p>The CLI uploads a local snapshot, including uncommitted changes. GitHub builds use an exact commit with repository-scoped credentials.</p>
+</div><div class="step-panel" id="build-1">
+<h3>Plan platforms</h3><p>Fleet resolves the requested platforms and creates one durable job per platform. Automatic planning considers healthy, placement-eligible nodes.</p>
+</div><div class="step-panel" id="build-2">
+<h3>Run BuildKit</h3><p>An opted-in agent runs BuildKit with CPU and memory limits and a monitored disk budget. Native builders are preferred. QEMU fallback is opt-in.</p>
+</div><div class="step-panel" id="build-3">
+<h3>Publish digest</h3><p>A short-lived registry credential authorizes the push for the active job attempt. The control plane assembles the manifest when multiple platforms are built.</p>
+</div><div class="step-panel" id="build-4">
+<h3>Roll out</h3><p>The runtime node can differ from the builder. The runtime agent pulls the immutable digest and reports the replacement's health.</p>
+</div>
+</div></section>
+</div>
+<section id="demo" class="study-section">
+  <h2>Two-minute deployment walkthrough</h2>
+  <p>A narrated walkthrough using real dashboard screenshots and an illustrated deployment sequence.</p>
+  <video controls preload="none" playsinline width="1280" height="720" poster="/fleet-study/demo-poster.png" aria-label="Two-minute Fleet OS deployment walkthrough">
+    <source src="/fleet-study/walkthrough.mp4" type="video/mp4">
+    <track kind="captions" src="/fleet-study/walkthrough.vtt" srclang="en" label="English" default>
+    <a href="/fleet-study/walkthrough.mp4">Download the walkthrough</a>
+  </video>
+  <details class="demo-transcript"><summary>Read the transcript</summary>
+    <ol>
+      <li>Pair workers. Each Go agent opens its connection to the control plane and reports Docker Engine capacity.</li>
+      <li>Define an app in fleet.yaml and submit a prebuilt image, a CLI snapshot, or an exact Git commit.</li>
+      <li>For a source build, Fleet OS assigns an opted-in BuildKit worker. It pushes to a registry and returns a digest.</li>
+      <li>Placement filters nodes that cannot run the image or lack capacity and ranks the eligible machines.</li>
+      <li>The runtime agent pulls the digest and reports health. The ingress proxy can reach it over the agent-opened connection.</li>
+      <li>An unhealthy stateless replacement leaves the previous healthy release serving. A pinned local volume stays on its data node.</li>
+    </ol>
+  </details>
+  <div class="study-gallery">
+    <figure><a href="/fleet-study/nodes.png"><img src="/fleet-study/nodes.png" width="1024" height="681" loading="lazy" alt="Fleet OS node inventory with health, capacity and recent heartbeats"></a><figcaption>Node inventory and recent heartbeats</figcaption></figure>
+    <figure><a href="/fleet-study/node-detail.png"><img src="/fleet-study/node-detail.png" width="634" height="530" loading="lazy" alt="Fleet OS node detail with resource gauges and container process explorer"></a><figcaption>Node detail and container inspection</figcaption></figure>
+  </div>
+</section>
+<article class="study-notes">
 <h2>Problem</h2>
 <p>A Raspberry Pi, an old laptop and a VPS can each run containers, but they have different CPU architectures, capacity and uptime. A home or campus router can also block inbound access. I built Fleet OS to give those machines one deployment workflow while keeping placement decisions and failure behavior visible.</p>
 <h2>Engineering approach</h2>
 <ul><li>Define the service, resources, placement and health checks in fleet.yaml. Submit a local snapshot with the CLI, connect a GitHub repository for commit-based builds, or deploy a prebuilt image.</li><li>Pair machines with single-use tokens. Go agents report Docker engine capabilities and health to a Fastify control plane and reconcile assigned containers locally.</li><li>Plan the image platforms and assign builds to eligible, opted-in BuildKit workers. Publish to a registry and deploy by immutable image digest.</li><li>Filter runtime nodes against the image and service constraints, then use health evidence to promote the release and update routing.</li></ul>
 <h2>Technical decisions</h2>
 <ul><li>Read container platform and capacity from Docker Engine. On Docker Desktop, the Linux VM determines what can run and how much capacity the scheduler can assign.</li><li>Keep build and runtime placement independent. A node can run services without opting into builds. Prefer native builders and require an explicit opt-in for QEMU fallback.</li><li>Keep desired state and build jobs in PostgreSQL. Use Redis for current heartbeat snapshots, progress and logs.</li><li>Keep persistent volumes tied to a node and let flexible stateless services move when suitable capacity is available.</li></ul>
+<h2 id="trade-offs">Engineering decisions and trade-offs</h2>
+<ul><li>Outbound Go agents. A worker can connect from behind NAT, and the ingress proxy can reach its container over that connection. The control plane and registry still need reachable endpoints, and an interrupted agent tunnel can affect app traffic.</li><li>Docker. A common Linux container engine lets the agent reconcile workloads on ARM and x86. Platform compatibility still governs placement, and on Docker Desktop the Linux VM determines the usable capacity.</li><li>PostgreSQL. Durable desired state, deployment records, and build jobs survive control-plane restarts. Redis handles current heartbeats and progress. Operating a stateful control plane requires application-aware backups and recovery.</li><li>Health-gated deployments. The previous stateless release keeps serving while its replacement is checked. A persistent-volume workload can require in-place replacement to avoid concurrent writers, so downtime is possible.</li></ul>
 <h2>Outbound agents and public ingress</h2>
 <p>Agents initiate HTTPS and WebSocket connections to the control plane. Public app traffic reaches the ingress edge and can travel back to the agent over the connection it already opened. Worker nodes need no inbound router port forwarding. The control plane, ingress and registry still need reachable endpoints.</p>
 <ul><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/ARCHITECTURE.md">Fleet OS architecture and component map</a></li><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/self-hosting.md">Self-hosting and network setup</a></li></ul>
@@ -90,6 +227,7 @@ footer a{color:var(--text-3)}
 <p><a href="https://fleet.plastikworld.xyz">Project website</a></p>
 <p><a href="https://github.com/YadurajManu/fleet-os">Source profile or repository</a></p>
 <p><a href="/projects">All projects</a> · <a href="/contact">Contact Yaduraj Singh</a></p>
+</article>
 </main>
 <footer>
 // machine-readable: <a href="/llms.txt">llms.txt</a> · <a href="/openapi.json">openapi.json</a> · <a href="/md/projects/fleet-os.md">markdown</a>
