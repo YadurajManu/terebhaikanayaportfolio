@@ -1,5 +1,11 @@
 # Projects by Yaduraj Singh
 
+## [Fleet OS](/projects/fleet-os)
+
+A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT.
+
+Technologies: Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker BuildKit / Buildx, React, Vite, Caddy
+
 ## [Raunak](/projects/raunak)
 
 An India-first event ticketing platform that takes organizers from event setup to paid bookings and QR-based entry.
@@ -47,9 +53,3 @@ Technologies: Swift, Firebase, ThingSpeak
 Multilingual legal aid iOS app — petitioners with regional advocates. Voice-assisted forms, automated PDF reports.
 
 Technologies: Swift, Firestore, PDFKit, STT
-
-## [Fleet OS](/projects/fleet-os)
-
-Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.
-
-Technologies: Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker Buildx, React, Vite, nginx, Cloudflare Tunnel

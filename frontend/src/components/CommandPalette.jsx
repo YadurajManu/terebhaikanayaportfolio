@@ -92,7 +92,7 @@ export default function CommandPalette({ open, setOpen, onOpenProject }) {
               now building
             </span>
           </CommandItem>
-          {PROJECTS.map((p) => (
+          {PROJECTS.filter((p) => p.id !== NOW_BUILDING.id).map((p) => (
             <CommandItem
               key={p.id}
               data-testid={`cmd-project-${p.id}`}

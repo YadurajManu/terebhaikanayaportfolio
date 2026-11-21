@@ -4,20 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#050505" />
-<title>Fleet OS — Yaduraj Singh</title>
-<meta name="description" content="Fleet OS: self-hosted deployment and orchestration across heterogeneous machines. Explore the architecture and engineering decisions." />
+<title>Fleet OS: self-hosted container orchestration across ARM and x86 — Yaduraj Singh</title>
+<meta name="description" content="How Fleet OS deploys Linux containers across ARM and x86 machines using outbound Go agents, delegated BuildKit jobs and health-gated rollouts." />
 <link rel="canonical" href="https://yaduraj.me/projects/fleet-os" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="alternate" type="text/markdown" href="https://yaduraj.me/md/projects/fleet-os.md" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yaduraj.me/projects/fleet-os" />
-<meta property="og:title" content="Fleet OS — Yaduraj Singh" />
-<meta property="og:description" content="Fleet OS: self-hosted deployment and orchestration across heterogeneous machines. Explore the architecture and engineering decisions." />
+<meta property="og:title" content="Fleet OS: self-hosted container orchestration across ARM and x86 — Yaduraj Singh" />
+<meta property="og:description" content="How Fleet OS deploys Linux containers across ARM and x86 machines using outbound Go agents, delegated BuildKit jobs and health-gated rollouts." />
 <meta property="og:image" content="https://yaduraj.me/og.png" />
-<meta name="twitter:title" content="Fleet OS — Yaduraj Singh" />
-<meta name="twitter:description" content="Fleet OS: self-hosted deployment and orchestration across heterogeneous machines. Explore the architecture and engineering decisions." />
+<meta name="twitter:title" content="Fleet OS: self-hosted container orchestration across ARM and x86 — Yaduraj Singh" />
+<meta name="twitter:description" content="How Fleet OS deploys Linux containers across ARM and x86 machines using outbound Go agents, delegated BuildKit jobs and health-gated rollouts." />
 <meta name="twitter:image" content="https://yaduraj.me/og.png" />
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://yaduraj.me/projects/fleet-os#webpage","url":"https://yaduraj.me/projects/fleet-os","name":"Fleet OS — Yaduraj Singh","about":{"@id":"https://yaduraj.me/#person"},"isPartOf":{"@id":"https://yaduraj.me/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yaduraj.me/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://yaduraj.me/projects"},{"@type":"ListItem","position":3,"name":"Fleet OS — Yaduraj Singh","item":"https://yaduraj.me/projects/fleet-os"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://yaduraj.me/projects/fleet-os#webpage","url":"https://yaduraj.me/projects/fleet-os","name":"Fleet OS: self-hosted container orchestration across ARM and x86 — Yaduraj Singh","about":{"@id":"https://yaduraj.me/#person"},"isPartOf":{"@id":"https://yaduraj.me/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yaduraj.me/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://yaduraj.me/projects"},{"@type":"ListItem","position":3,"name":"Fleet OS: self-hosted container orchestration across ARM and x86 — Yaduraj Singh","item":"https://yaduraj.me/projects/fleet-os"}]}]}</script>
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="preload" href="/fonts/jetbrains-mono-latin.1e06740a.woff2" as="font" type="font/woff2" crossorigin />
@@ -57,17 +57,35 @@ footer a{color:var(--text-3)}
 <div class="wrap">
 <header><nav aria-label="Main navigation"><a href="/">home</a><a href="/about">about</a><a href="/projects">projects</a><a href="/docs">docs</a><a href="/contact">contact</a><a href="/privacy">privacy</a></nav></header>
 <main>
-<h1>Fleet OS</h1>
+<h1>Fleet OS: self-hosted container orchestration across ARM and x86</h1>
 <p>By <a href="/about">Yaduraj Singh</a>.</p>
-<p>Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.</p>
+<p>A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT.</p>
 <h2>Problem</h2>
-<p>Coolify, Dokploy and CapRover are excellent single-server deployment tools, but their scheduling model assumes one stable host or a fairly uniform cluster. Balena assumes a fleet of similarly managed devices. None of them fit the hardware most people actually have lying around — a Raspberry Pi, an old laptop and a spare VPS, on different architectures, behind different networks, none of them reliably online.</p>
+<p>A Raspberry Pi, an old laptop and a VPS can each run containers, but they have different CPU architectures, capacity and uptime. A home or campus router can also block inbound access. I built Fleet OS to give those machines one deployment workflow while keeping placement decisions and failure behavior visible.</p>
 <h2>Engineering approach</h2>
-<ul><li>Outbound-only Go agents: each node reports its capabilities and heartbeats over outbound HTTPS and reconciles container state locally. No inbound Docker socket, no SSH key, no port to forward.</li><li>The control plane holds a reverse tunnel for ingress, so a machine on a college LAN or behind a home router can serve public traffic without a port forward.</li><li>Weighted scheduling across CPU, memory headroom, reliability tier, tags, GPU, affinity and anti-affinity — with a dry-run placement plan that explains every node it rejected.</li><li>Architecture-aware multi-platform builds through Docker Buildx, pushed to a registry the fleet pulls from, so an arm64 Pi and an amd64 VPS each get an image they can run.</li><li>Health-gated rollouts plus heartbeat liveness, cordon/drain controls, and automatic failover for flexible services.</li></ul>
+<ul><li>Define the service, resources, placement and health checks in fleet.yaml. Submit a local snapshot with the CLI, connect a GitHub repository for commit-based builds, or deploy a prebuilt image.</li><li>Pair machines with single-use tokens. Go agents report Docker engine capabilities and health to a Fastify control plane and reconcile assigned containers locally.</li><li>Plan the image platforms and assign builds to eligible, opted-in BuildKit workers. Publish to a registry and deploy by immutable image digest.</li><li>Filter runtime nodes against the image and service constraints, then use health evidence to promote the release and update routing.</li></ul>
 <h2>Technical decisions</h2>
-<ul><li>Heterogeneous, intermittently connected hardware is the design centre, not an edge case — capability discovery is reported by agents rather than assumed by the scheduler.</li><li>Pinned stateful services are treated differently from movable stateless ones, because rescheduling a database is not the same as rescheduling a web process.</li><li>Per-organisation GitHub App installations, so a shared control plane never lets one tenant reach another's repositories.</li><li>Envelope-encrypted secrets with per-secret keys, injected only into the services that declare them.</li><li>MIT with no open-core split and no enterprise fork — what is in the repository is the product.</li></ul>
+<ul><li>Read container platform and capacity from Docker Engine. On Docker Desktop, the Linux VM determines what can run and how much capacity the scheduler can assign.</li><li>Keep build and runtime placement independent. A node can run services without opting into builds. Prefer native builders and require an explicit opt-in for QEMU fallback.</li><li>Keep desired state and build jobs in PostgreSQL. Use Redis for current heartbeat snapshots, progress and logs.</li><li>Keep persistent volumes tied to a node and let flexible stateless services move when suitable capacity is available.</li></ul>
+<h2>Outbound agents and public ingress</h2>
+<p>Agents initiate HTTPS and WebSocket connections to the control plane. Public app traffic reaches the ingress edge and can travel back to the agent over the connection it already opened. Worker nodes need no inbound router port forwarding. The control plane, ingress and registry still need reachable endpoints.</p>
+<ul><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/ARCHITECTURE.md">Fleet OS architecture and component map</a></li><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/self-hosting.md">Self-hosting and network setup</a></li></ul>
+<h2>Build delegation and immutable releases</h2>
+<p>The control plane records a build job for each target platform. An opted-in agent runs BuildKit and pushes the result using a short-lived registry credential scoped to the active job attempt. The runtime agent pulls the resulting digest. For multi-platform builds, the control plane assembles the manifest.</p>
+<ul><li>Build jobs carry a lease and an attempt identity, so an expired attempt cannot publish a result as the current one.</li><li>Builder selection accounts for CPU, memory, concurrency and disk headroom. Disk usage is monitored between checks.</li></ul>
+<ul><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/agent-delegated-builds.md">Delegated builds and builder configuration</a></li></ul>
+<h2>Placement, rollouts and failure handling</h2>
+<p>The scheduler filters offline or cordoned nodes and checks image platform, resources, tags, GPU requirements and volume constraints. It ranks the candidates that remain. The fleet where command reports the candidates and their rejection reasons.</p>
+<p>During a stateless replacement, the prior release stays routed until the new container passes its configured health check. Flexible workloads can move after a node goes offline if another eligible node is available. Persistent-volume services may replace in place with downtime. Local data stays on its node, and a control-plane outage can interrupt public ingress.</p>
+<ul><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/fleet-yaml-spec.md">Manifest options for placement and health checks</a></li></ul>
+<h2>Production rollout evidence</h2>
+<p>The recorded delegated-build rollout used one Apple Silicon Mac running Docker Desktop. It built and deployed the MediLifecycle frontend and API by digest and reached both over public HTTPS. A deliberately broken build left the previous frontend serving, and cancellation cleaned up the BuildKit container.</p>
+<p>That rollout exercised one Linux/arm64 builder. Mixed-architecture runtime and Windows agent behavior were outside its verified scope.</p>
+<ul><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/docs/delegated-builds-handover.md">Recorded rollout, test results and remaining coverage</a></li></ul>
+<h2>Source and license</h2>
+<p>Fleet OS is open source under the Apache License, Version 2.0.</p>
+<ul><li><a href="https://github.com/YadurajManu/fleet-os/blob/d77ef259b9f625e2ee433143beb7a2956506b8d6/LICENSE">Fleet OS repository license</a></li><li><a href="https://github.com/YadurajManu/fleet-os/commit/49c8b7aaef063a3a3dfed08ad1107787aed8764d">License change on GitHub</a></li></ul>
 <h2>Technology stack</h2>
-<p>Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker Buildx, React, Vite, nginx, Cloudflare Tunnel</p>
+<p>Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker BuildKit / Buildx, React, Vite, Caddy</p>
 <h2>Links</h2>
 <p><a href="https://fleet.plastikworld.xyz">Project website</a></p>
 <p><a href="https://github.com/YadurajManu/fleet-os">Source profile or repository</a></p>

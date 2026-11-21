@@ -187,6 +187,7 @@
             "schema": {
               "type": "string",
               "enum": [
+                "fleet-os",
                 "raunak",
                 "aarogya-setu",
                 "tollgate",
@@ -197,7 +198,7 @@
                 "bolonyay"
               ],
               "examples": [
-                "raunak"
+                "fleet-os"
               ]
             }
           }
@@ -516,6 +517,7 @@
           "id": {
             "type": "string",
             "enum": [
+              "fleet-os",
               "raunak",
               "aarogya-setu",
               "tollgate",

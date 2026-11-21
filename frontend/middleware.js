@@ -18,7 +18,7 @@ export const config = {
 
 const SLUGS = {
   "/projects": "projects",
-  ...Object.fromEntries([...portfolio.PROJECTS, portfolio.NOW_BUILDING].filter(p => p.caseStudy?.problem && p.caseStudy?.approach?.length).map(p => [`/projects/${p.id}`, `projects/${p.id}`])),
+  ...Object.fromEntries(portfolio.PROJECTS.filter(p => p.caseStudy?.problem && p.caseStudy?.approach?.length).map(p => [`/projects/${p.id}`, `projects/${p.id}`])),
   "/": "index",
   "/about": "about",
   "/contact": "contact",

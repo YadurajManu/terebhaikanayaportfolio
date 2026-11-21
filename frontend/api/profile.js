@@ -1,5 +1,5 @@
 const { ok, guard } = require("./_lib");
-const data = require("../src/data/portfolio.json");
+const data = require("../src/data/portfolio-content.cjs");
 
 /** operationId: getProfile */
 module.exports = function handler(req, res) {
@@ -35,7 +35,7 @@ module.exports = function handler(req, res) {
       url: NOW_BUILDING.url,
       repository: NOW_BUILDING.repo || null,
       category: NOW_BUILDING.tag || null,
-      pitch: NOW_BUILDING.pitch,
+      pitch: NOW_BUILDING.blurb,
       highlights: NOW_BUILDING.bullets,
       stack: NOW_BUILDING.stack || [],
       metrics: (NOW_BUILDING.metrics || []).map((m) => ({ label: m.k, value: m.v })),

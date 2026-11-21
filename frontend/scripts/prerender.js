@@ -16,7 +16,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { escapeHtml } = require("./lib/md");
-const data = require("../src/data/portfolio.json");
+const data = require("../src/data/portfolio-content.cjs");
 
 const BUILD = path.join(__dirname, "..", "build");
 const ORIGIN = "https://yaduraj.me";
@@ -49,7 +49,7 @@ function homepageMarkup() {
 <ul>${STATS.map((s) => `<li><strong>${e(s.value)}</strong> ${e(s.label)}</li>`).join("")}</ul>
 
 <h2>Now building</h2>
-<p><strong>${e(NOW_BUILDING.name)}</strong> (${e(NOW_BUILDING.status)}) — ${e(NOW_BUILDING.pitch)}</p>
+<p><strong><a href="/projects/${e(NOW_BUILDING.id)}">${e(NOW_BUILDING.name)}</a></strong> (${e(NOW_BUILDING.status)}) — ${e(NOW_BUILDING.blurb)}</p>
 <ul>${NOW_BUILDING.bullets.map((b) => `<li>${e(b)}</li>`).join("")}</ul>
 
 <h2>Experience</h2>

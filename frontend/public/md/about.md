@@ -18,7 +18,7 @@ Third-year B.Tech in Computer Science and Engineering, specializing in AI & ML �
 ## Track record
 
 - **2,000+** users in production
-- **08** shipped projects
+- **09** shipped projects
 - **03** hackathons won
 - **04** self-hosted servers
 
@@ -36,10 +36,11 @@ Stack: Node.js, Express, JWT RBAC, React
 
 ## Currently building
 
-**Fleet OS** (open source · mit) — Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.
+**[Fleet OS](/projects/fleet-os)** (open source · Apache-2.0) — A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT.
 
 ## Selected work
 
+- **Fleet OS** — A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT. _(Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker BuildKit / Buildx, React, Vite, Caddy)_
 - **Raunak** — An India-first event ticketing platform that takes organizers from event setup to paid bookings and QR-based entry. _(Next.js 16, TypeScript, PostgreSQL, Prisma, Cashfree)_
 - **Aarogya Setu** — Multi-tenant hospital SaaS — OPD/IPD queues, EMR, appointments, billing, pharmacy, diagnostics. 6-tier RBAC. _(Next.js 14, TypeScript, Prisma, PostgreSQL, Redis, Docker)_
 - **Tollgate** — Cost & usage observability for LLM APIs. Reverse proxy for OpenAI, Anthropic and OpenAI-compatible providers — one base URL for per-feature cost, caching, budgets and runaway-agent alerts. _(OpenAI API, Anthropic API, OpenRouter, Vercel)_

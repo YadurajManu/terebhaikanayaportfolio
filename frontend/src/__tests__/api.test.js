@@ -119,6 +119,25 @@ describe("getProjectById", () => {
     expect(body.caseStudy).toHaveProperty("problem");
   });
 
+  it("serves the same Fleet OS case study from the flagship entry and profile", () => {
+    const id = "fleet-os";
+    const featured = parse(call(listProjects, { query: { featured: "true" } }));
+    expect(featured.projects).toEqual(expect.arrayContaining([
+      expect.objectContaining({ id, featured: true }),
+    ]));
+
+    const res = call(getProject, { query: { id } });
+    expect(res.statusCode).toBe(200);
+    const body = parse(res);
+    expect(body.metrics).toContainEqual({ label: "License", value: "Apache-2.0" });
+    expect(body.caseStudy.sections.map((section) => section.title)).toContain("Production rollout evidence");
+
+    const profileBody = parse(call(profile));
+    expect(profileBody.nowBuilding.caseStudy).toEqual(body.caseStudy);
+    const shipped = profileBody.stats.find((stat) => stat.label === "shipped projects");
+    expect(Number(shipped.value)).toBe(featured.total);
+  });
+
   it("returns a coded 404 that lists valid ids", () => {
     const res = call(getProject, { query: { id: "definitely-not-real" } });
     expect(res.statusCode).toBe(404);

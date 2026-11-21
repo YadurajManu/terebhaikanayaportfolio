@@ -13,7 +13,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { render, escapeHtml } = require("./lib/md");
-const data = require("../src/data/portfolio.json");
+const data = require("../src/data/portfolio-content.cjs");
 
 const PUBLIC = path.join(__dirname, "..", "public");
 const ORIGIN = "https://yaduraj.me";
@@ -45,7 +45,7 @@ ${EXPERIENCE.map(
 
 ## Currently building
 
-**${NOW_BUILDING.name}** (${NOW_BUILDING.status}) — ${NOW_BUILDING.pitch}
+**[${NOW_BUILDING.name}](/projects/${NOW_BUILDING.id})** (${NOW_BUILDING.status}) — ${NOW_BUILDING.blurb}
 
 ## Selected work
 
@@ -207,7 +207,7 @@ ${STATS.map((s) => `- **${s.value}** ${s.label}`).join("\n")}
 
 ## Now building
 
-**${NOW_BUILDING.name}** (${NOW_BUILDING.status}) — ${NOW_BUILDING.pitch}
+**[${NOW_BUILDING.name}](/projects/${NOW_BUILDING.id})** (${NOW_BUILDING.status}) — ${NOW_BUILDING.blurb}
 
 ${NOW_BUILDING.bullets.map((b) => `- ${b}`).join("\n")}
 
@@ -288,7 +288,7 @@ ${PROJECTS.map((p) => `- [${p.name}](${ORIGIN}/api/projects/${p.id}): ${p.blurb}
 
 ## Optional
 
-- [${NOW_BUILDING.name}](${NOW_BUILDING.url}): currently building — ${NOW_BUILDING.status}. ${NOW_BUILDING.pitch}
+- [${NOW_BUILDING.name}](${NOW_BUILDING.url}): currently building — ${NOW_BUILDING.status}. ${NOW_BUILDING.blurb}
 - [GitHub profile](${PROFILE.github}): Source repositories.
 `;
 
@@ -411,17 +411,17 @@ const pages = [
 
 
 // A finite list of existing, substantive case studies; never derive routes from requests.
-const caseStudies = [...PROJECTS, ...(PROJECTS.some(p => p.id === NOW_BUILDING.id) ? [] : [NOW_BUILDING])]
+const caseStudies = PROJECTS
   .filter(p => p.caseStudy?.problem && p.caseStudy?.approach?.length);
 const ids = caseStudies.map(p => p.id);
 if (new Set(ids).size !== ids.length || ids.some(id => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id))) {
   throw new Error("Project route IDs must be unique URL slugs");
 }
-pages.push({slug:"projects", title:`Projects — ${PROFILE.name}`, description:`Software, AI, infrastructure and mobile projects by ${PROFILE.name}, with engineering case studies and technology choices.`, md: `# Projects by ${PROFILE.name}\n\n${caseStudies.map(p => `## [${p.name}](/projects/${p.id})\n\n${p.blurb || p.pitch}\n\nTechnologies: ${p.stack.join(", ")}`).join("\n\n")}`});
+pages.push({slug:"projects", title:`Projects — ${PROFILE.name}`, description:`Software, AI, infrastructure and mobile projects by ${PROFILE.name}, with engineering case studies and technology choices.`, md: `# Projects by ${PROFILE.name}\n\n${caseStudies.map(p => `## [${p.name}](/projects/${p.id})\n\n${p.blurb}\n\nTechnologies: ${p.stack.join(", ")}`).join("\n\n")}`});
 for (const p of caseStudies) {
   const cs = p.caseStudy;
-  pages.push({slug:`projects/${p.id}`, title:`${p.seoTitle || p.name} — ${PROFILE.name}`, description:p.seoDescription || p.blurb || p.pitch,
-    md:`# ${p.seoTitle || p.name}\n\nBy [${PROFILE.name}](/about).\n\n${p.blurb || p.pitch}\n\n## Problem\n\n${cs.problem}\n\n## Engineering approach\n\n${cs.approach.map(x => `- ${x}`).join("\n")}\n\n## Technical decisions\n\n${(cs.decisions || []).map(x => `- ${x}`).join("\n")}\n\n${(cs.sections || []).map(section => `## ${section.title}\n\n${(section.paragraphs || []).join("\n\n")}\n\n${section.code ? "```text\n" + section.code + "\n```\n\n" : ""}${(section.items || []).map(item => `- ${item}`).join("\n")}\n\n${(section.links || []).map(link => `- [${link.label}](${link.url})`).join("\n")}`).join("\n\n")}\n\n## Technology stack\n\n${p.stack.join(", ")}\n\n## Links\n\n${p.url ? `[Project website](${p.url})` : ""}\n\n${p.repo ? `[Source profile or repository](${p.repo})` : ""}\n\n[All projects](/projects) · [Contact ${PROFILE.name}](/contact)\n`.replace(/\n{3,}/g, "\n\n")});
+  pages.push({slug:`projects/${p.id}`, title:`${p.seoTitle || p.name} — ${PROFILE.name}`, description:p.seoDescription || p.blurb,
+    md:`# ${p.seoTitle || p.name}\n\nBy [${PROFILE.name}](/about).\n\n${p.blurb}\n\n## Problem\n\n${cs.problem}\n\n## Engineering approach\n\n${cs.approach.map(x => `- ${x}`).join("\n")}\n\n## Technical decisions\n\n${(cs.decisions || []).map(x => `- ${x}`).join("\n")}\n\n${(cs.sections || []).map(section => `## ${section.title}\n\n${(section.paragraphs || []).join("\n\n")}\n\n${section.code ? "```text\n" + section.code + "\n```\n\n" : ""}${(section.items || []).map(item => `- ${item}`).join("\n")}\n\n${(section.links || []).map(link => `- [${link.label}](${link.url})`).join("\n")}`).join("\n\n")}\n\n## Technology stack\n\n${p.stack.join(", ")}\n\n## Links\n\n${p.url ? `[Project website](${p.url})` : ""}\n\n${p.repo ? `[Source profile or repository](${p.repo})` : ""}\n\n[All projects](/projects) · [Contact ${PROFILE.name}](/contact)\n`.replace(/\n{3,}/g, "\n\n")});
 }
 
 function write(file, contents) {

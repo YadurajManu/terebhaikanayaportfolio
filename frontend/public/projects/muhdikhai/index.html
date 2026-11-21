@@ -89,7 +89,7 @@ footer a{color:var(--text-3)}
 <p>The browser records disconnected and failed peer states. Socket reconnection and media recovery are separate concerns; a preserved room does not automatically repair an ICE path.</p>
 <ul><li>Test a brief network interruption, a disconnect lasting longer than five seconds and a skip/rematch while signals are in flight.</li><li>Verify that old room membership is removed, the partner is notified and camera/microphone tracks stop when the call ends.</li><li>Test early ICE candidates in both directions. The reviewed hook explicitly drains pending candidates in its offer branch; answer-side buffering warrants a focused regression check.</li></ul>
 <h2>Source evidence and scope</h2>
-<p>This case study was checked against public source revision 8ae5018 on October 7, 2026. It describes source behavior, not a production load test. The earlier sub-two-second pairing metric is omitted because a reproducible benchmark was not available.</p>
+<p>The signaling and matchmaking implementation was reviewed at source revision 8ae5018 on October 7, 2026. Pairing latency requires a separate benchmark across devices and network conditions.</p>
 <ul><li><a href="https://github.com/YaduEnc/MuhDikhai/blob/8ae5018cfd9c2216d6ed596fa18214d3c515ae01/web-next/src/hooks/useWebRTC.js">Browser WebRTC hook: offer, answer, ICE and TURN configuration</a></li><li><a href="https://github.com/YaduEnc/MuhDikhai/blob/8ae5018cfd9c2216d6ed596fa18214d3c515ae01/PlasticWorld/src/config/socket.ts">Node.js signaling, Redis matching and disconnect cleanup</a></li></ul>
 <h2>Technology stack</h2>
 <p>Node.js, TypeScript, WebRTC, Socket.io, Redis, PostgreSQL</p>

@@ -20,19 +20,27 @@ Yaduraj Singh is a 20-year-old full-stack engineer · ai/ml builder based in Deh
 ## By the numbers
 
 - **2,000+** users in production
-- **08** shipped projects
+- **09** shipped projects
 - **03** hackathons won
 - **04** self-hosted servers
 
 ## Now building
 
-**Fleet OS** (open source · mit) — Git push to the hardware you already own. A Raspberry Pi, an old laptop and a spare VPS, treated as one deploy target — multi-arch builds, constraint-based placement, health-gated rollouts and automatic failover.
+**[Fleet OS](/projects/fleet-os)** (open source · Apache-2.0) — A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT.
 
-- Outbound-only Go agents — no inbound Docker socket, no SSH key, no port to forward. A Pi behind a home router is a first-class node.
-- Weighted scheduling across CPU, memory headroom, reliability tier, tags, GPU and affinity — and the placement plan explains every node it rejected.
-- Health-gated rollouts: the release that works keeps serving until its replacement proves it can serve too.
+- Go agents open an outbound connection to the control plane, so worker nodes can sit behind a home router without port forwarding.
+- Fleet filters nodes by Docker platform, capacity and placement rules, then shows why each candidate was accepted or rejected.
+- Health checks gate stateless rollouts. Pinned databases and local volumes stay with their data node.
 
 ## Projects
+
+### Fleet OS
+
+A self-hosted deployment platform for Linux containers across hardware you already own. Deploy from the CLI or GitHub, build on opted-in machines, and serve apps from behind NAT.
+
+- Category: Infra · Orchestration
+- Stack: Go, TypeScript, Fastify, Drizzle ORM, PostgreSQL, Redis, Docker BuildKit / Buildx, React, Vite, Caddy
+- Live: https://fleet.plastikworld.xyz
 
 ### Raunak
 

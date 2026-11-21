@@ -1,5 +1,5 @@
 import { ArrowUpRight, Github } from "lucide-react";
-import { PROJECTS } from "../data/portfolio";
+import { NOW_BUILDING, PROJECTS } from "../data/portfolio";
 import SectionHeader from "./SectionHeader";
 import FeaturedProject from "./FeaturedProject";
 import ProjectCover from "./ProjectCover";
@@ -14,9 +14,10 @@ const NUMBER_WORDS = [
 const spellCount = (n) => NUMBER_WORDS[n] ?? String(n);
 
 export default function Projects({ onOpenProject }) {
-  const featured = PROJECTS.find((p) => p.featured);
-  const selected = PROJECTS.filter((p) => p.id === "muhdikhai");
-  const rest = PROJECTS.filter((p) => !p.featured && p.id !== "muhdikhai");
+  const projects = PROJECTS.filter((p) => p.id !== NOW_BUILDING.id);
+  const featured = projects.find((p) => p.featured);
+  const selected = projects.filter((p) => p.id === "muhdikhai");
+  const rest = projects.filter((p) => p !== featured && p.id !== "muhdikhai");
 
   return (
     <section
@@ -35,7 +36,7 @@ export default function Projects({ onOpenProject }) {
 
         <Reveal delay={80}>
           <p className="mt-6 max-w-2xl text-zinc-400">
-            Start with Raunak for event tech, Fleet OS for infrastructure, and MuhDikhai for real-time systems. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
+            Start with <a href={`/projects/${NOW_BUILDING.id}`} className="underline hover:text-white">{NOW_BUILDING.name}</a> for infrastructure, Raunak for event tech, and MuhDikhai for real-time systems. <a href="/projects" className="underline hover:text-white">Browse all case studies</a>.
           </p>
         </Reveal>
 

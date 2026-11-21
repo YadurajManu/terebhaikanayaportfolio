@@ -1,10 +1,3 @@
-/**
- * Guards the portfolio.js -> portfolio.json refactor.
- *
- * The React app, the serverless API and the prerenderer now all read one JSON
- * source. These tests assert the module still exposes the exact named exports
- * every component imports, and that the data keeps the shape the API promises.
- */
 import defaultExport, {
   PROFILE,
   STATS,
@@ -28,11 +21,12 @@ describe("named exports", () => {
     expect(NOW_BUILDING).toBeDefined();
   });
 
-  it("re-exports the JSON without transforming it", () => {
+  it("shares the source project list and resolves the current project from it", () => {
     expect(PROFILE).toEqual(raw.PROFILE);
     expect(PROJECTS).toEqual(raw.PROJECTS);
     expect(STACK).toEqual(raw.STACK);
-    expect(defaultExport).toEqual(raw);
+    expect(defaultExport.STATS).toBe(STATS);
+    expect(NOW_BUILDING).toBe(PROJECTS.find((project) => project.id === raw.NOW_BUILDING_ID));
   });
 });
 
@@ -63,12 +57,6 @@ describe("projects", () => {
 });
 
 describe("stats", () => {
-  /**
-   * The homepage, the JSON API, the markdown pages and the prerender all read
-   * this number from the JSON, while the projects section and boot screen count
-   * PROJECTS directly. It drifted to "08" against seven projects once; this is
-   * what stops it drifting again.
-   */
   it("reports the same project count the projects list actually holds", () => {
     const shipped = STATS.find((s) => s.label === "shipped projects");
     expect(shipped).toBeDefined();

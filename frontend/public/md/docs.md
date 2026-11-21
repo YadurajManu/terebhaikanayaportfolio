@@ -20,12 +20,12 @@ A public, read-only JSON API describing the engineering portfolio of Yaduraj Sin
 | GET | `/api/projects/{id}` | getProjectById | One project including metrics and full case study. |
 | GET | `/api/stack` | getStack | Technologies grouped by layer. |
 
-Valid project ids: `raunak`, `aarogya-setu`, `tollgate`, `muhdikhai`, `cortx`, `gbu-timetable`, `maakosh`, `bolonyay`.
+Valid project ids: `fleet-os`, `raunak`, `aarogya-setu`, `tollgate`, `muhdikhai`, `cortx`, `gbu-timetable`, `maakosh`, `bolonyay`.
 
 ## Example request
 
 ```
-curl -s https://yaduraj.me/api/projects/raunak
+curl -s https://yaduraj.me/api/projects/fleet-os
 ```
 
 ## Errors

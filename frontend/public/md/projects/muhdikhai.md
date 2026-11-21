@@ -73,7 +73,7 @@ The browser records disconnected and failed peer states. Socket reconnection and
 
 ## Source evidence and scope
 
-This case study was checked against public source revision 8ae5018 on October 7, 2026. It describes source behavior, not a production load test. The earlier sub-two-second pairing metric is omitted because a reproducible benchmark was not available.
+The signaling and matchmaking implementation was reviewed at source revision 8ae5018 on October 7, 2026. Pairing latency requires a separate benchmark across devices and network conditions.
 
 - [Browser WebRTC hook: offer, answer, ICE and TURN configuration](https://github.com/YaduEnc/MuhDikhai/blob/8ae5018cfd9c2216d6ed596fa18214d3c515ae01/web-next/src/hooks/useWebRTC.js)
 - [Node.js signaling, Redis matching and disconnect cleanup](https://github.com/YaduEnc/MuhDikhai/blob/8ae5018cfd9c2216d6ed596fa18214d3c515ae01/PlasticWorld/src/config/socket.ts)

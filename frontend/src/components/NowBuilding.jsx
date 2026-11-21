@@ -96,7 +96,7 @@ export default function NowBuilding({ onOpenProject }) {
             </div>
 
             <p className="relative mt-4 max-w-2xl text-lg text-zinc-300 leading-relaxed">
-              {NOW_BUILDING.pitch}
+              {NOW_BUILDING.blurb}
             </p>
 
             <div className="relative mt-10 grid sm:grid-cols-3 gap-4">
@@ -120,9 +120,9 @@ export default function NowBuilding({ onOpenProject }) {
                 <span>git status — {NOW_BUILDING.statusLine || NOW_BUILDING.status}</span>
                 <span className="cursor-blink">_</span>
               </div>
-              <span className="text-zinc-400 transition-colors duration-300 group-hover:text-[var(--accent)]">
+              <a href={`/projects/${NOW_BUILDING.id}`} className="relative z-20 text-zinc-400 transition-colors duration-300 hover:text-[var(--accent)]">
                 read case study →
-              </span>
+              </a>
             </div>
           </div>
         </Reveal>

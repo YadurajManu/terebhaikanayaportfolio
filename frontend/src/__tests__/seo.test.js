@@ -96,7 +96,9 @@ test('MuhDikhai case study includes readable signaling diagram and revision-spec
 });
 
 test('legacy indexed resume reaches the current PDF rather than the unknown-path handler', async () => {
-  expect(config.redirects.find(r => r.source === '/Resume.pdf')).toEqual({source:'/Resume.pdf', destination:'/Resume_Web.pdf', permanent:true});
+  expect(config.redirects[0]).toEqual({source:'/Resume.pdf', destination:'https://yaduraj.me/Resume_Web.pdf', permanent:true});
+  expect(fs.existsSync(path.join(PUBLIC, 'Resume_Web.pdf'))).toBe(true);
+  expect(fs.existsSync(path.join(PUBLIC, 'Resume.pdf'))).toBe(false);
   expect(await middleware({url:'https://yaduraj.me/Resume.pdf', method:'GET', headers:{get:()=>null}})).toBeUndefined();
 });
 

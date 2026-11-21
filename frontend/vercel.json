@@ -6,6 +6,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/Resume.pdf",
+      "destination": "https://yaduraj.me/Resume_Web.pdf",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -14,11 +19,6 @@
         }
       ],
       "destination": "https://yaduraj.me/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/Resume.pdf",
-      "destination": "/Resume_Web.pdf",
       "permanent": true
     },
     {
