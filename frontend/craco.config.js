@@ -41,6 +41,13 @@ let webpackConfig = {
       } : {}),
     },
     configure: (webpackConfig) => {
+      // CRA's asset fallback otherwise emits local .cjs files as URL strings.
+      const loaders = webpackConfig.module.rules.find((rule) => rule.oneOf).oneOf;
+      loaders.unshift({
+        test: /\.cjs$/,
+        include: path.resolve(__dirname, "src"),
+        type: "javascript/auto",
+      });
 
       // Add ignored patterns to reduce watched directories
         webpackConfig.watchOptions = {

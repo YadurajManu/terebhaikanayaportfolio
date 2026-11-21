@@ -108,6 +108,18 @@ test('markdown code fences preserve newlines and escape markup', () => {
   expect(() => render('```\nunclosed')).toThrow('Unclosed markdown code fence');
 });
 
+test.each([
+  'jetbrains-mono-latin.1e06740a.woff2',
+  'outfit-latin.92684e4a.woff2',
+])('lets the static server serve %s', async font => {
+  expect(fs.statSync(path.join(PUBLIC, 'fonts', font)).size).toBeGreaterThan(0);
+  for (const method of ['GET', 'HEAD']) {
+    expect(await middleware({
+      url: 'https://yaduraj.me/fonts/' + font, method, headers: {get: () => null},
+    })).toBeUndefined();
+  }
+});
+
 test('Fleet OS serves one canonical interactive page with local media', async () => {
   const doc = new DOMParser().parseFromString(read('projects/fleet-os/index.html'), 'text/html');
   expect(doc.querySelector('#trade-offs').textContent).toBe('Engineering decisions and trade-offs');
